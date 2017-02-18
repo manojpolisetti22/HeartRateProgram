@@ -6,14 +6,43 @@ import java.util.Date;
  */
 
 public class Trail {
-    private String trailID;
-    private Child childID;
-    private Date trailDate;
+    private String trailID; // ID to THIS trail
+    private Child child; // 'Child' object specific child
+    private Date trailDate; // time when the trail was taken
 
-    Trail (String trailID, Child childID, Date trailDate) {
-        this.trailID = trailID; // ID to THIS trail
-        this.childID = childID; // ID to the specific child
-        this.trailDate = trailDate;  // when the trail was taken
+    Trail (String trailID, Child child, Date trailDate) { // Creates a new trail for a old Child
+        this.trailID = trailID;
+        this.child = child;
+        this.trailDate = trailDate;
     }
 
+    Trail (String trailID, String childID, Date trailDate, int age, Sex sex) { // Creates a new trail and new Child
+        this.trailID = trailID;
+        this.trailDate = trailDate;
+        this.child = new Child(childID, age, sex);
+    }
+
+    public void setTrailID (String trailID) {
+        this.trailID = trailID;
+    }
+
+    public String getTrailID() {
+        return this.trailID;
+    }
+
+    public void setChild(Child child) {
+        this.child = child;
+    }
+
+    public Child getChild() {
+        return child;
+    }
+
+    public void setTrailDate(Date trailDate) {
+        this.trailDate = trailDate;
+    }
+
+    public Date getTrailDate() {
+        return trailDate;
+    }
 }

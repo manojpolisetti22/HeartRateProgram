@@ -8,20 +8,24 @@ import java.util.Date;
 
 public class Child {
 
-
+    private String childID;
     private int age;
     private Sex sex;
     private Date birthDate;
 
-    private enum Sex {
-        FEMALE,
-        MALE,
-        OTHER
-    }
 
-    Child (int age, Sex sex ) {
+    public Child (String childID, int age, Sex sex ) {
+        this.childID = childID;
         this.age = age;
         this.sex = sex;
+    }
+
+    public void setChildID (String childID) {
+        this.childID = childID;
+    }
+
+    public String getChildID () {
+        return this.childID;
     }
 
     public void setBithDate ( Date birthDate) {
@@ -38,6 +42,14 @@ public class Child {
 
     public Sex getSex() {
         return sex;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
     }
 
 
