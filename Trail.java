@@ -45,4 +45,5 @@ public class Trail {
     public Date getTrailDate() {
         return trailDate;
     }
+
 }
