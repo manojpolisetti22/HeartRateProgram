@@ -7,7 +7,7 @@ import java.util.List;
  * Created by ruhana on 2/18/17.
  */
 public class Group {
-    LinkedList<Trail> trailList = new LinkedList<>();
+    LinkedList<Trial> trialList = new LinkedList<>();
     String groupName;
 
     public Group (String groupName) {
@@ -18,12 +18,12 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public void setTrailList(LinkedList<Trail> trailList) {
-        this.trailList = trailList;
+    public void setTrailList(LinkedList<Trial> trailList) {
+        this.trialList = trialList;
     }
 
-    public LinkedList<Trail> getTrailList() {
-        return trailList;
+    public LinkedList<Trial> getTrailList() {
+        return trialList;
     }
 
     public String getGroupName() {
