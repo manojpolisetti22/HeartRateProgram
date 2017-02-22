@@ -16,10 +16,11 @@ public class Trail {
         this.trailDate = trailDate;
     }
 
-    Trail (String trailID, String childID, Date trailDate, int age, Sex sex) { // Creates a new trail and new Child
+    Trail (String trailID, String childID, Date trailDate, Date birthDate, Sex sex) { // Creates a new trail and new
+    // Child
         this.trailID = trailID;
         this.trailDate = trailDate;
-        this.child = new Child(childID, age, sex);
+        this.child = new Child(childID, birthDate, sex);
     }
 
     public void setTrailID (String trailID) {

@@ -9,7 +9,7 @@ public class Behavioral {
     private LinkedList<DataPoint> b_dataList;
 
     Behavioral() {
-        b_dataList = new LinkedList<>();
+        b_dataList = new LinkedList<DataPoint>();
     }
 
     public LinkedList<DataPoint> getB_dataList() {

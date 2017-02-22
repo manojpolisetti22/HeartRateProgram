@@ -1,5 +1,6 @@
 package HeartRateProgram;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 
 /**
@@ -9,15 +10,21 @@ import java.util.Date;
 public class Child {
 
     private String childID;
-    private int age;
     private Sex sex;
     private Date birthDate;
 
 
-    public Child (String childID, int age, Sex sex ) {
+    public Child (String childID, Date birthDate, Sex sex ) {
         this.childID = childID;
-        this.age = age;
         this.sex = sex;
+        this.birthDate = birthDate;
+
+    }
+
+    public Child (Date birthDate, Sex sex) {
+        this.sex = sex;
+        this.birthDate = birthDate;
+        // ADD HANDLING IF ID IS NOT ADDED
     }
 
     public void setChildID (String childID) {
@@ -43,14 +50,5 @@ public class Child {
     public Sex getSex() {
         return sex;
     }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
 
 }
