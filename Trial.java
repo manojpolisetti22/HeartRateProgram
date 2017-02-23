@@ -11,25 +11,25 @@ public class Trial {
     private Date trialDate; // time when the trail was taken
 //    private Heartrate heartrate;
 
-    Trial (String trialID, Child child, Date trailDate) { // Creates a new trail for a old Child
+    Trial (String trialID, Child child, Date trialDate) { // Creates a new trail for a old Child
         this.trialID = trialID;
         this.child = child;
-        this.trialDate = trailDate;
+        this.trialDate = trialDate;
     }
 
-    Trial (String trialID, String childID, Date trailDate, Date birthDate, Sex sex) { // Creates a new trail and new
+    Trial (String trialID, String childID, Date trialDate, Date birthDate, Sex sex) { // Creates a new trail and new
         // Child
         this.trialID = trialID;
-        this.trialDate = trailDate;
+        this.trialDate = trialDate;
         this.child = new Child(childID, birthDate, sex);
     }
 
-    public void setTrailID (String trailID) {
+    public void setTrialID (String trailID) {
         this.trialID = trailID;
 
     }
 
-    public String getTrailID() {
+    public String getTrialID() {
         return this.trialID;
     }
 
@@ -41,11 +41,11 @@ public class Trial {
         return child;
     }
 
-    public void setTrailDate(Date trailDate) {
+    public void setTrialDate(Date trailDate) {
         this.trialDate = trailDate;
     }
 
-    public Date getTrailDate() {
+    public Date getTrialDate() {
         return trialDate;
     }
 
