@@ -1,5 +1,6 @@
 package HeartRateProgram;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,7 +8,8 @@ import java.util.List;
  * Created by ruhana on 2/18/17.
  */
 public class Group {
-    LinkedList<Trial> trialList = new LinkedList<>();
+    HashMap<String, Trial> trialMap = new HashMap<>();
+//    LinkedList<Trial> trialList = new LinkedList<>();
     String groupName;
 
     public Group (String groupName) {
@@ -18,15 +20,24 @@ public class Group {
         this.groupName = groupName;
     }
 
-    public void setTrailList(LinkedList<Trial> trailList) {
-        this.trialList = trialList;
+    public void setTrailList(HashMap<String, Trial> trailmap) {
+        this.trialMap = trialMap;
     }
 
-    public LinkedList<Trial> getTrailList() {
-        return trialList;
+    public HashMap<String, Trial> getTrailList() {
+        return trialMap;
     }
 
     public String getGroupName() {
         return groupName;
+    }
+
+    public boolean addTrial(Trial trial) {
+
+        if (trialMap.containsKey(trial)) { // If the Trial ID already exists then return false
+            return false;
+        }
+        trialMap.put(trial.getTrailID(), trial);
+        return true;
     }
 }
