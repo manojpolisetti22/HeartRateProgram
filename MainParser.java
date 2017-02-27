@@ -40,12 +40,7 @@ public class MainParser {
         mp.csvParserDataGrid(fileName);
 //        System.out.println("hello world");
     }
-
-    public String openFile(String fileName) {
-        //Takes the filePath and opens the file and sends it to the parser itself
-        return fileName;
-    }
-
+    
     public void csvParserDataGrid(String fileName) {
         BufferedReader fileReader = null;
         try {
@@ -105,9 +100,25 @@ public class MainParser {
             String currentLine = "";
 
             //New list of Trials to be used to store the read CSV data
-            List<Trial> Trials = new ArrayList<Trial>();
+//            List<Trial> Trials = new ArrayList<Trial>();
 
+            //Create FileReader
+            fileReader = new BufferedReader(new FileReader(fileName));
 
+            //Read the header to skip it
+            fileReader.readLine();
+
+            while ((currentLine = fileReader.readLine()) != null) {
+                String[] fields = currentLine.split(DELIMITER);
+                if (fields.length > 0) {
+                    //Create a new object and fill the fields
+
+                    //Add the to the object list
+
+                }
+            }
+
+            //Print if necessary
 
 
         } catch (Exception e) {
@@ -124,7 +135,44 @@ public class MainParser {
     }
 
     public void csvParserHeartRate(String fileName) {
+        BufferedReader fileReader = null;
+        try {
 
+            String currentLine = "";
+
+            //New list of Trials to be used to store the read CSV data
+//            List<Trial> Trials = new ArrayList<Trial>();
+
+            //Create FileReader
+            fileReader = new BufferedReader(new FileReader(fileName));
+
+            //Read the header to skip it
+            fileReader.readLine();
+
+            while ((currentLine = fileReader.readLine()) != null) {
+                String[] fields = currentLine.split(DELIMITER);
+                if (fields.length > 0) {
+                    //Create a new object and fill the fields
+
+                    //Add the to the object list
+
+                }
+            }
+
+            //Print if necessary
+
+
+        } catch (Exception e) {
+            System.out.println("Error in Reading Behavioral File");
+            e.printStackTrace();
+        } finally {
+            try {
+                fileReader.close();
+            } catch (IOException e) {
+                System.out.println("Error while closing fileReader !!!");
+                e.printStackTrace();
+            }
+        }
     }
 }
 
