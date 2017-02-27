@@ -13,7 +13,7 @@ public class Trial {
     private String trialID; // ID to THIS trail
     private Child child; // 'Child' object specific child
     private Date trialDate; // time when the trail was taken
-    private HashMap<Double, Attribute> attrubuteTable;
+    private HashMap<Double, Attribute> attrubuteTable; // timestamp is the Key
 
 //    private Heartrate heartrate;
 
