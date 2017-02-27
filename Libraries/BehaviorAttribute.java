@@ -1,13 +1,11 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
 
-import sun.awt.image.ImageWatched;
-
-import java.util.LinkedList;
+import HeartRateProgram.Libraries.SingleEvent;
 
 /**
  * Created by ruhana on 2/22/17.
  */
-public class BehaviorAttribute extends Attribute {
+public class BehaviorAttribute  {
 
     private int looking;
     private SingleEvent event;

@@ -1,4 +1,4 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
 
 /**
  * Created by ruhana on 2/18/17.

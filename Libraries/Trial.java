@@ -1,7 +1,9 @@
 package HeartRateProgram.Libraries;
-import HeartRateProgram.Sex;
+import HeartRateProgram.Libraries.Attribute;
+import HeartRateProgram.Libraries.Sex;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by manojpolisetti on 2/22/17.
@@ -11,6 +13,8 @@ public class Trial {
     private String trialID; // ID to THIS trail
     private Child child; // 'Child' object specific child
     private Date trialDate; // time when the trail was taken
+    private HashMap<Double, Attribute> attrubuteTable;
+
 //    private Heartrate heartrate;
 
     Trial (String trialID, Child child, Date trialDate) { // Creates a new trail for a old Child
