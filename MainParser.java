@@ -35,7 +35,10 @@ public class MainParser {
 
 
     public static void main(String[] args) {
-        System.out.println("hello world");
+        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Sample_DataGrid.csv";
+        MainParser mp = new MainParser();
+        mp.csvParserDataGrid(fileName);
+//        System.out.println("hello world");
     }
 
     public String openFile(String fileName) {
@@ -64,7 +67,7 @@ public class MainParser {
                 if (fields.length > 0) {
                     //Create a new DataGrid object and fill the fields
                     DataGrid grid = new DataGrid(fields[0], fields[1], fields[2], fields[3], fields[4],
-                            Integer.parseInt(fields[5]), Integer.parseInt(fields[6]), Integer.parseInt(fields[7]));
+                            Double.parseDouble(fields[5]), Double.parseDouble(fields[6]), Double.parseDouble(fields[7]));
 
                     //Add the data grid to the ArrayList
                     DataGrids.add(grid);
@@ -75,6 +78,7 @@ public class MainParser {
             //Prints the ArrayList of Data Grids
             for (DataGrid dg:DataGrids
                  ) {
+
                 System.out.println(dg.toString());
             }
 

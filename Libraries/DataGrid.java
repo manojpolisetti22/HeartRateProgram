@@ -9,11 +9,11 @@ public class DataGrid {
     private String USERVAR_2 = "";
     private String RR_PATH = "";
     private String BEH_PATH = "";
-    private int RR_START = 0;
-    private int RR_SYNC = 0;
-    private int BEH_SYNC = 0;
+    private double RR_START = 0;
+    private double RR_SYNC = 0;
+    private double BEH_SYNC = 0;
 
-    public DataGrid(String ParticipantID, String USERVAR_1, String USERVAR_2, String RR_PATH, String BEH_PATH, int RR_START, int RR_SYNC, int BEH_SYNC) {
+    public DataGrid(String ParticipantID, String USERVAR_1, String USERVAR_2, String RR_PATH, String BEH_PATH, double RR_START, double RR_SYNC, double BEH_SYNC) {
         this.ParticipantID = ParticipantID;
         this.USERVAR_1 = USERVAR_1;
         this.USERVAR_2 = USERVAR_2;
@@ -22,6 +22,12 @@ public class DataGrid {
         this.RR_START = RR_START;
         this.RR_SYNC = RR_SYNC;
         this.BEH_SYNC = BEH_SYNC;
+    }
+
+    @Override
+    public String toString() {
+        return "DataGrid [id=" + ParticipantID+ ", UserVar_1=" + USERVAR_1 + ", UserVar_2=" + USERVAR_2+ ", RR_Path=" + RR_PATH+ ", BEH_Path="
+                + BEH_PATH + ", RR_Start=" + RR_START + ", RR_Sync=" + RR_SYNC + ", BEH_Sync=" + BEH_SYNC + "]";
     }
 
     public String getParticipantID() {
@@ -64,7 +70,7 @@ public class DataGrid {
         this.BEH_PATH = BEH_PATH;
     }
 
-    public int getRR_START() {
+    public double getRR_START() {
         return RR_START;
     }
 
@@ -72,7 +78,7 @@ public class DataGrid {
         this.RR_START = RR_START;
     }
 
-    public int getRR_SYNC() {
+    public double getRR_SYNC() {
         return RR_SYNC;
     }
 
@@ -80,7 +86,7 @@ public class DataGrid {
         this.RR_SYNC = RR_SYNC;
     }
 
-    public int getBEH_SYNC() {
+    public double getBEH_SYNC() {
         return BEH_SYNC;
     }
 
