@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="HBAT_GUI.jnlp">
+  <information>
+    <title>HBAT_GUI</title>
+    <vendor>Rajith</vendor>
+    <description>HBAT_GUI</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="HBAT_GUI.jar" size="4191" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="hbat_gui.HBAT_GUI"  name="HBAT_GUI" />
+  <update check="background"/>
+</jnlp>

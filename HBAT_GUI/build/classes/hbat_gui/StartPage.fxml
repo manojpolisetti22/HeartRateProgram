@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="244.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hbat_gui.StartPageController">
+   <children>
+      <MenuBar nodeOrientation="LEFT_TO_RIGHT">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do?" textAlignment="CENTER" wrappingWidth="283.4384765625" VBox.vgrow="ALWAYS">
+         <font>
+            <Font size="22.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </Text>
+      <Button mnemonicParsing="false" onAction="#openInputDataPage" prefHeight="27.0" prefWidth="136.0" text="Analyze New Dataset" textAlignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#exit_app" prefHeight="27.0" prefWidth="136.0" text="Exit" textAlignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>
