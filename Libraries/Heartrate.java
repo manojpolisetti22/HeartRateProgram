@@ -1,4 +1,4 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
 
 import java.util.LinkedList;
 

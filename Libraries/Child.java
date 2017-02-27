@@ -1,4 +1,6 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
+
+import HeartRateProgram.Sex;
 
 import javax.xml.crypto.Data;
 import java.util.Date;
@@ -10,7 +12,7 @@ import java.util.Date;
 public class Child {
 
     private String childID;
-    private Sex sex;
+    private HeartRateProgram.Sex sex;
     private Date birthDate;
 
 

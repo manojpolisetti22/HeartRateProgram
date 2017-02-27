@@ -1,5 +1,6 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
 
+import HeartRateProgram.Attribute;
 import sun.awt.image.ImageWatched;
 
 import java.util.LinkedList;

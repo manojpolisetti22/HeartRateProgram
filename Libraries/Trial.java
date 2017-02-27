@@ -1,4 +1,6 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
+import HeartRateProgram.Sex;
+
 import java.util.Date;
 
 /**
@@ -48,5 +50,4 @@ public class Trial {
     public Date getTrialDate() {
         return trialDate;
     }
-
 }

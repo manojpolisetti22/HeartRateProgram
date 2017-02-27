@@ -1,4 +1,4 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -37,7 +37,7 @@ public class Group {
         if (trialMap.containsKey(trial)) { // If the Trial ID already exists then return false
             return false;
         }
-        trialMap.put(trial.getTrailID(), trial);
+        trialMap.put(trial.getTrialID(), trial);
         return true;
     }
 }
