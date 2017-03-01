@@ -9,6 +9,10 @@ public class HeartBeatAttribute {
     HeartBeatAttribute(int rr) {
         this.rr = rr;
     }
+    HeartBeatAttribute() {
+        this.rr = -1;
+    }
+
 
     public int getRr() {
         return rr;

@@ -14,8 +14,8 @@ public class Attribute {
 
     Attribute(int timestamp) {
         this.timestamp = timestamp;
-        bH = null;
-        hR = null;
+        bH = new BehaviorAttribute();
+        hR = new HeartBeatAttribute();
     }
 
     public BehaviorAttribute getbH() {
