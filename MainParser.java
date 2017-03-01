@@ -136,10 +136,9 @@ public class MainParser {
                         event_num = Integer.parseInt(event_numString);
                     }
 
+                    CODE_TYPE ct = HeartRateProgram.Libraries.CODE_TYPE.valueOf()
 
-
-
-                    Attribute ar = new Attribute(Double.parseDouble(fields[0])) ;
+                    Attribute ar = new Attribute(Double.parseDouble(fields[0]), ) ;
 
 
 
