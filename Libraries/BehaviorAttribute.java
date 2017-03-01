@@ -9,13 +9,12 @@ public class BehaviorAttribute  {
     private EVENT_TYPE event_type;
     private int event_num;
     private CODE_TYPE code_type;
-    private int baseLine;
 
     BehaviorAttribute() {
         this.event_type = EVENT_TYPE.NA;
         this.event_num = -1;
         this.code_type = CODE_TYPE.NA;
-        this.baseLine = -1;
+
     }
 
     public EVENT_TYPE getEvent_type() {
@@ -42,13 +41,7 @@ public class BehaviorAttribute  {
         this.code_type = code_type;
     }
 
-    public int getBaseLine() {
-        return baseLine;
-    }
 
-    public void setBaseLine(int baseLine) {
-        this.baseLine = baseLine;
-    }
 }
 
 
