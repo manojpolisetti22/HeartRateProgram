@@ -22,11 +22,16 @@ public class BehaviorAttribute  {
         this.event_num = event_num;
     }
     
-//    BehaviorAttribute(int event_num, CODE_TYPE code_type) {
-//        this.code_type = code_type;
-//        this.event_type = EVENT_TYPE.NA;
-//        this.event_num = event_num;
-//    }
+    BehaviorAttribute(int event_num, CODE_TYPE code_type) {
+        this.code_type = code_type;
+        this.event_type = EVENT_TYPE.NA;
+        this.event_num = event_num;
+    }
+    BehaviorAttribute(EVENT_TYPE event_type, CODE_TYPE code_type) {
+        this.code_type = code_type;
+        this.event_type = event_type;
+        this.event_num = -1;
+    }
 
 
 
