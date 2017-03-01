@@ -36,6 +36,12 @@ public class Algorithm {
             if (attributeTable.containsKey(time) && attributeTable.get(time) != null) { // CHECKS TO SEE THE KEY EXISTS
                 Attribute attribute = attributeTable.get(time);
                 BehaviorAttribute bH = attribute.getbH();
+                HeartBeatAttribute hR = attribute.gethR();
+
+                if (looking == 1) { // sets baseline whenever looking
+                    hR.setBaseLine(baseLine);
+                    hR.setRrChange(Math.abs(hR.getBaseLine() - hR.getRr()));
+                }
 
 
                 if (attribute.gethR().getRr() != -1) { // add's RR to lastFive if it exists
@@ -59,10 +65,6 @@ public class Algorithm {
                     baseLine = -1;
                 }
 
-
-                if (looking == 1) { // sets baseline whenever looking
-                    attribute.getbH().setBaseLine(baseLine);
-                }
 
             }
 
