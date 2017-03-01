@@ -103,7 +103,7 @@ public class Algorithm {
      int [] addNewElement( int [] lastFive, int newElement ) {
         int [] newArr = new int[5];
          for (int i = 0 ; i < lastFive.length; i++) {
-            if (i == lastFive.length) {
+            if (i == lastFive.length - 1) {
                 continue;
             } else {
                 newArr[i + 1] = lastFive[i];

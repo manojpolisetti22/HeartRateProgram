@@ -26,22 +26,7 @@ public class BehaviorAttribute  {
         this.event_type = EVENT_TYPE.NA;
         this.event_num = event_num;
     }
-<<<<<<< HEAD
-=======
-    
-    BehaviorAttribute(int event_num, CODE_TYPE code_type) {
-        this.code_type = code_type;
-        this.event_type = EVENT_TYPE.NA;
-        this.event_num = event_num;
-    }
-    BehaviorAttribute(EVENT_TYPE event_type, CODE_TYPE code_type) {
-        this.code_type = code_type;
-        this.event_type = event_type;
-        this.event_num = -1;
-    }
 
-
->>>>>>> 5f62341b5c7d24fc44795963501ba36ce1546aab
 
     public EVENT_TYPE getEvent_type() {
         return event_type;
