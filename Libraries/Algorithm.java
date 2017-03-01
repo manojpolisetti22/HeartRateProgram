@@ -13,14 +13,42 @@ import java.util.LinkedList;
  */
 public class Algorithm {
 
-
-
-
-    public static void main() {
+    public static void main(String [] args) {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
+        HashMap<Double, Attribute> table = new HashMap<>();
+
+        double currStamp = (double) 71680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400));
+        currStamp = (double) 72897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 73303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 73713;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 453));
+        currStamp = (double) 74167;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 410));
+        currStamp = (double) 74500;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 74657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+
         Algorithm s = new Algorithm();
-        s.calculateBase(timestamps, trail.getAttrubuteTable() );
+        trail.setAttrubuteTable(table);
+        s.calculateBase(timestamps, trail.getAttrubuteTable());
 
     }
 
