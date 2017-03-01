@@ -3,6 +3,7 @@ package HeartRateProgram.Libraries;
 /**
  * Created by ruhana on 2/22/17.
  */
+// THIS CLASS IS NOT CURRENTLY USED. FOR LATER
 public class SingleEvent {
     public int eventNumber;
     public String eventName;
