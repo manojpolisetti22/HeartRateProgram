@@ -19,9 +19,9 @@ public class Attribute {
         //hR = new HeartBeatAttribute();
     }
 
-    public Attribute(double timestamp, EVENT_TYPE event_type, CODE_TYPE code_type) {
+    public Attribute(double timestamp, EVENT_TYPE event_type, CODE_TYPE code_type, int event_num) {
         this.timestamp = timestamp;
-        this.bH = new BehaviorAttribute(event_type, code_type);
+        this.bH = new BehaviorAttribute(event_type, code_type, event_num);
     }
 
     Attribute(double timestamp, int rr) {
