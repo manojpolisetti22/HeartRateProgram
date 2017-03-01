@@ -15,18 +15,20 @@ public class Attribute {
 
     public Attribute(double timestamp) {
         this.timestamp = timestamp;
-        //bH = new BehaviorAttribute();
-        //hR = new HeartBeatAttribute();
+        this.bH = new BehaviorAttribute();
+        this.hR = new HeartBeatAttribute();
     }
 
     public Attribute(double timestamp, EVENT_TYPE event_type, CODE_TYPE code_type) {
         this.timestamp = timestamp;
         this.bH = new BehaviorAttribute(event_type, code_type);
+        this.hR = new HeartBeatAttribute();
     }
 
     Attribute(double timestamp, int rr) {
         this.timestamp = timestamp;
         this.hR = new HeartBeatAttribute(rr);
+        this.bH = new BehaviorAttribute();
     }
 
 

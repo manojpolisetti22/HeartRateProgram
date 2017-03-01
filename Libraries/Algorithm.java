@@ -119,7 +119,7 @@ public class Algorithm {
         }
 
         Arrays.sort(lastFive);
-        return lastFive[3];
+        return lastFive[2];
     }
 
     int [] clearLastFive (int [] lastFive) {
