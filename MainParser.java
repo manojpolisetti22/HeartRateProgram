@@ -100,13 +100,11 @@ public class MainParser {
 
             String currentLine = "";
 
-            //New list of Trials to be used to store the read CSV data
-//            List<Trial> Trials = new ArrayList<Trial>();
-
+            //Array List to store all the timestamps
             List<Double> times = new ArrayList<Double>();
 
-            List<Attribute> attributes = new ArrayList<Attribute>();
-
+            //HashMap to contain the attribute wiht the timestamp as the key
+            HashMap<Double, Attribute> behavioralMap = new HashMap<Double, Attribute>();
 
             //Create FileReader
             fileReader = new BufferedReader(new FileReader(fileName));
@@ -119,6 +117,8 @@ public class MainParser {
                 if (fields.length > 0) {
                     //Add the time stamp to the times list
                     times.add(Double.parseDouble(fields[0]));
+
+                    //fields[0] = Times; [1] = Code_type; [2] = Event_type; [3] = Event_num
 
                     String code_type = fields[1];
                     if (code_type.equals(".")) {
@@ -136,25 +136,18 @@ public class MainParser {
                         event_num = Integer.parseInt(event_numString);
                     }
 
-//                    CODE_TYPE ct = HeartRateProgram.Libraries.CODE_TYPE.valueOf()
-
                     CODE_TYPE codeType = HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
 
                     EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
 
-                    Attribute ar = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num) ;
+                    Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
 
-
-
-                    //fields[0] = Times; [1] = Code_type; [2] = Event_type; [3] = Event_num
-
-                    //Add the to the object list
+                    behavioralMap.put(Double.parseDouble(fields[0]), currAttribute);
 
                 }
             }
 
-            //Print if necessary
-
+            //behavioralMap has the keys and values, times has the list of timestamps.
 
         } catch (Exception e) {
             System.out.println("Error in Reading Behavioral File");

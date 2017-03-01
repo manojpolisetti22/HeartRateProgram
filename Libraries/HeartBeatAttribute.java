@@ -11,6 +11,8 @@ public class HeartBeatAttribute {
 
     HeartBeatAttribute(int rr) {
         this.rr = rr;
+        this.baseLine = -1;
+        this.rrChange = -1;
     }
     HeartBeatAttribute() {
         this.rr = -1;

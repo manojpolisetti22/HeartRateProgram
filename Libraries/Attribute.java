@@ -29,7 +29,6 @@ public class Attribute {
         this.hR = new HeartBeatAttribute(rr);
     }
 
-
     public BehaviorAttribute getbH() {
         return bH;
     }
