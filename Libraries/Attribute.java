@@ -2,6 +2,7 @@ package HeartRateProgram.Libraries;
 
 import java.util.LinkedList;
 
+
 /**
  * Created by ruhana on 2/18/17.
  */
@@ -18,7 +19,7 @@ public class Attribute {
         hR = new HeartBeatAttribute();
     }
 
-    Attribute (double timestamp, EVENT_TYPE event_type, CODE_TYPE code_type) {
+    public Attribute(double timestamp, EVENT_TYPE event_type, CODE_TYPE code_type) {
         this.timestamp = timestamp;
         this.bH = new BehaviorAttribute(event_type, code_type);
     }

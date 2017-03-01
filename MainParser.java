@@ -2,7 +2,9 @@ package HeartRateProgram;
 
 import HeartRateProgram.Libraries.DataGrid;
 import HeartRateProgram.Libraries.Trial;
-
+import HeartRateProgram.Libraries.*;
+import com.sun.tools.doclint.HtmlTag;
+import java.lang.*;
 import java.io.*;
 import java.nio.Buffer;
 import java.util.*;
@@ -34,7 +36,7 @@ public class MainParser {
 
 
     public static void main(String[] args) {
-        String fileName = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/Sample_DataGrid.csv";
+        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Sample_DataGrid.csv";
         MainParser mp = new MainParser();
         mp.csvParserDataGrid(fileName);
 //        System.out.println("hello world");
@@ -101,6 +103,11 @@ public class MainParser {
             //New list of Trials to be used to store the read CSV data
 //            List<Trial> Trials = new ArrayList<Trial>();
 
+            List<Double> times = new ArrayList<Double>();
+
+            List<Attribute> attributes = new ArrayList<Attribute>();
+
+
             //Create FileReader
             fileReader = new BufferedReader(new FileReader(fileName));
 
@@ -110,7 +117,33 @@ public class MainParser {
             while ((currentLine = fileReader.readLine()) != null) {
                 String[] fields = currentLine.split(DELIMITER);
                 if (fields.length > 0) {
-                    //Create a new object and fill the fields
+                    //Add the time stamp to the times list
+                    times.add(Double.parseDouble(fields[0]));
+
+                    String code_type = fields[1];
+                    if (code_type.equals(".")) {
+                        code_type = "NA";
+                    }
+
+                    String event_type = fields[2];
+                    if (event_type.equals(".")){
+                        event_type = "NA";
+                    }
+
+                    int event_num = -1;
+                    String event_numString = fields[3];
+                    if (!event_numString.equals(".")){
+                        event_num = Integer.parseInt(event_numString);
+                    }
+
+
+
+
+                    Attribute ar = new Attribute(Double.parseDouble(fields[0])) ;
+
+
+
+                    //fields[0] = Times; [1] = Code_type; [2] = Event_type; [3] = Event_num
 
                     //Add the to the object list
 
