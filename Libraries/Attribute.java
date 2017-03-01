@@ -13,7 +13,7 @@ public class Attribute {
     private HeartBeatAttribute hR;
     private double timestamp;
 
-    Attribute(double timestamp) {
+    public Attribute(double timestamp) {
         this.timestamp = timestamp;
         //bH = new BehaviorAttribute();
         //hR = new HeartBeatAttribute();
