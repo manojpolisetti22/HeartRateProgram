@@ -6,35 +6,38 @@ import HeartRateProgram.Libraries.SingleEvent;
  * Created by ruhana on 2/22/17.
  */
 public class BehaviorAttribute  {
+    private EVENT_TYPE event_type;
+    private int event_num;
+    private CODE_TYPE code_type;
 
-    private int looking;
-    private SingleEvent event;
-    // 0 = not looking
-    // 1 = looking
-
-    BehaviorAttribute(int looking, int eventNumber) {
-        this.looking = looking;
-        event = new SingleEvent(eventNumber);
-    }
-    BehaviorAttribute(int looking, int eventNumber, String eventName) {
-        this.looking = looking;
-        event = new SingleEvent(eventNumber, eventName);
+    BehaviorAttribute() {
+        this.event_type = EVENT_TYPE.NA;
+        this.event_num = -1;
+        this.code_type = CODE_TYPE.NA;
     }
 
-    public int getLooking() {
-        return looking;
+    public EVENT_TYPE getEvent_type() {
+        return event_type;
     }
 
-    public SingleEvent getEvent() {
-        return event;
+    public int getEvent_num() {
+        return event_num;
     }
 
-    public void setLooking(int looking) {
-        this.looking = looking;
+    public CODE_TYPE getCode_type() {
+        return code_type;
     }
 
-    public void setEvent(SingleEvent event) {
-        this.event = event;
+    public void setEvent_type(EVENT_TYPE event_type) {
+        this.event_type = event_type;
+    }
+
+    public void setEvent_num(int event_num) {
+        this.event_num = event_num;
+    }
+
+    public void setCode_type(CODE_TYPE code_type) {
+        this.code_type = code_type;
     }
 }
 

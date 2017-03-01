@@ -3,28 +3,18 @@ package HeartRateProgram.Libraries;
 /**
  * Created by ruhana on 2/18/17.
  */
-public class HeartBeatAttribute  {
-    private float bpm;
-    private int ibi;
+public class HeartBeatAttribute {
+    private int rr;
 
-    HeartBeatAttribute(float bpm, int ibi) {
-        this.ibi = ibi;
-        this.bpm = bpm;
+    HeartBeatAttribute(int rr) {
+        this.rr = rr;
     }
 
-    public float getBpm() {
-        return bpm;
+    public int getRr() {
+        return rr;
     }
 
-    public int getIbi() {
-        return ibi;
-    }
-
-    public void setBpm(float bpm) {
-        this.bpm = bpm;
-    }
-
-    public void setIbi(int ibi) {
-        this.ibi = ibi;
+    public void setRr(int rr) {
+        this.rr = rr;
     }
 }

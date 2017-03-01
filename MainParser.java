@@ -2,7 +2,6 @@ package HeartRateProgram;
 
 import HeartRateProgram.Libraries.DataGrid;
 import HeartRateProgram.Libraries.Trial;
-import Test.Student;
 
 import java.io.*;
 import java.nio.Buffer;
@@ -35,7 +34,7 @@ public class MainParser {
 
 
     public static void main(String[] args) {
-        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Sample_DataGrid.csv";
+        String fileName = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/Sample_DataGrid.csv";
         MainParser mp = new MainParser();
         mp.csvParserDataGrid(fileName);
 //        System.out.println("hello world");
