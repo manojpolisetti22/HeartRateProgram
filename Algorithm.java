@@ -1,8 +1,7 @@
-package HeartRateProgram.Libraries;
+package HeartRateProgram;
 
-import sun.awt.image.ImageWatched;
+import HeartRateProgram.Libraries.*;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,18 +41,42 @@ public class Algorithm {
         currStamp = (double) 74500;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
-        currStamp = (double) 74657;
+        currStamp = (double) 75657;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 75680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 75093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 75493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400));
+        currStamp = (double) 75897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 75303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 75500;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+
 
         Algorithm s = new Algorithm();
         trail.setAttrubuteTable(table);
-        s.calculateBase(timestamps, trail.getAttrubuteTable());
+        s.printTable(timestamps, trail.getAttrubuteTable());
+
+        s.calculate(timestamps, trail.getAttrubuteTable());
+        s.printTable(timestamps, trail.getAttrubuteTable());
 
     }
+    // CORNER CASES:
+    // what do you do when the
 
-    public int calculateBase( LinkedList<Double> timeList, HashMap<Double, Attribute> attributeTable) {
-        int[] lastFive = clearLastFive(new int[5]); // last five ibi's
+    public HashMap<Double, Attribute> calculate( LinkedList<Double> timeList, HashMap<Double, Attribute> attributeTable) {
+        int[] lastFive = clearLastFive(new int[5]); // last five rr's
         int baseLine = -1; // baseline since last look
         int looking = 0; // 0 = not looking; 1 == looking
         int prevBaseLine = -1; // stores the previous baseline // this baseline is used for quick look aways
@@ -97,7 +120,7 @@ public class Algorithm {
             }
 
         }
-        return 0;
+        return attributeTable;
     }
 
      int [] addNewElement( int [] lastFive, int newElement ) {
@@ -128,6 +151,28 @@ public class Algorithm {
         }
         return lastFive;
     }
+
+    void printTable(LinkedList<Double> timestamps, HashMap<Double, Attribute> table) {
+        System.out.print("*************************************************************************************\n");
+        for(int i = 0; i < timestamps.size(); i ++) {
+            Double key = timestamps.get(i);
+            Attribute attribute = table.get(key);
+            BehaviorAttribute bH = attribute.getbH();
+            HeartBeatAttribute hR = attribute.gethR();
+            /*System.out.format("Timestamp: %d\t,rr: %d\nCodeType: %s\nEventType: %s\nBase: %d\nrrChange: %d\n",
+                    timestamps.get(i), hR.getRr(), bH.getCode_type().toString(), bH.getEvent_type().toString(), hR
+                            .getBaseLine(), hR.getRrChange());*/
+            System.out.format("Timestamp: %s\t\trr: %d\t\tCodeType: %s\t\tEventType: %s\t\tBase: %d\t\trrChange: " +
+                            "%d\n",
+                    key
+                            .toString(), hR
+                            .getRr(),
+                    bH.getCode_type().toString(), bH.getEvent_type().toString(), hR.getBaseLine(), hR.getRrChange());
+        }
+        System.out.print("*************************************************************************************\n");
+
+    }
+
 
 
 }

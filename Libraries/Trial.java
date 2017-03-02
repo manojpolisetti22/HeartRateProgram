@@ -17,13 +17,14 @@ public class Trial {
 
 //    private Heartrate heartrate;
 
-    Trial (String trialID, Child child, Date trialDate) { // Creates a new trail for a old Child
+    public Trial (String trialID, Child child, Date trialDate) { // Creates a new trail for a old Child
         this.trialID = trialID;
         this.child = child;
         this.trialDate = trialDate;
     }
 
-    Trial (String trialID, String childID, Date trialDate, Date birthDate, Sex sex) { // Creates a new trail and new
+    public Trial (String trialID, String childID, Date trialDate, Date birthDate, Sex sex) { // Creates a new trail and
+    // new
         // Child
         this.trialID = trialID;
         this.trialDate = trialDate;

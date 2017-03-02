@@ -10,24 +10,24 @@ public class BehaviorAttribute  {
     private int event_num;
     private CODE_TYPE code_type;
 
-    BehaviorAttribute() {
+    public BehaviorAttribute() {
         this.event_type = EVENT_TYPE.NA;
         this.event_num = -1;
         this.code_type = CODE_TYPE.NA;
 
     }
-    BehaviorAttribute(EVENT_TYPE event_type, CODE_TYPE code_type) {
+    public BehaviorAttribute(EVENT_TYPE event_type, CODE_TYPE code_type) {
         this.code_type = code_type;
         this.event_type = event_type;
         this.event_num = -1;
     }
-    BehaviorAttribute(int event_num, CODE_TYPE code_type) {
+    public BehaviorAttribute(int event_num, CODE_TYPE code_type) {
         this.code_type = code_type;
         this.event_type = EVENT_TYPE.NA;
         this.event_num = event_num;
     }
 
-    BehaviorAttribute(EVENT_TYPE event_type, CODE_TYPE code_type, int event_num) {
+    public BehaviorAttribute(EVENT_TYPE event_type, CODE_TYPE code_type, int event_num) {
         this.code_type = code_type;
         this.event_type = event_type;
         this.event_num = event_num;

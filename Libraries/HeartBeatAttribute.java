@@ -9,12 +9,12 @@ public class HeartBeatAttribute {
     private int rrChange;
 
 
-    HeartBeatAttribute(int rr) {
+    public HeartBeatAttribute(int rr) {
         this.rr = rr;
         this.baseLine = -1;
         this.rrChange = -1;
     }
-    HeartBeatAttribute() {
+    public HeartBeatAttribute() {
         this.rr = -1;
         this.baseLine = -1;
         this.rrChange = -1;
