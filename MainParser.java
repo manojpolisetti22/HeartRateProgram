@@ -115,8 +115,6 @@ public class MainParser {
             while ((currentLine = fileReader.readLine()) != null) {
                 String[] fields = currentLine.split(DELIMITER);
                 if (fields.length > 0) {
-                    //Add the time stamp to the times list
-                    times.add(Double.parseDouble(fields[0]));
 
                     //fields[0] = Times; [1] = Code_type; [2] = Event_type; [3] = Event_num
 
@@ -140,9 +138,16 @@ public class MainParser {
 
                     EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
 
-                    Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
+                    // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
+                    // to the hashmap and hence the timestamps arent added to the list either
 
-                    behavioralMap.put(Double.parseDouble(fields[0]), currAttribute);
+                    if (event_num != -1) {
+                        Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
+                        behavioralMap.put(Double.parseDouble(fields[0]), currAttribute);
+
+                        //Add the time stamp to the times list
+                        times.add(Double.parseDouble(fields[0]));
+                    }
 
                 }
             }
@@ -169,7 +174,6 @@ public class MainParser {
             String currentLine = "";
 
             //New list of Trials to be used to store the read CSV data
-//            List<Trial> Trials = new ArrayList<Trial>();
 
             //Create FileReader
             fileReader = new BufferedReader(new FileReader(fileName));
