@@ -57,6 +57,16 @@ public class InputDataController implements Initializable {
     
     @FXML 
     public void done(ActionEvent event) {
+        // Get strings from textboxes
+        String file1 = tb_rr.getText();
+        String file2 = tb_rr.getText();
+        
+        // Error check the filenames
+        File f1 = new File(file1);
+        File f2 = new File(file2);
+        if (f1.exists() && f2.exists()) {
+            
+        }
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DataView.fxml"));
@@ -64,6 +74,7 @@ public class InputDataController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
             DataViewController controller = fxmlLoader.<DataViewController>getController();
+            controller.initFiles();
             stage.show();
         } catch(Exception e) {
            e.printStackTrace();

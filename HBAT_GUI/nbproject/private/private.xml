@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HBAT_GUI/src/hbat_gui/FXMLController.java</file>
-            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HBAT_GUI/src/hbat_gui/DataViewController.java</file>
-            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HBAT_GUI/src/hbat_gui/HBAT_GUI.java</file>
-            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HBAT_GUI/src/hbat_gui/StartPageController.java</file>
-            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HBAT_GUI/src/hbat_gui/InputDataController.java</file>
+            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/HBAT_GUI/src/hbat_gui/StartPageController.java</file>
+            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/HBAT_GUI/src/hbat_gui/DataViewController.java</file>
+            <file>file:/C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/HBAT_GUI/src/hbat_gui/InputDataController.java</file>
         </group>
     </open-files>
 </project-private>
