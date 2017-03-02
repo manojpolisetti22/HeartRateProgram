@@ -34,6 +34,8 @@ public class MainParser {
 
     //Heart rate File attributes
 
+    private static final int RR = 0;
+
 
     public static void main(String[] args) {
         String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Sample_DataGrid.csv";
@@ -174,21 +176,29 @@ public class MainParser {
             String currentLine = "";
 
             //New list of Trials to be used to store the read CSV data
+            List<Double> rr_times = new ArrayList<Double>();
+
+            //New list fo rstoring the cumulative rr timee
+            List<Double> rr_cumulative = new ArrayList<Double>();
+
+            //set cumulative counter to 0 for the first time
+            double cumulative = 0;
 
             //Create FileReader
             fileReader = new BufferedReader(new FileReader(fileName));
 
-            //Read the header to skip it
-            fileReader.readLine();
-
             while ((currentLine = fileReader.readLine()) != null) {
-                String[] fields = currentLine.split(DELIMITER);
-                if (fields.length > 0) {
-                    //Create a new object and fill the fields
 
-                    //Add the to the object list
+                double rr = Double.parseDouble(currentLine);
 
-                }
+                //Adds the rr to rr_times
+                rr_times.add(rr);
+
+                //Adds the cumulative rr at that time to the list
+                rr_cumulative.add(rr + cumulative);
+
+                //changes the cumulative counter to the present rr to be added to the next one
+                cumulative = rr;
             }
 
             //Print if necessary
