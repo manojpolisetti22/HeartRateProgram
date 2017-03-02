@@ -43,8 +43,8 @@
               </rowConstraints>
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Excel Input" />
-                  <TextField fx:id="tb_behav" GridPane.columnIndex="1" />
-                  <Button fx:id="btn_behav" mnemonicParsing="false" onAction="#getFileName_behav" prefHeight="25.0" prefWidth="181.0" text="Browse..." GridPane.columnIndex="2" />
+                  <TextField fx:id="tb_excel" GridPane.columnIndex="1" />
+                  <Button fx:id="btn_excel" mnemonicParsing="false" onAction="#getFileName_excel" prefHeight="26.0" prefWidth="84.0" text="Browse..." GridPane.columnIndex="2" />
                </children>
                <opaqueInsets>
                   <Insets />
