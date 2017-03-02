@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hbat_gui;
+package HeartRateProgram;
 
+import HeartRateProgram.Libraries.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -35,6 +36,8 @@ public class StartPageController implements Initializable {
     @FXML
     public void exit_app(ActionEvent event) {
         System.out.println("Exiting");
+        Child c;
+        
         Platform.exit();
     }
     

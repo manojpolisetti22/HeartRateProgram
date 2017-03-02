@@ -1,6 +1,10 @@
 package HeartRateProgram.Libraries;
 
-import java.util.LinkedList;
+/*import hbat_gui.BehaviorAttribute;
+import hbat_gui.CODE_TYPE;
+import hbat_gui.EVENT_TYPE;
+import hbat_gui.HeartBeatAttribute;
+import java.util.LinkedList;*/
 
 
 /**

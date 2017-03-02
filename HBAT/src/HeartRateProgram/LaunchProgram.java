@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hbat_gui;
+package HeartRateProgram;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  *
  * @author Rajith
  */
-public class HBAT_GUI extends Application {
+public class LaunchProgram extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {

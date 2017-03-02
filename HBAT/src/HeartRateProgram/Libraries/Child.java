@@ -1,8 +1,8 @@
 package HeartRateProgram.Libraries;
 
-import HeartRateProgram.Libraries.Sex;
+//import HeartRateProgram.Libraries.Sex;
 
-import javax.xml.crypto.Data;
+//import javax.xml.crypto.Data;
 import java.util.Date;
 
 /**
@@ -12,7 +12,7 @@ import java.util.Date;
 public class Child {
 
     private String childID;
-    private HeartRateProgram.Libraries.Sex sex;
+    private Sex sex;
     private Date birthDate;
 
 
