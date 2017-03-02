@@ -1,6 +1,4 @@
-package HeartRateProgram;
-
-import HeartRateProgram.Libraries.*;
+package HeartRateProgram.Libraries;
 
 import java.util.Arrays;
 import java.util.Date;

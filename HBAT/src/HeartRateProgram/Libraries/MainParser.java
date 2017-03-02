@@ -1,9 +1,6 @@
-package HeartRateProgram;
+package HeartRateProgram.Libraries;
 
-import HeartRateProgram.Libraries.DataGrid;
-import HeartRateProgram.Libraries.Trial;
-import HeartRateProgram.Libraries.*;
-import com.sun.tools.doclint.HtmlTag;
+/*import com.sun.tools.doclint.HtmlTag;*/ //This import was causing issues; is it necessary?
 import java.lang.*;
 import java.io.*;
 import java.nio.Buffer;
@@ -36,7 +33,7 @@ public class MainParser {
 
     private static final int RR = 0;
 
-
+    /*Should this be main, or a function name like parse(String[] filepath)*/
     public static void main(String[] args) {
         String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Sample_DataGrid.csv";
         MainParser mp = new MainParser();
