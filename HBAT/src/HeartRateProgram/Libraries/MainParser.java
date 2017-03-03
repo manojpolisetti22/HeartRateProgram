@@ -38,6 +38,7 @@ public class MainParser {
     /*Should this be main, or a function name like parse(String[] filepath)*/
     public static void main(String[] args) {
         MainParser mp = new MainParser();
+//        mp.csvParserDataGrid(fileName);
 
         String rfilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
         String afilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
@@ -48,7 +49,7 @@ public class MainParser {
         //List of Attributes
         List<Attribute> attributeList = mp.csvParserBehavioral(afilename);
 
-        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList);
+        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, 21.7, 67,23);
 
         for (Double key: finalMap.keySet()){
             String k = key.toString();
@@ -289,10 +290,11 @@ public class MainParser {
         return listIndex;
     }
 
-    public HashMap<Double, Attribute> finalParser(List<Double> rrList, List<Attribute> attrList){
+    public HashMap<Double, Attribute> finalParser(List<Double> rrList, List<Attribute> attrList, double rr_start,
+                                                  double rr_sync, double beh_sync) {
 
         //List of the Absolute times
-        List<Double> absoluteTime = calculateAbsouluteTime(rrList, 21.7, 67, 23.9664);
+        List<Double> absoluteTime = calculateAbsouluteTime(rrList, rr_start, rr_sync, beh_sync);
 
         //List of the matching Indices
         List<Integer> absoluteTimeVSAttributeTime = findAbsoluteTimeIndex(absoluteTime, attrList);
