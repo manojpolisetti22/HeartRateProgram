@@ -133,7 +133,7 @@ public class ConvertToCSV {
  
         trail.setAttributeTable(table);
 
-        convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/testCSV" , trail);
+        convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/testCSV" , table);
 
     }
 }

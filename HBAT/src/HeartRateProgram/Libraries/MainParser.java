@@ -40,8 +40,8 @@ public class MainParser {
         MainParser mp = new MainParser();
 //        mp.csvParserDataGrid(fileName);
 
-        String rfilename = null;
-        String afilename = null;
+        String rfilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
+        String afilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
 
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
@@ -163,7 +163,7 @@ public class MainParser {
                     // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
                     // to the hashmap and hence the timestamps arent added to the list either
 
-                    if (codeType != HeartRateProgram.Libraries.CODE_TYPE.TRIAL) {
+                    if (codeType == HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
 
                         //Add the current attribute to the attributeList
@@ -315,13 +315,13 @@ public class MainParser {
         int startIndex = absoluteTimeVSAttributeTime.get(0);
 
         //Ending index of the Tasks end
-        int endIndex = absoluteTimeVSAttributeTime.get(absoluteTimeVSAttributeTime.size() - 3);
+        int endIndex = absoluteTimeVSAttributeTime.get(absoluteTimeVSAttributeTime.size() - 1);
 
         //Counter for looping through the whole list of Attributes already present
         int attrIndex = 0;
 
         //For loop which loops through from the start index to the end index of the AbsoluteTimeVsAttributeTime list
-        for (int i = startIndex; i <= endIndex; i++ ){
+        for (int i = startIndex; i < endIndex; i++ ){
 
             //If the attribute already exists at that point of time, put it in the map with the respective rr and time
             if (absoluteTimeVSAttributeTime.contains(i)){
@@ -329,14 +329,7 @@ public class MainParser {
                 //Make new attribute and set it to the existing one in attrList
                 Attribute attribute = attrList.get(attrIndex);
 
-                //Set the variable rr to the respective rr in rrList
-                double rr = rrList.get(i);
-
-                //Make a new HeartBeatAttribute object and set its fields and add set it in the attribute.
-                HeartBeatAttribute hba = attribute.gethR();
-                hba.setRr(rr);
-
-                attribute.sethR(hba);
+                //Set the timestamp tp be whatever it ios supposed to be
                 attribute.setTimestamp(absoluteTime.get(i));
 
                 //Add the timestamp in the keys list
@@ -357,10 +350,8 @@ public class MainParser {
                 finalMap.put(rrList.get(i), attribute);
             }
         }
-
+        
         //return the final hashmap
         return finalMap;
     }
 }
-
-
