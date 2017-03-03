@@ -50,7 +50,7 @@ public class StartPageController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
             stage.setResizable(false);
-            stage.show();
+            stage.showAndWait();
         } catch(Exception e) {
            e.printStackTrace();
         }

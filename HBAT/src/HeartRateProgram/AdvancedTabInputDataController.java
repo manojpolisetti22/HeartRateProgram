@@ -19,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * FXML Controller class
@@ -27,7 +29,7 @@ import javafx.stage.Stage;
  */
 public class AdvancedTabInputDataController implements Initializable {
 
-    @FXML private TextField tb_excel;
+    @FXML private TextField tb_dataGrid;
     /**
      * Initializes the controller class.
      */
@@ -42,13 +44,13 @@ public class AdvancedTabInputDataController implements Initializable {
         fileChooser.setTitle("Open Excel File");
         File excel = fileChooser.showOpenDialog(null);
         
-        tb_excel.setText(excel.getPath());
+        tb_dataGrid.setText(excel.getPath());
     }
     
     @FXML 
     public void done(ActionEvent event) {
         // Get string from textbox
-        String file = tb_excel.getText();
+        String file = tb_dataGrid.getText();
         
         // Error check the filenames
         File f1 = new File(file);
@@ -62,11 +64,25 @@ public class AdvancedTabInputDataController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
             DataViewController controller = fxmlLoader.<DataViewController>getController();
-            controller.initFiles();
+            try {
+                controller.initFilesAdvanced(file);
+            } catch(Exception e) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Something went wrong!");
+                alert.setHeaderText(null);
+                alert.setContentText("There was an error in analyzing the data.");
+
+                alert.showAndWait();
+                return;
+            }
             stage.show();
         } catch(Exception e) {
            e.printStackTrace();
         }
+    }
+    
+    public void initFiles() {
+        // TODO
     }
     
 }
