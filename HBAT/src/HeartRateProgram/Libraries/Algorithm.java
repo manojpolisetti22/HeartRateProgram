@@ -171,7 +171,7 @@ public class Algorithm {
     }
 
  public HashMap<Double, Attribute> calculatePhases( HashMap<Double, Attribute> attributeTable) {
-    
+        
     List<Double> timeList = sortKeys(attributeTable);
     int look = 0;
     int currPhase = -1; // equates to "."
@@ -189,12 +189,26 @@ public class Algorithm {
             if ( bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop looking
                 look = 0;
                 currPhase = 0;
+                for(int j = 0; j < 5 ; j++ ){
+                    if (bH.getCode_type() == CODE_TYPE.LOOK ) {
+                        look = 1;
+                        currPhase = currPhase;
+                    }
+                }
+                if (look == 0) {
+                    
+                } else {
+                    look = 1;
+                }
+                
             } 
-            if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
+            if (look <= 0 && bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
                 look = 1;
                 currPhase = 1;
-            }
-            if (currPhase == 1 && hR.getRr() > hR.getBaseLine()) {
+            } else if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START)
+            {
+                
+            } if (currPhase == 1 && hR.getRr() > hR.getBaseLine()) {
                 currPhase = 2;
             } else if (currPhase == 2) {
                 // first will add to the median and then calculate if it should move to phase 3
@@ -207,8 +221,8 @@ public class Algorithm {
         }
      
     }
-    
     return attributeTable;
+    
 }
 
 public boolean checkPhaseTwo(double [] lastFive , double baseLine) {
