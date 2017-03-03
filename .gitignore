@@ -1,2 +1,3 @@
-/HBAT/build/
-/HBAT/dist/
+/HBAT/build/*
+/HBAT/dist/*
+
