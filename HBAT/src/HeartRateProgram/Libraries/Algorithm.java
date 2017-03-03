@@ -178,7 +178,7 @@ public HashMap<Double, Attribute> calculatePhases( LinkedList<Double> timeList, 
     for(int i = 0; i < timeList.get(i); i ++) {
         double time = timeList.get(i);
         int look = 0;
-        int currPhase = -1; // eqautes to .
+        int currPhase = -1; // equates to "."
         
         if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
             Attribute attribute = attributeTable.get(time);
@@ -187,17 +187,21 @@ public HashMap<Double, Attribute> calculatePhases( LinkedList<Double> timeList, 
             
             if ( bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop looking
                 look = 0;
-                currPhase = -1;
-            } else if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
-                look = 1;
                 currPhase = 0;
+            } 
+            hR.setPhase(currPhase);
+            
+            if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
+                look = 1;
+                currPhase = 1;
+            }
+            if (currPhase == 1 && hR.getRr() > hR.getBaseLine()) {
+                currPhase = 2;
             }
 
         }
      
     }
-    
-    
     
     return null;
 }

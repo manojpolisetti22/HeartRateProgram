@@ -39,8 +39,8 @@ public class MainParser {
     public static void main(String[] args) {
         MainParser mp = new MainParser();
 
-        String rfilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
-        String afilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
+        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
+        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
 
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
