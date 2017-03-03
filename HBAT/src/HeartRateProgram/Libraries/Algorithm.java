@@ -1,10 +1,7 @@
 //package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by @ruhana on 2/28/17.
@@ -65,16 +62,18 @@ public class Algorithm {
 
         Algorithm s = new Algorithm();
         trail.setAttributeTable(table);
-        s.printTable(timestamps, trail.getAttributeTable());
+        s.printTable(trail.getAttributeTable());
 
-        s.calculate(timestamps, trail.getAttributeTable());
-        s.printTable(timestamps, trail.getAttributeTable());
+        s.calculate( trail.getAttributeTable());
+        s.printTable( trail.getAttributeTable());
 
     }
     // CORNER CASES:
     // what do you do when the
 
-    public HashMap<Double, Attribute> calculate( LinkedList<Double> timeList, HashMap<Double, Attribute> attributeTable) {
+    public HashMap<Double, Attribute> calculate( HashMap<Double, Attribute> attributeTable) {
+        List<Double> timeList = sortKeys(attributeTable);
+        
         double [] lastFive = clearLastFive(new double[5]); // last five rr's
         double baseLine = -1; // baseline since last look
         int looking = 0; // 0 = not looking; 1 == looking
@@ -152,7 +151,8 @@ public class Algorithm {
         return lastFive;
     }
 
-    void printTable(LinkedList<Double> timestamps, HashMap<Double, Attribute> table) {
+    void printTable( HashMap<Double, Attribute> table) {
+        List<Double> timestamps = sortKeys(table);
         System.out.print("*************************************************************************************\n");
         for(int i = 0; i < timestamps.size(); i ++) {
             Double key = timestamps.get(i);
@@ -171,9 +171,9 @@ public class Algorithm {
 
     }
 
-public HashMap<Double, Attribute> calculatePhases( LinkedList<Double> timeList, HashMap<Double, Attribute> attributeTable) {
+public HashMap<Double, Attribute> calculatePhases( HashMap<Double, Attribute> attributeTable) {
     
-    
+    List<Double> timeList = sortKeys(attributeTable);
     
     for(int i = 0; i < timeList.get(i); i ++) {
         double time = timeList.get(i);
@@ -205,5 +205,17 @@ public HashMap<Double, Attribute> calculatePhases( LinkedList<Double> timeList, 
     
     return null;
 }
+
+public List<Double> sortKeys(HashMap<Double, Attribute> finalMap) {
+    
+    List<Double> unsortedKeys = new ArrayList<Double>(finalMap.keySet());
+    
+    Collections.sort(unsortedKeys);
+    
+    Collections.reverse(unsortedKeys);
+    
+    return unsortedKeys;        
+}
+
 
 }

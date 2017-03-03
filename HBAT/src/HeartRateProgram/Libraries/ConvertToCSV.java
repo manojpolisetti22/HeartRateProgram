@@ -6,6 +6,7 @@ import java.io.BufferedWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by @ruhana on 3/2/17.
@@ -16,9 +17,10 @@ public class ConvertToCSV {
     private static final String FILE_HEADER = "Timestamp, rr, CodeType, EventType, Base, rrChange ";
     private static final String UNKNOWN = ".";
 
-    public static void convertToCSV(String fileName, Trial trial, LinkedList<Double> timestamps) {
+    public static void convertToCSV(String fileName, Trial trial) {
     HashMap<Double, Attribute> table = trial.getAttributeTable();
-        
+    Algorithm algo = new Algorithm();
+    List<Double> timestamps = algo.sortKeys(table);   
      FileWriter fw = null;
      BufferedWriter bw = null;   
         
