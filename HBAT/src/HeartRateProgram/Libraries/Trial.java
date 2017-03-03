@@ -1,6 +1,5 @@
+//package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
-//import HeartRateProgram.Libraries.Attribute;
-//import HeartRateProgram.Libraries.Sex;
 
 import java.util.Date;
 import java.util.HashMap;

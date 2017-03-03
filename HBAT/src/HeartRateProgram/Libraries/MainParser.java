@@ -1,3 +1,4 @@
+//package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
 
 
@@ -36,21 +37,27 @@ public class MainParser {
 
     /*Should this be main, or a function name like parse(String[] filepath)*/
     public static void main(String[] args) {
-        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Documents/Tonsen's Samples/Sample_DataGrid.csv";
         MainParser mp = new MainParser();
-        mp.csvParserDataGrid(fileName);
+
+        String rfilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
+        String afilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
 
         //List of RR's
-        List<Double> rrList = mp.csvParserHeartRate(fileName);
-
-        //List of absolute times computed using the RRStart, RR_Sync and the BEH_Sync
-        List<Double> absoluteTime = mp.calculateAbsouluteTime(rrList, 21.7, 67, 23.9664);
+        List<Double> rrList = mp.csvParserHeartRate(rfilename);
 
         //List of Attributes
-        List<Attribute> attributeList = mp.csvParserBehavioral(fileName);
+        List<Attribute> attributeList = mp.csvParserBehavioral(afilename);
 
+        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList);
 
+        for (Double key: finalMap.keySet()){
+            String k = key.toString();
+            String value = finalMap.get(key).getbH().getCode_type().toString();
+            String value2 = finalMap.get(key).getbH().getEvent_type().toString();
 
+            System.out.println(k + "     " + value + " --------" + value2);
+
+        }
 
     }
 
