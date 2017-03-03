@@ -56,11 +56,11 @@ public class Trial {
         return trialDate;
     }
 
-    public HashMap<Double, Attribute> getAttrubuteTable() {
+    public HashMap<Double, Attribute> getAttributeTable() {
         return attributeTable;
     }
 
-    public void setAttrubuteTable(HashMap<Double, Attribute> attrubuteTable) {
+    public void setAttributeTable(HashMap<Double, Attribute> attrubuteTable) {
         this.attributeTable = attrubuteTable;
     }
 }

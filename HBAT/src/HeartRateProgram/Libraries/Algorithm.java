@@ -63,11 +63,11 @@ public class Algorithm {
 
 
         Algorithm s = new Algorithm();
-        trail.setAttrubuteTable(table);
-        s.printTable(timestamps, trail.getAttrubuteTable());
+        trail.setAttributeTable(table);
+        s.printTable(timestamps, trail.getAttributeTable());
 
-        s.calculate(timestamps, trail.getAttrubuteTable());
-        s.printTable(timestamps, trail.getAttrubuteTable());
+        s.calculate(timestamps, trail.getAttributeTable());
+        s.printTable(timestamps, trail.getAttributeTable());
 
     }
     // CORNER CASES:
@@ -158,9 +158,7 @@ public class Algorithm {
             Attribute attribute = table.get(key);
             BehaviorAttribute bH = attribute.getbH();
             HeartBeatAttribute hR = attribute.gethR();
-            /*System.out.format("Timestamp: %d\t,rr: %d\nCodeType: %s\nEventType: %s\nBase: %d\nrrChange: %d\n",
-                    timestamps.get(i), hR.getRr(), bH.getCode_type().toString(), bH.getEvent_type().toString(), hR
-                            .getBaseLine(), hR.getRrChange());*/
+           
             System.out.format("Timestamp: %s\t\trr: %d\t\tCodeType: %s\t\tEventType: %s\t\tBase: %d\t\trrChange: " +
                             "%d\n",
                     key
