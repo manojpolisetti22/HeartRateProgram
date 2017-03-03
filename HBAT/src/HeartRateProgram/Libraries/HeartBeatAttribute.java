@@ -1,7 +1,7 @@
 package HeartRateProgram.Libraries;
 
 /**
- * Created by ruhana on 2/18/17.
+ * Created by @ruhana on 2/18/17.
  */
 public class HeartBeatAttribute {
     private int rr;

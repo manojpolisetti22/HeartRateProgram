@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- * Created by manojpolisetti on 2/22/17.
+ * Created by @manojpolisetti on 2/22/17.
  */
 
 public class Trial {

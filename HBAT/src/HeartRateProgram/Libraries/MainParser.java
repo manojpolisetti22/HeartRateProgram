@@ -1,5 +1,6 @@
 package HeartRateProgram.Libraries;
 
+
 /*import com.sun.tools.doclint.HtmlTag;*/ //This import was causing issues; is it necessary?
 import java.lang.*;
 import java.io.*;
@@ -7,7 +8,7 @@ import java.nio.Buffer;
 import java.util.*;
 
 /**
- * Created by manojpolisetti on 2/22/17.
+ * Created by @manojpolisetti on 2/22/17.
  */
 public class MainParser {
 
@@ -35,7 +36,7 @@ public class MainParser {
 
     /*Should this be main, or a function name like parse(String[] filepath)*/
     public static void main(String[] args) {
-        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Sample_DataGrid.csv";
+        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Documents/Tonsen's Samples/Sample_DataGrid.csv";
         MainParser mp = new MainParser();
         mp.csvParserDataGrid(fileName);
 //        System.out.println("hello world");

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * Created by ruhana on 2/28/17.
+ * Created by @ruhana on 2/28/17.
  */
 public class Algorithm {
 
@@ -87,11 +87,7 @@ public class Algorithm {
                 BehaviorAttribute bH = attribute.getbH();
                 HeartBeatAttribute hR = attribute.gethR();
 
-                if (looking == 1) { // sets baseline whenever looking
-                    hR.setBaseLine(baseLine);
-                    hR.setRrChange(Math.abs(hR.getBaseLine() - hR.getRr()));
-                }
-
+                
 
                 if (attribute.gethR().getRr() != -1) { // add's RR to lastFive if it exists
                     lastFive = addNewElement(lastFive, attribute.gethR().getRr());
@@ -112,6 +108,11 @@ public class Algorithm {
                     lastFive = clearLastFive(lastFive);
                     prevBaseLine = baseLine;
                     baseLine = -1;
+                }
+                
+                if (looking == 1 && hR.getRr() != -1) { // sets baseline whenever looking and rr is avaliable 
+                    hR.setBaseLine(baseLine);
+                    hR.setRrChange(Math.abs(hR.getBaseLine() - hR.getRr()));
                 }
 
 

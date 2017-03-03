@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by ruhana on 2/18/17.
+ * Created by @ruhana on 2/18/17.
  */
 public class Group {
     HashMap<String, Trial> trialMap = new HashMap<>();

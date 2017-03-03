@@ -6,7 +6,7 @@ package HeartRateProgram.Libraries;
 import java.util.Date;
 
 /**
- * Created by ruhana on 2/18/17.
+ * Created by @ruhana on 2/18/17.
  */
 
 public class Child {

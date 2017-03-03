@@ -3,7 +3,7 @@ package HeartRateProgram.Libraries;
 //import HeartRateProgram.Libraries.SingleEvent;
 
 /**
- * Created by ruhana on 2/22/17.
+ * Created by @ruhana on 2/22/17.
  */
 public class BehaviorAttribute  {
     private EVENT_TYPE event_type;
