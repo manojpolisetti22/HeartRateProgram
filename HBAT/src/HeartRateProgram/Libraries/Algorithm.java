@@ -1,10 +1,7 @@
 //package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by @ruhana on 2/28/17.
@@ -171,6 +168,15 @@ public class Algorithm {
 
     }
 
+    public List<Double> sortedKeys(HashMap<Double, Attribute> parsedMap){
 
+        List<Double> unsortedKeys = new ArrayList<Double>(parsedMap.keySet());
 
+//        unsortedKeys.sort()
+        Collections.sort(unsortedKeys);
+
+        Collections.reverse(unsortedKeys);
+
+        return unsortedKeys;
+    }
 }
