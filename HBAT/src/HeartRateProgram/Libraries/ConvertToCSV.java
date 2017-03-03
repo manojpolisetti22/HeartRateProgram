@@ -133,6 +133,6 @@ public class ConvertToCSV {
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
  
         trail.setAttributeTable(table);
-        convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/testCSV" , trail, timestamps);
+        convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/testCSV" , trail);
     }
 }
