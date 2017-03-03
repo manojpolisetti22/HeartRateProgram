@@ -5,8 +5,8 @@ package HeartRateProgram.Libraries;
  */
 public class HeartBeatAttribute {
     private double rr;
-    private int baseLine;
-    private int rrChange;
+    private double baseLine;
+    private double rrChange;
     private int phase;
 
 
@@ -32,19 +32,19 @@ public class HeartBeatAttribute {
         this.rr = rr;
     }
 
-    public int getBaseLine() {
+    public double getBaseLine() {
         return baseLine;
     }
 
-    public void setBaseLine(int baseLine) {
+    public void setBaseLine(double baseLine) {
         this.baseLine = baseLine;
     }
 
-    public int getRrChange() {
+    public double getRrChange() {
         return rrChange;
     }
 
-    public void setRrChange(int rrChange) {
+    public void setRrChange(double rrChange) {
         this.rrChange = rrChange;
     }
     
