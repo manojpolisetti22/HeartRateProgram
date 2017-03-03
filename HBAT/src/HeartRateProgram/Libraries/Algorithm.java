@@ -136,7 +136,7 @@ public class Algorithm {
          return newArr;
     }
 
-    int getMedian (int [] lastFive) {
+    double getMedian (double [] lastFive) {
         for (int i = 0; i < lastFive.length; i++) { // checks that the look was long enough
             if (lastFive[i] == -1) {return  -1;}
         }
