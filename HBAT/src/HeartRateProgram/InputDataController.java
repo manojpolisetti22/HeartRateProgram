@@ -33,6 +33,8 @@ public class InputDataController implements Initializable {
     @FXML private TextField tb_delay1;
     @FXML private TextField tb_delay2;
     @FXML private TextField tb_delay3;
+    
+    Stage thisStage;
     /**
      * Initializes the controller class.
      */
@@ -97,6 +99,15 @@ public class InputDataController implements Initializable {
         } catch(Exception e) {
            e.printStackTrace();
         }
+    }
+    
+    public void setStage(Stage stage) {
+        thisStage = stage;
+    }
+    
+    public void showStage(){
+        thisStage.setTitle("Replace this before the demo");
+        thisStage.show();
     }
     
 }
