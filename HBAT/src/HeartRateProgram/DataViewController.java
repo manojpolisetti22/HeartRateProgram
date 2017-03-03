@@ -9,6 +9,7 @@ import HeartRateProgram.Libraries.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -16,17 +17,34 @@ import javafx.fxml.Initializable;
  * @author Rajith
  */
 public class DataViewController implements Initializable {
-
+    Stage thisStage;
     /**
      * Initializes the controller class.
      */
+    String mode; 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO        
     }   
     
-    public void initFiles() {
-        // TODO
+    public void initFiles(String participant_id, String rr_file, String behavior_file, 
+            double rr_start, double rr_sync, double behav_sync) {
+        mode = "Basic";
     }
     
+    public void initFilesAdvanced(String file) {
+        mode = "Advanced";
+    }
+    
+    public void export() {
+        //TODO  
+    }
+    public void setStage(Stage stage) {
+        thisStage = stage;
+    }
+    
+    public void showStage(){
+        thisStage.setTitle("Replace this before the demo");
+        thisStage.show();
+    } 
 }
