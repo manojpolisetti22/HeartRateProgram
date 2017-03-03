@@ -25,6 +25,7 @@ import javafx.stage.Stage;
  */
 public class StartPageController implements Initializable {
 
+    Stage thisStage;
     /**
      * Initializes the controller class.
      */
@@ -54,6 +55,15 @@ public class StartPageController implements Initializable {
         } catch(Exception e) {
            e.printStackTrace();
         }
+    }
+    
+    public void setStage(Stage stage) {
+        thisStage = stage;
+    }
+    
+    public void showStage(){
+        thisStage.setTitle("Replace this before the demo");
+        thisStage.show();
     }
     
 }
