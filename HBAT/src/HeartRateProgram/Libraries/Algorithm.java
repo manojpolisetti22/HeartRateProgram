@@ -37,7 +37,7 @@ public class Algorithm {
         currStamp = (double) 74500;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
-        currStamp = (double) 75657;
+        /*currStamp = (double) 75657;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 490));
         currStamp = (double) 75680;
@@ -51,7 +51,7 @@ public class Algorithm {
         table.put(currStamp, new Attribute(currStamp, 400));
         currStamp = (double) 75897;
         timestamps.add(currStamp);
-        table.put(currStamp, new Attribute(currStamp, 403));
+        table.put(currStamp, new Attribute(currStamp, 403));*/
         currStamp = (double) 75303;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 407));
@@ -64,8 +64,11 @@ public class Algorithm {
         trail.setAttributeTable(table);
         s.printTable(trail.getAttributeTable());
 
-        s.calculate( trail.getAttributeTable());
+        table = s.calculate( trail.getAttributeTable());
         s.printTable( trail.getAttributeTable());
+        
+        table = s.calculatePhases(table);
+        s.printTable(table);
 
     }
     // CORNER CASES:
@@ -151,7 +154,7 @@ public class Algorithm {
         return lastFive;
     }
 
-    public void printTable( HashMap<Double, Attribute> table) {
+    void printTable( HashMap<Double, Attribute> table) {
         List<Double> timestamps = sortKeys(table);
         System.out.print("*************************************************************************************\n");
         for(int i = 0; i < timestamps.size(); i ++) {
@@ -160,51 +163,63 @@ public class Algorithm {
             BehaviorAttribute bH = attribute.getbH();
             HeartBeatAttribute hR = attribute.gethR();
            
-            System.out.format("Timestamp: %s\t\trr: %d\t\tCodeType: %s\t\tEventType: %s\t\tBase: %d\t\trrChange: " +
-                            "%d\n",
-                    key
-                            .toString(), hR
-                            .getRr(),
-                    bH.getCode_type().toString(), bH.getEvent_type().toString(), hR.getBaseLine(), hR.getRrChange());
+            System.out.format("Timestamp: %s\t\trr: %s\t\tCodeType: %s\t\tEventType: %s\t\tBase: %s\t\trrChange: " +
+                            "%s\tPhases: %s\n", Double.toString(key), Double.toString(hR.getRr()), bH.getCode_type(), bH.getEvent_type(), Double.toString(hR.getBaseLine()), Double.toString(hR.getRrChange()), Integer.toString(hR.getPhase()));
         }
         System.out.print("*************************************************************************************\n");
 
     }
 
-public HashMap<Double, Attribute> calculatePhases( HashMap<Double, Attribute> attributeTable) {
+ public HashMap<Double, Attribute> calculatePhases( HashMap<Double, Attribute> attributeTable) {
     
     List<Double> timeList = sortKeys(attributeTable);
-    
-    for(int i = 0; i < timeList.get(i); i ++) {
-        double time = timeList.get(i);
-        int look = 0;
-        int currPhase = -1; // equates to "."
+    int look = 0;
+    int currPhase = -1; // equates to "."
+    for(int i = 0; i < timeList.size(); i ++) {
+        double time = timeList.get(i); 
+        double [] lastFive = clearLastFive(new double[5]);
         
         if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
             Attribute attribute = attributeTable.get(time);
             BehaviorAttribute bH = attribute.getbH();
             HeartBeatAttribute hR = attribute.gethR();
             
+            
+            hR.setPhase(currPhase);
             if ( bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop looking
                 look = 0;
                 currPhase = 0;
             } 
-            hR.setPhase(currPhase);
-            
             if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
                 look = 1;
                 currPhase = 1;
             }
             if (currPhase == 1 && hR.getRr() > hR.getBaseLine()) {
                 currPhase = 2;
+            } else if (currPhase == 2) {
+                // first will add to the median and then calculate if it should move to phase 3
+                lastFive = addNewElement(lastFive, hR.getRr());
+                if (checkPhaseTwo(lastFive, hR.getBaseLine())) {
+                    currPhase = 3;
+                }
             }
 
         }
      
     }
     
-    return null;
+    return attributeTable;
 }
+
+public boolean checkPhaseTwo(double [] lastFive , double baseLine) {
+    for(int i = 0; i < lastFive.length; i++) {
+        if (lastFive[i] >= baseLine) { // a value was found that is not less than the baseLine
+            return false;
+        }
+    }
+    return true; // returns true if all five values sare less than baseline
+}   
+
 
 public List<Double> sortKeys(HashMap<Double, Attribute> finalMap) {
     
