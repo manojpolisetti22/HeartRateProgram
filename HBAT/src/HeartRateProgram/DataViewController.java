@@ -7,6 +7,7 @@ package HeartRateProgram;
 
 import HeartRateProgram.Libraries.*;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
@@ -30,6 +31,12 @@ public class DataViewController implements Initializable {
     public void initFiles(String participant_id, String rr_file, String behavior_file, 
             double rr_start, double rr_sync, double behav_sync) {
         mode = "Basic";
+        
+        MainParser parser = new MainParser();
+        List<Double> rrList = parser.csvParserHeartRate(rr_file);
+        List<Attribute> attrList = parser.csvParserBehavioral(behavior_file);
+        parser.finalParser(rrList, attrList, rr_start, rr_sync, behav_sync);
+        
     }
     
     public void initFilesAdvanced(String file) {
