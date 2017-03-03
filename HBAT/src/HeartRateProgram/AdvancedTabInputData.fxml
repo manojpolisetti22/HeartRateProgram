@@ -42,9 +42,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Excel Input" />
-                  <TextField fx:id="tb_excel" GridPane.columnIndex="1" />
-                  <Button fx:id="btn_excel" mnemonicParsing="false" onAction="#getFileName_excel" prefHeight="26.0" prefWidth="84.0" text="Browse..." GridPane.columnIndex="2" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CSV Input" />
+                  <TextField fx:id="tb_dataGrid" GridPane.columnIndex="1" />
+                  <Button fx:id="btn_dataGrid" mnemonicParsing="false" onAction="#getFileName_excel" prefHeight="26.0" prefWidth="84.0" text="Browse..." GridPane.columnIndex="2" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -55,7 +55,8 @@
             </GridPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#done" text="Done" />
+                  <Button mnemonicParsing="false" onAction="#GoBack" text="Back" />
+                  <Button mnemonicParsing="false" onAction="#done" text="Done" />
               </buttons>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

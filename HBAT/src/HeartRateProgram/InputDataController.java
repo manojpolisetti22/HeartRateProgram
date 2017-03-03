@@ -56,6 +56,11 @@ public class InputDataController implements Initializable {
         tb_behav.setText(behav.getPath());
     }
     
+    @FXML
+    public void advanced(ActionEvent event) {
+    
+    }
+    
     @FXML 
     public void done(ActionEvent event) {
         // Get strings from textboxes
