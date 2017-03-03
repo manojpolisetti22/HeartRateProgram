@@ -39,7 +39,19 @@ public class MainParser {
         String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Documents/Tonsen's Samples/Sample_DataGrid.csv";
         MainParser mp = new MainParser();
         mp.csvParserDataGrid(fileName);
-//        System.out.println("hello world");
+
+        //List of RR's
+        List<Double> rrList = mp.csvParserHeartRate(fileName);
+
+        //List of absolute times computed using the RRStart, RR_Sync and the BEH_Sync
+        List<Double> absoluteTime = mp.calculateAbsouluteTime(rrList, 21.7, 67, 23.9664);
+
+        //List of Attributes
+        List<Attribute> attributeList = mp.csvParserBehavioral(fileName);
+
+
+
+
     }
 
     public void csvParserDataGrid(String fileName) {
@@ -92,7 +104,7 @@ public class MainParser {
         }
     }
 
-    public void csvParserBehavioral(String fileName) {
+    public List<Attribute> csvParserBehavioral(String fileName) {
         //takes in the Behavioral CSV file and parses through it
 
         BufferedReader fileReader = null;
@@ -100,11 +112,8 @@ public class MainParser {
 
             String currentLine = "";
 
-            //Array List to store all the timestamps
-            List<Double> times = new ArrayList<Double>();
-
-            //HashMap to contain the attribute wiht the timestamp as the key
-            HashMap<Double, Attribute> behavioralMap = new HashMap<Double, Attribute>();
+            //Array List to store all the Attributes
+            List<Attribute> attributeList = new ArrayList<Attribute>();
 
             //Create FileReader
             fileReader = new BufferedReader(new FileReader(fileName));
@@ -143,14 +152,15 @@ public class MainParser {
 
                     if (event_num != -1) {
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
-                        behavioralMap.put(Double.parseDouble(fields[0]), currAttribute);
 
-                        //Add the time stamp to the times list
-                        times.add(Double.parseDouble(fields[0]));
+                        //Add the current attribute to the attributeList
+                        attributeList.add(currAttribute);
                     }
 
                 }
             }
+
+            return attributeList;
 
             //behavioralMap has the keys and values, times has the list of timestamps.
 
@@ -165,22 +175,19 @@ public class MainParser {
                 e.printStackTrace();
             }
         }
+
+        return null;
     }
 
-    public void csvParserHeartRate(String fileName) {
+    public List<Double> csvParserHeartRate(String fileName) {
         BufferedReader fileReader = null;
         try {
 
+            //A list of both the rrTimes and the cumulative times
             String currentLine = "";
 
             //New list of Trials to be used to store the read CSV data
             List<Double> rr_times = new ArrayList<Double>();
-
-            //New list fo rstoring the cumulative rr timee
-            List<Double> rr_cumulative = new ArrayList<Double>();
-
-            //set cumulative counter to 0 for the first time
-            double cumulative = 0;
 
             //Create FileReader
             fileReader = new BufferedReader(new FileReader(fileName));
@@ -191,15 +198,10 @@ public class MainParser {
 
                 //Adds the rr to rr_times
                 rr_times.add(rr);
-
-                //Adds the cumulative rr at that time to the list
-                rr_cumulative.add(rr + cumulative);
-
-                //changes the cumulative counter to the present rr to be added to the next one
-                cumulative = rr;
             }
 
-            //Print if necessary
+            //returns the list of RR's
+            return rr_times;
 
 
         } catch (Exception e) {
@@ -213,6 +215,136 @@ public class MainParser {
                 e.printStackTrace();
             }
         }
+
+        return null;
+    }
+
+    public List<Double> calculateAbsouluteTime(List<Double> rrTimes, double rr_start, double rr_sync, double beh_sync){
+
+        List<Double> absoluteTime = new ArrayList<Double>();
+
+        //The offset in milliseconds
+        double offset  = (beh_sync - rr_sync) * 1000.0;
+
+        //Changing the start time to be in milliseconds
+        rr_start = rr_start * 1000.0;
+
+        //Setting the cumulative counter to 0
+        double cumulative = 0;
+
+        //for loop to iterate through the rrTimes and add the absolute time to the list
+        for (int i = 0; i < rrTimes.size(); i++) {
+
+            double absTime = rrTimes.get(i);
+
+            //Changing the absolute time to be the cumulative of rr, the previous rr and the offset and the rrStart
+            absTime += offset + rr_start + cumulative;
+
+            absoluteTime.add(i,absTime);
+            //Setting the cumulative to the previous rr
+            cumulative = rrTimes.get(i);
+
+        }
+
+        return absoluteTime;
+    }
+
+    public List<Integer> findAbsoluteTimeIndex(List<Double> absoluteTime, List<Attribute> attrList) {
+
+        //List of matching Indices
+        List<Integer> listIndex = new ArrayList<Integer>();
+
+        //Counter for the Attribute List Index
+        int attrListIndex = 0;
+
+        double time = 0.0;
+
+        double attrTime = 0.0;
+
+        for (int i = 0; i < absoluteTime.size(); i++){
+
+            if (attrListIndex < attrList.size()) {
+
+                time = absoluteTime.get(i);
+
+                attrTime = attrList.get(attrListIndex).getTimestamp() * 1000.0;
+
+                if (time >= attrTime) {
+                    listIndex.add(i);
+                    attrListIndex++;
+                }
+            }
+            else {
+                i = absoluteTime.size();
+            }
+        }
+
+        return listIndex;
+    }
+
+    public HashMap<Double, Attribute> finalParser(List<Double> rrList, List<Attribute> attrList){
+
+        //List of the Absolute times
+        List<Double> absoluteTime = calculateAbsouluteTime(rrList, 21.7, 67, 23.9664);
+
+        //List of the matching Indices
+        List<Integer> absoluteTimeVSAttributeTime = findAbsoluteTimeIndex(absoluteTime, attrList);
+
+        //List of keys to the hashmap in order of insertion
+        List<Double> keys = new ArrayList<Double>();
+
+        //A HashMap which stores Attribute as a value and the Absolute timestamps as a key
+        HashMap<Double, Attribute> finalMap = new HashMap<Double, Attribute>();
+
+        //Strating index of when the Tasks start
+        int startIndex = absoluteTimeVSAttributeTime.get(0);
+
+        //Ending index of the Tasks end
+        int endIndex = absoluteTimeVSAttributeTime.get(absoluteTimeVSAttributeTime.size() - 3);
+
+        //Counter for looping through the whole list of Attributes already present
+        int attrIndex = 0;
+
+        //For loop which loops through from the start index to the end index of the AbsoluteTimeVsAttributeTime list
+        for (int i = startIndex; i <= endIndex; i++ ){
+
+            //If the attribute already exists at that point of time, put it in the map with the respective rr and time
+            if (absoluteTimeVSAttributeTime.contains(i)){
+
+                //Make new attribute and set it to the existing one in attrList
+                Attribute attribute = attrList.get(attrIndex);
+
+                //Set the variable rr to the respective rr in rrList
+                double rr = rrList.get(i);
+
+                //Make a new HeartBeatAttribute object and set its fields and add set it in the attribute.
+                HeartBeatAttribute hba = attribute.gethR();
+                hba.setRr(rr);
+
+                attribute.sethR(hba);
+                attribute.setTimestamp(absoluteTime.get(i));
+
+                //Add the timestamp in the keys list
+                keys.add(attribute.getTimestamp());
+
+                //Add the attribute and the timestamp to the hashmap
+                finalMap.put(absoluteTime.get(i), attribute);
+
+                //increment the attrIndex
+                attrIndex++;
+            }
+            else {
+                //if there isnt an attribute already with Beh data, make a new one with just HR data and add it
+                Attribute attribute = new Attribute(absoluteTime.get(i), rrList.get(i));
+
+                keys.add(rrList.get(i));
+
+                finalMap.put(rrList.get(i), attribute);
+            }
+        }
+
+        //return the final hashmap
+        return finalMap;
     }
 }
 

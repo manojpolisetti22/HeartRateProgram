@@ -4,12 +4,12 @@ package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
  * Created by ruhana on 2/18/17.
  */
 public class HeartBeatAttribute {
-    private int rr;
+    private double rr;
     private int baseLine;
     private int rrChange;
 
 
-    public HeartBeatAttribute(int rr) {
+    public HeartBeatAttribute(double rr) {
         this.rr = rr;
         this.baseLine = -1;
         this.rrChange = -1;
@@ -21,11 +21,11 @@ public class HeartBeatAttribute {
     }
 
 
-    public int getRr() {
+    public double getRr() {
         return rr;
     }
 
-    public void setRr(int rr) {
+    public void setRr(double rr) {
         this.rr = rr;
     }
 

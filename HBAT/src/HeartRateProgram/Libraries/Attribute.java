@@ -29,7 +29,7 @@ public class Attribute {
         this.bH = new BehaviorAttribute(event_type, code_type, event_num);
     }
 
-    public Attribute(double timestamp, int rr) {
+    public Attribute(double timestamp, double rr) {
         this.timestamp = timestamp;
         this.hR = new HeartBeatAttribute(rr);
         this.bH = new BehaviorAttribute();
