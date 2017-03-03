@@ -45,20 +45,20 @@ public class MainParser {
 
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
-
+        
+        
         //List of Attributes
         List<Attribute> attributeList = mp.csvParserBehavioral(afilename);
-
+        
+        
         HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, 21.7, 67,23);
 
         for (Double key: finalMap.keySet()){
             String k = key.toString();
-            String value = finalMap.get(key).getbH().getCode_type().toString();
-            String value2 = finalMap.get(key).getbH().getEvent_type().toString();
-
-            System.out.println(k + "     " + value + " --------" + value2);
-
+            System.out.println("Times = " + k);
         }
+        
+        System.out.println("Size = " + finalMap.size());
 
     }
 
@@ -150,7 +150,12 @@ public class MainParser {
                     if (!event_numString.equals(".")){
                         event_num = Integer.parseInt(event_numString);
                     }
-
+                    
+                    //System.out.println(" " + code_type);
+                    
+                    code_type = code_type.toUpperCase();
+                    event_type = event_type.toUpperCase();
+                    
                     CODE_TYPE codeType = HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
 
                     EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
@@ -158,7 +163,7 @@ public class MainParser {
                     // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
                     // to the hashmap and hence the timestamps arent added to the list either
 
-                    if (event_num != -1) {
+                    if (codeType != HeartRateProgram.Libraries.CODE_TYPE.TRIAL) {
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
 
                         //Add the current attribute to the attributeList
@@ -239,18 +244,19 @@ public class MainParser {
 
         //Setting the cumulative counter to 0
         double cumulative = 0;
-
+        
+        double time = rrTimes.get(0) + offset+rr_start;
+        
+        absoluteTime.add(0, time);
+        
+        rrTimes.add(0, time);
+       
         //for loop to iterate through the rrTimes and add the absolute time to the list
-        for (int i = 0; i < rrTimes.size(); i++) {
+        for (int i = 1; i < rrTimes.size(); i++) {
+            
+            double temp = rrTimes.get(i) + absoluteTime.get(i-1);
 
-            double absTime = rrTimes.get(i);
-
-            //Changing the absolute time to be the cumulative of rr, the previous rr and the offset and the rrStart
-            absTime += offset + rr_start + cumulative;
-
-            absoluteTime.add(i,absTime);
-            //Setting the cumulative to the previous rr
-            cumulative = rrTimes.get(i);
+            absoluteTime.add(i,temp);
 
         }
 
