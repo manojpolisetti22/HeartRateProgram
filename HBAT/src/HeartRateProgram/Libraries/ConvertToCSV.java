@@ -17,8 +17,7 @@ public class ConvertToCSV {
     private static final String FILE_HEADER = "Timestamp, rr, CodeType, EventType, Base, rrChange ";
     private static final String UNKNOWN = ".";
 
-    public static void convertToCSV(String fileName, Trial trial) {
-    HashMap<Double, Attribute> table = trial.getAttributeTable();
+    public static void convertToCSV(String fileName, HashMap<Double,Attribute> table) {
     Algorithm algo = new Algorithm();
     List<Double> timestamps = algo.sortKeys(table);   
      FileWriter fw = null;
@@ -133,6 +132,6 @@ public class ConvertToCSV {
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
  
         trail.setAttributeTable(table);
-        convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/testCSV" , trail, timestamps);
+        convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/testCSV" , trail.getAttributeTable());
     }
 }

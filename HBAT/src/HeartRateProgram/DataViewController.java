@@ -6,10 +6,13 @@
 package HeartRateProgram;
 
 import HeartRateProgram.Libraries.*;
+import java.io.File;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -23,6 +26,7 @@ public class DataViewController implements Initializable {
      * Initializes the controller class.
      */
     String mode; 
+    HashMap<Double,Attribute> data;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO        
@@ -32,11 +36,18 @@ public class DataViewController implements Initializable {
             double rr_start, double rr_sync, double behav_sync) {
         mode = "Basic";
         
+        // Parse Files
         MainParser parser = new MainParser();
         List<Double> rrList = parser.csvParserHeartRate(rr_file);
         List<Attribute> attrList = parser.csvParserBehavioral(behavior_file);
-        parser.finalParser(rrList, attrList, rr_start, rr_sync, behav_sync);
+        HashMap<Double,Attribute> parsedData = parser.finalParser(rrList, 
+                attrList, rr_start, rr_sync, behav_sync);
         
+        // Analyze Dataset
+        Algorithm algo = new Algorithm();
+        parsedData = algo.calculate(parsedData);
+        
+        data = parsedData;
     }
     
     public void initFilesAdvanced(String file) {
@@ -44,7 +55,14 @@ public class DataViewController implements Initializable {
     }
     
     public void export() {
-        //TODO  
+        // Getting filename
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Data");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited File(*.csv)", "*.csv"));
+        File file = fileChooser.showSaveDialog(null);
+        
+        String path = file.getAbsolutePath();
+        ConvertToCSV.convertToCSV(path,data);
     }
     public void setStage(Stage stage) {
         thisStage = stage;

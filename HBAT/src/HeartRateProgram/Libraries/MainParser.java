@@ -40,8 +40,8 @@ public class MainParser {
         MainParser mp = new MainParser();
 //        mp.csvParserDataGrid(fileName);
 
-        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
-        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
+        String rfilename = null;
+        String afilename = null;
 
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
