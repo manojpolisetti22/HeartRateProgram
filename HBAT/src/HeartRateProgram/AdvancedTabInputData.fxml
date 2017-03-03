@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HeartRateProgram.InputDataController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hbat_gui.InputDataController">
    <children>
       <VBox layoutY="-14.0" prefHeight="350.0" prefWidth="553.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -39,20 +39,12 @@
                   <ColumnConstraints maxWidth="214.0" minWidth="10.0" prefWidth="99.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RR Input File" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Behavior Input" GridPane.rowIndex="2" />
-                  <TextField id="tb_rr" fx:id="tb_rr" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="tb_behav" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="btn_rr" mnemonicParsing="false" onAction="#getFileName_rr" prefHeight="25.0" prefWidth="172.0" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button fx:id="btn_behav" mnemonicParsing="false" onAction="#getFileName_behav" prefHeight="25.0" prefWidth="181.0" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Participant ID" />
-                  <TextField GridPane.columnIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CSV Input" />
+                  <TextField fx:id="tb_dataGrid" GridPane.columnIndex="1" />
+                  <Button fx:id="btn_dataGrid" mnemonicParsing="false" onAction="#getFileName_excel" prefHeight="26.0" prefWidth="84.0" text="Browse..." GridPane.columnIndex="2" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -63,8 +55,8 @@
             </GridPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                  <Button fx:id="btn_advanced" mnemonicParsing="false" onAction="#advanced" text="Advanced&gt;&gt;" />
-                <Button mnemonicParsing="false" onAction="#done" text="Done" />
+                  <Button mnemonicParsing="false" onAction="#GoBack" text="Back" />
+                  <Button mnemonicParsing="false" onAction="#done" text="Done" />
               </buttons>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

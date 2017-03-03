@@ -1,4 +1,4 @@
-package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
+package HeartRateProgram.Libraries;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * Created by ruhana on 2/28/17.
+ * Created by @ruhana on 2/28/17.
  */
 public class Algorithm {
 
@@ -63,11 +63,11 @@ public class Algorithm {
 
 
         Algorithm s = new Algorithm();
-        trail.setAttrubuteTable(table);
-        s.printTable(timestamps, trail.getAttrubuteTable());
+        trail.setAttributeTable(table);
+        s.printTable(timestamps, trail.getAttributeTable());
 
-        s.calculate(timestamps, trail.getAttrubuteTable());
-        s.printTable(timestamps, trail.getAttrubuteTable());
+        s.calculate(timestamps, trail.getAttributeTable());
+        s.printTable(timestamps, trail.getAttributeTable());
 
     }
     // CORNER CASES:
@@ -87,11 +87,7 @@ public class Algorithm {
                 BehaviorAttribute bH = attribute.getbH();
                 HeartBeatAttribute hR = attribute.gethR();
 
-                if (looking == 1) { // sets baseline whenever looking
-                    hR.setBaseLine(baseLine);
-                    hR.setRrChange(Math.abs(hR.getBaseLine() - hR.getRr()));
-                }
-
+                
 
                 if (attribute.gethR().getRr() != -1) { // add's RR to lastFive if it exists
                     lastFive = addNewElement(lastFive, attribute.gethR().getRr());
@@ -112,6 +108,11 @@ public class Algorithm {
                     lastFive = clearLastFive(lastFive);
                     prevBaseLine = baseLine;
                     baseLine = -1;
+                }
+                
+                if (looking == 1 && hR.getRr() != -1) { // sets baseline whenever looking and rr is avaliable 
+                    hR.setBaseLine(baseLine);
+                    hR.setRrChange(Math.abs(hR.getBaseLine() - hR.getRr()));
                 }
 
 
@@ -157,9 +158,7 @@ public class Algorithm {
             Attribute attribute = table.get(key);
             BehaviorAttribute bH = attribute.getbH();
             HeartBeatAttribute hR = attribute.gethR();
-            /*System.out.format("Timestamp: %d\t,rr: %d\nCodeType: %s\nEventType: %s\nBase: %d\nrrChange: %d\n",
-                    timestamps.get(i), hR.getRr(), bH.getCode_type().toString(), bH.getEvent_type().toString(), hR
-                            .getBaseLine(), hR.getRrChange());*/
+           
             System.out.format("Timestamp: %s\t\trr: %d\t\tCodeType: %s\t\tEventType: %s\t\tBase: %d\t\trrChange: " +
                             "%d\n",
                     key

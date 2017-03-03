@@ -25,10 +25,9 @@ import javafx.stage.Stage;
  *
  * @author Rajith
  */
-public class InputDataController implements Initializable {
+public class AdvancedTabInputDataController implements Initializable {
 
-    @FXML private TextField tb_rr;
-    @FXML private TextField tb_behav;
+    @FXML private TextField tb_excel;
     /**
      * Initializes the controller class.
      */
@@ -38,40 +37,23 @@ public class InputDataController implements Initializable {
     }    
     
     @FXML
-    public void getFileName_rr(ActionEvent event) {
-        System.out.println("Getting Filename");
-        
+    public void getFileName_excel(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        File rr = fileChooser.showOpenDialog(null);
+        fileChooser.setTitle("Open Excel File");
+        File excel = fileChooser.showOpenDialog(null);
         
-        tb_rr.setText(rr.getPath());
-    }
-    
-    public void getFileName_behav(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Behavioral File");
-        File behav = fileChooser.showOpenDialog(null);
-        
-        tb_behav.setText(behav.getPath());
-    }
-    
-    @FXML
-    public void advanced(ActionEvent event) {
-    
+        tb_excel.setText(excel.getPath());
     }
     
     @FXML 
     public void done(ActionEvent event) {
-        // Get strings from textboxes
-        String file1 = tb_rr.getText();
-        String file2 = tb_rr.getText();
+        // Get string from textbox
+        String file = tb_excel.getText();
         
         // Error check the filenames
-        File f1 = new File(file1);
-        File f2 = new File(file2);
-        if (f1.exists() && f2.exists()) {
-            
+        File f1 = new File(file);
+        if (f1.exists()) {
+            //Send to next step
         }
 
         try {

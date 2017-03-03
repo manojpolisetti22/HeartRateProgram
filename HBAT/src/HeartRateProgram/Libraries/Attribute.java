@@ -1,4 +1,4 @@
-package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
+package HeartRateProgram.Libraries;
 
 /*import hbat_gui.BehaviorAttribute;
 import hbat_gui.CODE_TYPE;
@@ -8,7 +8,7 @@ import java.util.LinkedList;*/
 
 
 /**
- * Created by ruhana on 2/18/17.
+ * Created by @ruhana on 2/18/17.
  */
 public class Attribute {
 

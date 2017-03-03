@@ -1,4 +1,4 @@
-package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
+package HeartRateProgram.Libraries;
 
 
 /*import com.sun.tools.doclint.HtmlTag;*/ //This import was causing issues; is it necessary?
@@ -8,7 +8,7 @@ import java.nio.Buffer;
 import java.util.*;
 
 /**
- * Created by manojpolisetti on 2/22/17.
+ * Created by @manojpolisetti on 2/22/17.
  */
 public class MainParser {
 
@@ -143,9 +143,9 @@ public class MainParser {
                         event_num = Integer.parseInt(event_numString);
                     }
 
-                    CODE_TYPE codeType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
+                    CODE_TYPE codeType = HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
 
-                    EVENT_TYPE eventType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
+                    EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
 
                     // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
                     // to the hashmap and hence the timestamps arent added to the list either

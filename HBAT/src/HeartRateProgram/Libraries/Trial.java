@@ -1,4 +1,4 @@
-package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
+package HeartRateProgram.Libraries;
 //import HeartRateProgram.Libraries.Attribute;
 //import HeartRateProgram.Libraries.Sex;
 
@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 /**
- * Created by manojpolisetti on 2/22/17.
+ * Created by @manojpolisetti on 2/22/17.
  */
 
 public class Trial {
@@ -56,11 +56,11 @@ public class Trial {
         return trialDate;
     }
 
-    public HashMap<Double, Attribute> getAttrubuteTable() {
+    public HashMap<Double, Attribute> getAttributeTable() {
         return attributeTable;
     }
 
-    public void setAttrubuteTable(HashMap<Double, Attribute> attrubuteTable) {
+    public void setAttributeTable(HashMap<Double, Attribute> attrubuteTable) {
         this.attributeTable = attrubuteTable;
     }
 }
