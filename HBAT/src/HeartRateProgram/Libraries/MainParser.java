@@ -1,4 +1,5 @@
-package HeartRateProgram.Libraries;
+package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
+
 
 /*import com.sun.tools.doclint.HtmlTag;*/ //This import was causing issues; is it necessary?
 import java.lang.*;
@@ -35,7 +36,7 @@ public class MainParser {
 
     /*Should this be main, or a function name like parse(String[] filepath)*/
     public static void main(String[] args) {
-        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Sample_DataGrid.csv";
+        String fileName = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/Documents/Tonsen's Samples/Sample_DataGrid.csv";
         MainParser mp = new MainParser();
         mp.csvParserDataGrid(fileName);
 //        System.out.println("hello world");
@@ -133,9 +134,9 @@ public class MainParser {
                         event_num = Integer.parseInt(event_numString);
                     }
 
-                    CODE_TYPE codeType = HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
+                    CODE_TYPE codeType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
 
-                    EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
+                    EVENT_TYPE eventType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
 
                     // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
                     // to the hashmap and hence the timestamps arent added to the list either
