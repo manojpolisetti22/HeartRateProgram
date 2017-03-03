@@ -1,4 +1,3 @@
-//package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
 
 
@@ -38,11 +37,9 @@ public class MainParser {
     /*Should this be main, or a function name like parse(String[] filepath)*/
     public static void main(String[] args) {
         MainParser mp = new MainParser();
-//        mp.csvParserDataGrid(fileName);
 
-        String rfilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
-        String afilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
-
+        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
+        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
         
@@ -321,7 +318,7 @@ public class MainParser {
         int attrIndex = 0;
 
         //For loop which loops through from the start index to the end index of the AbsoluteTimeVsAttributeTime list
-        for (int i = startIndex; i < endIndex; i++ ){
+        for (int i = startIndex - 5; i < endIndex; i++ ){
 
             //If the attribute already exists at that point of time, put it in the map with the respective rr and time
             if (absoluteTimeVSAttributeTime.contains(i)){
@@ -345,12 +342,12 @@ public class MainParser {
                 //if there isnt an attribute already with Beh data, make a new one with just HR data and add it
                 Attribute attribute = new Attribute(absoluteTime.get(i), rrList.get(i));
 
-                keys.add(rrList.get(i));
+                keys.add(absoluteTime.get(i));
 
-                finalMap.put(rrList.get(i), attribute);
+                finalMap.put(absoluteTime.get(i), attribute);
             }
         }
-        
+
         //return the final hashmap
         return finalMap;
     }

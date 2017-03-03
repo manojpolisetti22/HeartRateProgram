@@ -188,7 +188,6 @@ public class Algorithm {
             hR.setPhase(currPhase);
             if ( bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop looking
                 look = 0;
-                currPhase = 0;
                 for(int j = 0; j < 5 ; j++ ){
                     if (bH.getCode_type() == CODE_TYPE.LOOK ) {
                         look = 1;
@@ -196,7 +195,7 @@ public class Algorithm {
                     }
                 }
                 if (look == 0) {
-                    
+                    currPhase = 0;
                 } else {
                     look = 1;
                 }
