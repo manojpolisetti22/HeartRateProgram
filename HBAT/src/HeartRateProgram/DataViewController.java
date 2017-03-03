@@ -20,13 +20,23 @@ public class DataViewController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    String mode; 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO        
     }   
     
-    public void initFiles() {
-        // TODO
+    public void initFiles(String participant_id, String rr_file, String behavior_file, 
+            double rr_start, double rr_sync, double behav_sync) {
+        mode = "Basic";
+    }
+    
+    public void initFilesAdvanced(String file) {
+        mode = "Advanced";
+    }
+    
+    public void export() {
+        //TODO  
     }
     
 }
