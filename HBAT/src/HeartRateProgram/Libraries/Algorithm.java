@@ -75,10 +75,10 @@ public class Algorithm {
     // what do you do when the
 
     public HashMap<Double, Attribute> calculate( LinkedList<Double> timeList, HashMap<Double, Attribute> attributeTable) {
-        int[] lastFive = clearLastFive(new int[5]); // last five rr's
-        int baseLine = -1; // baseline since last look
+        double [] lastFive = clearLastFive(new double[5]); // last five rr's
+        double baseLine = -1; // baseline since last look
         int looking = 0; // 0 = not looking; 1 == looking
-        int prevBaseLine = -1; // stores the previous baseline // this baseline is used for quick look aways
+        double prevBaseLine = -1; // stores the previous baseline // this baseline is used for quick look aways
 
         for (int i = 0; i < timeList.size(); i++) {
             double time = timeList.get(i);
@@ -87,8 +87,6 @@ public class Algorithm {
                 Attribute attribute = attributeTable.get(time);
                 BehaviorAttribute bH = attribute.getbH();
                 HeartBeatAttribute hR = attribute.gethR();
-
-                
 
                 if (attribute.gethR().getRr() != -1) { // add's RR to lastFive if it exists
                     lastFive = addNewElement(lastFive, attribute.gethR().getRr());
@@ -122,9 +120,11 @@ public class Algorithm {
         }
         return attributeTable;
     }
+    
+    
 
-     int [] addNewElement( int [] lastFive, int newElement ) {
-        int [] newArr = new int[5];
+    double [] addNewElement( double [] lastFive, double newElement ) {
+        double [] newArr = new double[5];
          for (int i = 0 ; i < lastFive.length; i++) {
             if (i == lastFive.length - 1) {
                 continue;
@@ -136,7 +136,7 @@ public class Algorithm {
          return newArr;
     }
 
-    int getMedian (int [] lastFive) {
+    double getMedian (double [] lastFive) {
         for (int i = 0; i < lastFive.length; i++) { // checks that the look was long enough
             if (lastFive[i] == -1) {return  -1;}
         }
@@ -145,7 +145,7 @@ public class Algorithm {
         return lastFive[2];
     }
 
-    int [] clearLastFive (int [] lastFive) {
+    double [] clearLastFive (double [] lastFive) {
         for (int i = 0; i < lastFive.length; i++) {
             lastFive[i] = -1;
         }
@@ -171,6 +171,39 @@ public class Algorithm {
 
     }
 
+public HashMap<Double, Attribute> calculatePhases( LinkedList<Double> timeList, HashMap<Double, Attribute> attributeTable) {
+    
+    
+    
+    for(int i = 0; i < timeList.get(i); i ++) {
+        double time = timeList.get(i);
+        int look = 0;
+        int currPhase = -1; // equates to "."
+        
+        if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
+            Attribute attribute = attributeTable.get(time);
+            BehaviorAttribute bH = attribute.getbH();
+            HeartBeatAttribute hR = attribute.gethR();
+            
+            if ( bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop looking
+                look = 0;
+                currPhase = 0;
+            } 
+            hR.setPhase(currPhase);
+            
+            if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
+                look = 1;
+                currPhase = 1;
+            }
+            if (currPhase == 1 && hR.getRr() > hR.getBaseLine()) {
+                currPhase = 2;
+            }
 
+        }
+     
+    }
+    
+    return null;
+}
 
 }
