@@ -45,9 +45,10 @@ public class DataViewController implements Initializable {
         
         // Analyze Dataset
         Algorithm algo = new Algorithm();
-        parsedData = algo.calculate(parsedData);
+        HashMap<Double,Attribute> processedData = algo.calculate(parsedData);
+        algo.printTable(processedData);
         
-        data = parsedData;
+        data = processedData;
     }
     
     public void initFilesAdvanced(String file) {
@@ -62,7 +63,7 @@ public class DataViewController implements Initializable {
         File file = fileChooser.showSaveDialog(null);
         
         String path = file.getAbsolutePath();
-        ConvertToCSV.convertToCSV(path,data);
+        ConvertToCSV.convertToCSV(path,this.data);
     }
     public void setStage(Stage stage) {
         thisStage = stage;

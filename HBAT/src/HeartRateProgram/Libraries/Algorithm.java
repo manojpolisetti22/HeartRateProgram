@@ -151,7 +151,7 @@ public class Algorithm {
         return lastFive;
     }
 
-    void printTable( HashMap<Double, Attribute> table) {
+    public void printTable( HashMap<Double, Attribute> table) {
         List<Double> timestamps = sortKeys(table);
         System.out.print("*************************************************************************************\n");
         for(int i = 0; i < timestamps.size(); i ++) {
