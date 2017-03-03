@@ -1,4 +1,4 @@
-package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
+package HeartRateProgram.Libraries;
 
 //import HeartRateProgram.Libraries.Sex;
 
@@ -6,7 +6,7 @@ package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 import java.util.Date;
 
 /**
- * Created by ruhana on 2/18/17.
+ * Created by @ruhana on 2/18/17.
  */
 
 public class Child {
