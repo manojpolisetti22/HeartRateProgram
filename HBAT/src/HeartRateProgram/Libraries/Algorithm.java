@@ -13,7 +13,11 @@ public class Algorithm {
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
         HashMap<Double, Attribute> table = new HashMap<>();
 
-        double currStamp = (double) 71680;
+        
+        double currStamp = (double) 71000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START , CODE_TYPE.TASK));
+        currStamp = (double) 71680;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 413));
         currStamp = (double) 72093;
@@ -37,7 +41,7 @@ public class Algorithm {
         currStamp = (double) 74500;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
-        /*currStamp = (double) 75657;
+        currStamp = (double) 75657;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 490));
         currStamp = (double) 75680;
@@ -51,7 +55,7 @@ public class Algorithm {
         table.put(currStamp, new Attribute(currStamp, 400));
         currStamp = (double) 75897;
         timestamps.add(currStamp);
-        table.put(currStamp, new Attribute(currStamp, 403));*/
+        table.put(currStamp, new Attribute(currStamp, 403));
         currStamp = (double) 75303;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 407));
@@ -66,9 +70,9 @@ public class Algorithm {
 
         table = s.calculate( trail.getAttributeTable());
         s.printTable( trail.getAttributeTable());
-        
-        table = s.calculatePhases(table);
-        s.printTable(table);
+        System.out.println("HEYYY\n");
+       // table = s.calculatePhases(table);
+        //s.printTable(table);
 
     }
     // CORNER CASES:
@@ -80,6 +84,7 @@ public class Algorithm {
         double [] lastFive = clearLastFive(new double[5]); // last five rr's
         double baseLine = -1; // baseline since last look
         int looking = 0; // 0 = not looking; 1 == looking
+        int task = 0;
         double prevBaseLine = -1; // stores the previous baseline // this baseline is used for quick look aways
 
         for (int i = 0; i < timeList.size(); i++) {
@@ -111,10 +116,16 @@ public class Algorithm {
                     baseLine = -1;
                 }
                 
-                if (looking == 1 && hR.getRr() != -1) { // sets baseline whenever looking and rr is avaliable 
+                if (looking == 1 && hR.getRr() != -1 && task == 1) { // sets baseline whenever looking and rr is avaliable 
                     hR.setBaseLine(baseLine);
                     hR.setRrChange(Math.abs(hR.getBaseLine() - hR.getRr()));
                 }
+                
+                 if (bH.getCode_type() == CODE_TYPE.TASK && bH.getEvent_type() == EVENT_TYPE.START) { 
+                     task = 1;
+                 } else if (bH.getCode_type() == CODE_TYPE.TASK && bH.getEvent_type() == EVENT_TYPE.STOP) {
+                     task = 0;
+                 }
 
 
             }
@@ -171,9 +182,7 @@ public class Algorithm {
     }
 
  public HashMap<Double, Attribute> calculatePhases( HashMap<Double, Attribute> attributeTable) {
-        
-    List<Double> timeList = sortKeys(attributeTable);
-    int look = 0;
+    /*      int look = 0;
     int currPhase = -1; // equates to "."
     for(int i = 0; i < timeList.size(); i ++) {
         double time = timeList.get(i); 
@@ -187,7 +196,7 @@ public class Algorithm {
             
             hR.setPhase(currPhase);
             if ( bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop looking
-                look = 0;
+              /*  look = 0;
                 for(int j = 0; j < 5 ; j++ ){
                     if (bH.getCode_type() == CODE_TYPE.LOOK ) {
                         look = 1;
@@ -198,7 +207,10 @@ public class Algorithm {
                     currPhase = 0;
                 } else {
                     look = 1;
-                }
+                } 
+              currPhase = 0;
+              look = 0;
+            
                 
             } 
             if (look <= 0 && bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
@@ -219,8 +231,9 @@ public class Algorithm {
 
         }
      
-    }
-    return attributeTable;
+    } */
+    return null;  
+    
     
 }
 
