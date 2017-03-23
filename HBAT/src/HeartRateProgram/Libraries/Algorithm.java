@@ -68,7 +68,7 @@ public class Algorithm {
         trail.setAttributeTable(table);
         s.printTable(trail.getAttributeTable());
         
-        Collections.sort(timestamps);
+    
 
         table = s.calculate( trail.getAttributeTable());
         s.printTable( trail.getAttributeTable());
@@ -81,6 +81,7 @@ public class Algorithm {
 
     public HashMap<Double, Attribute> calculate( HashMap<Double, Attribute> attributeTable) {
         List<Double> timeList = sortKeys(attributeTable);
+        Collections.sort(timeList);
         
         double [] lastFive = clearLastFive(new double[5]); // last five rr's
         double baseLine = -1; // baseline since last look
