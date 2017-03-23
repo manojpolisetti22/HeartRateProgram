@@ -67,10 +67,11 @@ public class Algorithm {
         Algorithm s = new Algorithm();
         trail.setAttributeTable(table);
         s.printTable(trail.getAttributeTable());
+        
+        Collections.sort(timestamps);
 
         table = s.calculate( trail.getAttributeTable());
         s.printTable( trail.getAttributeTable());
-        System.out.println("HEYYY\n");
        // table = s.calculatePhases(table);
         //s.printTable(table);
 
