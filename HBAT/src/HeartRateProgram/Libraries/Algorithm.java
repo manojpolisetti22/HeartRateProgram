@@ -255,7 +255,7 @@ public List<Double> sortKeys(HashMap<Double, Attribute> finalMap) {
     
     Collections.sort(unsortedKeys);
     
-    Collections.reverse(unsortedKeys);
+    //Collections.reverse(unsortedKeys);
     
     return unsortedKeys;        
 }
