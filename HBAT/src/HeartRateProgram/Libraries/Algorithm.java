@@ -50,9 +50,9 @@ public class Algorithm {
         currStamp = (double) 75093;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 413));
-        currStamp = (double) 75493 ;
+        /*currStamp = (double) 75493 ;
         timestamps.add(currStamp);
-        table.put(currStamp, new Attribute(currStamp, 400));
+        table.put(currStamp, new Attribute(currStamp, 400)); */
         currStamp = (double) 75897;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 403));
