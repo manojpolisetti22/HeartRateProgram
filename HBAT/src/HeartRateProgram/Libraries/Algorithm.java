@@ -74,7 +74,7 @@ public class Algorithm {
         s.printTable( trail.getAttributeTable());
        // table = s.calculatePhases(table);
         //s.printTable(table);
-        System.out.println("HELLO");
+        System.out.println("HELLO!!!");
 
     }
     // CORNER CASES:
