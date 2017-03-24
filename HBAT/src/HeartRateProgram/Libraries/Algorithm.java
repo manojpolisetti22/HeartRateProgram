@@ -52,7 +52,7 @@ public class Algorithm {
         table.put(currStamp, new Attribute(currStamp, 413));
         /*currStamp = (double) 75493 ;
         timestamps.add(currStamp);
-        table.put(currStamp, new Attribute(currStamp, 400)); */
+        table.put(currStamp, new Attribute(currStamp, 400)); 
         currStamp = (double) 75897;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 403));
@@ -60,7 +60,7 @@ public class Algorithm {
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 407));
         currStamp = (double) 75500;
-        timestamps.add(currStamp);
+        timestamps.add(currStamp); */
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
 
 
