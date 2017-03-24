@@ -68,12 +68,13 @@ public class Algorithm {
         trail.setAttributeTable(table);
         s.printTable(trail.getAttributeTable());
         
-    
+        
 
         table = s.calculate( trail.getAttributeTable());
         s.printTable( trail.getAttributeTable());
        // table = s.calculatePhases(table);
         //s.printTable(table);
+        System.out.println("HELLO");
 
     }
     // CORNER CASES:
