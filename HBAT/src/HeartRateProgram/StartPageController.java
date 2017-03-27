@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 
 /**
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
  */
 public class StartPageController implements Initializable {
 
+    @FXML Button pb_start;
     Stage thisStage;
     /**
      * Initializes the controller class.
@@ -36,9 +38,8 @@ public class StartPageController implements Initializable {
     
     @FXML
     public void exit_app(ActionEvent event) {
-        System.out.println("Exiting");
-        Child c;
-        
+        //System.out.println("Exiting");        
+        // Exit the program
         Platform.exit();
     }
     
@@ -51,10 +52,13 @@ public class StartPageController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
             stage.setResizable(false);
-            stage.showAndWait();
+            stage.show();
         } catch(Exception e) {
            e.printStackTrace();
         }
+        Stage starting = (Stage) pb_start.getScene().getWindow();
+        starting.hide();
+
     }
     
     public void setStage(Stage stage) {
@@ -64,6 +68,7 @@ public class StartPageController implements Initializable {
     public void showStage(){
         thisStage.setTitle("Replace this before the demo");
         thisStage.show();
+        
     }
     
 }

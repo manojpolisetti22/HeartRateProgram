@@ -5,9 +5,7 @@
  */
 package HeartRateProgram;
 
-import HeartRateProgram.Libraries.*;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,10 +19,9 @@ public class LaunchProgram extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        // Launch Startpage Scene
         Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
-        
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
