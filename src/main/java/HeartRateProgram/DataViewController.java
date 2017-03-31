@@ -53,6 +53,9 @@ public class DataViewController implements Initializable {
     
     public void initFilesAdvanced(String file) {
         mode = "Advanced";
+        
+        // Add junk data
+        
     }
     
     public void export() {

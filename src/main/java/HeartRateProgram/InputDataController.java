@@ -18,6 +18,9 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 /**
@@ -35,12 +38,14 @@ public class InputDataController implements Initializable {
     @FXML private TextField tb_delay3;
     
     Stage thisStage;
+    
+    boolean tooltips;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO 
+        tooltips = false;
     }    
     
     @FXML
@@ -51,7 +56,9 @@ public class InputDataController implements Initializable {
         fileChooser.setTitle("Open Resource File");
         File rr = fileChooser.showOpenDialog(null);
         
-        tb_rr.setText(rr.getPath());
+        if (rr != null) {
+            tb_rr.setText(rr.getPath());
+        }
     }
     
     public void getFileName_behav(ActionEvent event) {
@@ -59,33 +66,48 @@ public class InputDataController implements Initializable {
         fileChooser.setTitle("Open Behavioral File");
         File behav = fileChooser.showOpenDialog(null);
         
-        tb_behav.setText(behav.getPath());
-    }
-    
-    @FXML
-    public void advanced(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AdvancedTabInputData.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
-            AdvancedTabInputDataController controller = fxmlLoader.<AdvancedTabInputDataController>getController();
-            controller.initFiles();
-            stage.show();
-        } catch(Exception e) {
-           e.printStackTrace();
+        if (behav != null) {
+            tb_behav.setText(behav.getPath());
         }
     }
     
     @FXML 
     public void done(ActionEvent event) {
-        // Get strings from textboxes
+        // Get values from textboxes
         String participant_id = tb_part.getText();
         String file1 = tb_rr.getText();
         String file2 = tb_behav.getText();
-        Double rr_start = Double.valueOf(tb_delay1.getText());
-        Double rr_sync = Double.valueOf(tb_delay2.getText());
-        Double behav_sync = Double.valueOf(tb_delay3.getText());
+        //Double rr_start = Double.valueOf(tb_delay1.getText());
+        //Double rr_sync = Double.valueOf(tb_delay2.getText());
+        //Double behav_sync = Double.valueOf(tb_delay3.getText());
+        
+        // Check that data is valid
+        if ("".equals(participant_id)) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("There was an error in your parameters");
+            alert.setContentText("Participant ID may not be left blank");
+            alert.showAndWait();
+            return;
+        } 
+        File file = new File(file1);
+        if (!file.exists()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("There was an error in your parameters");
+            alert.setContentText("RR Data file does not exist.");
+            alert.showAndWait();
+            return;
+        }
+        file = new File(file2);
+        if(!file.exists()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("There was an error in your parameters");
+            alert.setContentText("Behavioral Data file does not exist");
+            alert.showAndWait();
+            return;
+        }
         
         // Open DataView Window
         try {
@@ -94,20 +116,35 @@ public class InputDataController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
             DataViewController controller = fxmlLoader.<DataViewController>getController();
-            controller.initFiles(participant_id,file1,file2,rr_start,rr_sync,behav_sync);
+            //controller.initFiles(participant_id,file1,file2,rr_start,rr_sync,behav_sync);
             stage.show();
+            
         } catch(Exception e) {
            e.printStackTrace();
         }
+        Stage here = (Stage) tb_part.getScene().getWindow();
+        here.hide();
     }
     
-    public void setStage(Stage stage) {
-        thisStage = stage;
-    }
-    
-    public void showStage(){
-        thisStage.setTitle("Replace this before the demo");
-        thisStage.show();
+    public void toggleTooltips() {
+        System.out.println("TOOLTIPS");
+        this.tooltips = !this.tooltips;
+        if (this.tooltips) {
+            tb_part.setTooltip(new Tooltip("Unique ID for participant"));
+            tb_rr.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_behav.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_delay1.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_delay2.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_delay3.setTooltip(new Tooltip("<Tooltip!>"));
+            
+        } else {
+            tb_part.setTooltip(null);    
+            tb_rr.setTooltip(null); 
+            tb_behav.setTooltip(null); 
+            tb_delay1.setTooltip(null); 
+            tb_delay2.setTooltip(null); 
+            tb_delay3.setTooltip(null); 
+        }
     }
     
 }

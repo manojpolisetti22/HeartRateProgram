@@ -33,7 +33,15 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </Text>
-      <Button mnemonicParsing="false" onAction="#openInputDataPage" prefHeight="27.0" prefWidth="136.0" text="Analyze New Dataset" textAlignment="CENTER">
+      <Button fx:id="pb_start" mnemonicParsing="false" onAction="#openInputDataPage" prefHeight="27.0" prefWidth="136.0" text="Analyze Dataset" textAlignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <VBox.margin>
+            <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </Button>
+      <Button fx:id="pb_start1" mnemonicParsing="false" onAction="#advanced" prefHeight="27.0" prefWidth="136.0" text="Advanced Input" textAlignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
