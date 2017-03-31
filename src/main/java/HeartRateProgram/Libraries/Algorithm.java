@@ -60,9 +60,48 @@ public class Algorithm {
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 407));
         currStamp = (double) 75500;
-        timestamps.add(currStamp); */
+        timestamps.add(currStamp); 
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK)); */
+        currStamp = (double) 76000;
+        timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
-
+        
+        currStamp = (double) 76093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 76493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400)); 
+        currStamp = (double) 76897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 76303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 76308;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 77000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 77093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 77493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400)); 
+        currStamp = (double) 77897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 77303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 77308;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 78000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
 
         Algorithm s = new Algorithm();
         trail.setAttributeTable(table);
@@ -74,7 +113,7 @@ public class Algorithm {
         s.printTable( trail.getAttributeTable());
        // table = s.calculatePhases(table);
         //s.printTable(table);
-        System.out.println("HELLO!!!");
+        System.out.println("HELLO!!asdf!");
 
     }
     // CORNER CASES:
