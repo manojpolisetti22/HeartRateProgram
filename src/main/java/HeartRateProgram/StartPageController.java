@@ -48,7 +48,7 @@ public class StartPageController implements Initializable {
     public void openInputDataPage(ActionEvent event) {
         System.out.println("Opening Input Data Page");
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("InputData.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/InputData.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
@@ -65,7 +65,7 @@ public class StartPageController implements Initializable {
     @FXML
     public void advanced(ActionEvent event) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdvancedTabInputData.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/AdvancedTabInputData.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  

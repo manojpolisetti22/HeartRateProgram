@@ -20,7 +20,7 @@ public class LaunchProgram extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         // Launch Startpage Scene
-        Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/StartPage.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
