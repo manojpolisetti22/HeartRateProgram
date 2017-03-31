@@ -71,21 +71,6 @@ public class InputDataController implements Initializable {
         }
     }
     
-    @FXML
-    public void advanced(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdvancedTabInputData.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
-            AdvancedTabInputDataController controller = fxmlLoader.<AdvancedTabInputDataController>getController();
-            controller.initFiles();
-            stage.show();
-        } catch(Exception e) {
-           e.printStackTrace();
-        }
-    }
-    
     @FXML 
     public void done(ActionEvent event) {
         // Get values from textboxes

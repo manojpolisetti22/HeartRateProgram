@@ -76,7 +76,6 @@
             </GridPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
               <buttons>
-                  <Button fx:id="btn_advanced" mnemonicParsing="false" onAction="#advanced" text="Advanced&gt;&gt;" />
                 <Button mnemonicParsing="false" onAction="#done" text="Done" />
               </buttons>
                <VBox.margin>

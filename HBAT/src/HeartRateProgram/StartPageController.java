@@ -28,7 +28,6 @@ import javafx.scene.control.Tooltip;
 public class StartPageController implements Initializable {
 
     @FXML Button pb_start;
-    Stage thisStage;
     /**
      * Initializes the controller class.
      */
@@ -63,14 +62,20 @@ public class StartPageController implements Initializable {
 
     }
     
-    public void setStage(Stage stage) {
-        thisStage = stage;
+    @FXML
+    public void advanced(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AdvancedTabInputData.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));  
+            AdvancedTabInputDataController controller = fxmlLoader.<AdvancedTabInputDataController>getController();
+            controller.initFiles();
+            stage.show();
+        } catch(Exception e) {
+           e.printStackTrace();
+        }
+        Stage starting = (Stage) pb_start.getScene().getWindow();
+        starting.hide();    
     }
-    
-    public void showStage(){
-        thisStage.setTitle("Replace this before the demo");
-        thisStage.show();
-        
-    }
-    
 }
