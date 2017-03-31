@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 
 
 /**
@@ -34,6 +35,7 @@ public class StartPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        pb_start.setTooltip(new Tooltip("Launch a new program!"));
     }    
     
     @FXML

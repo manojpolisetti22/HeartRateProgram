@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
 /**
@@ -37,12 +38,14 @@ public class InputDataController implements Initializable {
     @FXML private TextField tb_delay3;
     
     Stage thisStage;
+    
+    boolean tooltips;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO 
+        tooltips = false;
     }    
     
     @FXML
@@ -121,7 +124,6 @@ public class InputDataController implements Initializable {
             return;
         }
         
-        
         // Open DataView Window
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DataView.fxml"));
@@ -131,8 +133,30 @@ public class InputDataController implements Initializable {
             DataViewController controller = fxmlLoader.<DataViewController>getController();
             controller.initFiles(participant_id,file1,file2,rr_start,rr_sync,behav_sync);
             stage.show();
+            
         } catch(Exception e) {
            e.printStackTrace();
+        }
+    }
+    
+    public void toggleTooltips() {
+        System.out.println("TOOLTIPS");
+        this.tooltips = !this.tooltips;
+        if (this.tooltips) {
+            tb_part.setTooltip(new Tooltip("Unique ID for participant"));
+            tb_rr.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_behav.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_delay1.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_delay2.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_delay3.setTooltip(new Tooltip("<Tooltip!>"));
+            
+        } else {
+            tb_part.setTooltip(null);    
+            tb_rr.setTooltip(null); 
+            tb_behav.setTooltip(null); 
+            tb_delay1.setTooltip(null); 
+            tb_delay2.setTooltip(null); 
+            tb_delay3.setTooltip(null); 
         }
     }
     
