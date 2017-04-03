@@ -1,7 +1,9 @@
-package HeartRateProgram.Libraries;
+package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
+//package HeartRateProgram.Libraries;
 
 
 /*import com.sun.tools.doclint.HtmlTag;*/ //This import was causing issues; is it necessary?
+import javax.sound.midi.Soundbank;
 import java.lang.*;
 import java.io.*;
 import java.nio.Buffer;
@@ -38,8 +40,8 @@ public class MainParser {
     public static void main(String[] args) {
         MainParser mp = new MainParser();
 
-        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
-        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
+        String rfilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
+        String afilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
         
@@ -53,9 +55,14 @@ public class MainParser {
         for (Double key: finalMap.keySet()){
             String k = key.toString();
             System.out.println("Times = " + k);
+//            System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
         }
-        
-        System.out.println("Size = " + finalMap.size());
+
+        Algorithm al = new Algorithm();
+
+//        al.printTable(finalMap);
+
+//        System.out.println("Size = " + finalMap.size());
 
     }
 
@@ -153,14 +160,14 @@ public class MainParser {
                     code_type = code_type.toUpperCase();
                     event_type = event_type.toUpperCase();
                     
-                    CODE_TYPE codeType = HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
+                    CODE_TYPE codeType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
 
-                    EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
+                    EVENT_TYPE eventType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
 
                     // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
                     // to the hashmap and hence the timestamps arent added to the list either
 
-                    if (codeType == HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
+                    if (codeType == HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
 
                         //Add the current attribute to the attributeList
@@ -317,6 +324,7 @@ public class MainParser {
         //Counter for looping through the whole list of Attributes already present
         int attrIndex = 0;
 
+
         //For loop which loops through from the start index to the end index of the AbsoluteTimeVsAttributeTime list
         for (int i = startIndex - 5; i < endIndex; i++ ){
 
@@ -352,3 +360,5 @@ public class MainParser {
         return finalMap;
     }
 }
+
+
