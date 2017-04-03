@@ -40,7 +40,7 @@
               <tabs>
                 <Tab fx:id="defaultTab" text="Results">
                      <content>
-                        <TableView onSort="#export" prefHeight="368.0" prefWidth="682.0">
+                        <TableView fx:id="table" onSort="#export" prefHeight="368.0" prefWidth="682.0">
                           <columns>
                             <TableColumn prefWidth="75.0" text="Timestamp" />
                             <TableColumn prefWidth="75.0" text="RR" />

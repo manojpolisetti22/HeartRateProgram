@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import HeartRateProgram.Book;
+import java.util.ArrayList;
 
 /**
  * FXML Controller class
@@ -30,6 +32,13 @@ public class DataViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO        
+        
+        ArrayList<Book> books = new ArrayList<>();
+        books.add(new Book("Brave New World", "Aldous Huxely"));
+        books.add(new Book("To Kill a Mockingbird","Harper Lee"));
+        books.add(new Book("East of Eden","John Steinbeck"));
+        
+        
     }   
     
     public void initFiles(String participant_id, String rr_file, String behavior_file, 
@@ -68,12 +77,5 @@ public class DataViewController implements Initializable {
         String path = file.getAbsolutePath();
         ConvertToCSV.convertToCSV(path,this.data);
     }
-    public void setStage(Stage stage) {
-        thisStage = stage;
-    }
-    
-    public void showStage(){
-        thisStage.setTitle("Replace this before the demo");
-        thisStage.show();
-    } 
+
 }
