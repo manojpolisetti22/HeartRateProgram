@@ -364,7 +364,7 @@ public class Algorithm {
 
     public List<Double> sortKeys(HashMap<Double, Attribute> finalMap) {
 
-        List<Double> unsortedKeys = new ArrayList<Double>(finalMap.keySet());
+        List<Double> unsortedKeys = new ArrayList<>(finalMap.keySet());
 
         Collections.sort(unsortedKeys);
 
