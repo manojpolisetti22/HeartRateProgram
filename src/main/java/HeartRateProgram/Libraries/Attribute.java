@@ -66,4 +66,34 @@ public class Attribute {
     public void setTimestamp(double timestamp) {
         this.timestamp = timestamp;
     }
+
+    public EVENT_TYPE getEvent_type() {
+        return bH.getEvent_type();
+    }
+
+    public int getEvent_num() {
+        return bH.getEvent_num();
+    }
+
+    public CODE_TYPE getCode_type() {
+        return bH.getCode_type();
+    }
+
+    public double getRr() {
+        return hR.getRr();
+    }
+
+
+    public double getBaseLine() {
+        return hR.getBaseLine();
+    }
+
+
+    public double getRrChange() {
+        return hR.getRrChange();
+    }
+
+    public int getPhase() {
+        return hR.getPhase();
+    }
 }
