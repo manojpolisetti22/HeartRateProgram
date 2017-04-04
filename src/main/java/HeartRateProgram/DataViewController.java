@@ -15,11 +15,13 @@ import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  * FXML Controller class
@@ -42,7 +44,7 @@ public class DataViewController implements Initializable {
             Test data 
         */
         
-        ArrayList<Book> books = new ArrayList<>();
+        /*ArrayList<Book> books = new ArrayList<>();
         ObservableList<Book> b = FXCollections.observableArrayList(books);
 
         books.add(new Book("Brave New World", "Aldous Huxely"));
@@ -50,7 +52,7 @@ public class DataViewController implements Initializable {
         books.add(new Book("East of Eden","John Steinbeck"));
         
         TableColumn author = new TableColumn("Author");
-        table.getColumns().add(author);
+        table.getColumns().add(author); */
         
         
         
@@ -70,9 +72,31 @@ public class DataViewController implements Initializable {
         // Analyze Dataset
         Algorithm algo = new Algorithm();
         HashMap<Double,Attribute> processedData = algo.calculate(parsedData);
-        algo.printTable(processedData);
+        algo.printTable(processedData); // Remove?
         
+        // Get contents of table
         data = processedData;
+        List<Double> timeList = algo.sortKeys(processedData);
+        Collections.sort(timeList);
+        //List<Attribute> contents = new ArrayList();
+        final ObservableList<Attribute> contents = FXCollections.observableArrayList();
+        for(int i = 0; i < timeList.size(); i++) {
+            Attribute attribute = processedData.get(timeList.get(i));
+            contents.add(attribute);
+        }
+        
+        // Initialize table
+        table.setEditable(false);
+        
+        //Initialize columns
+        TableColumn timeStampCol = new TableColumn("Timestamp");
+        timeStampCol.setCellValueFactory(
+            new PropertyValueFactory<>("timestamp")
+        );
+        
+        table.setItems(contents);
+        table.getColumns().addAll(timeStampCol);
+        
     }
     
     public void initFilesAdvanced(String file) {

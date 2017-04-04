@@ -77,9 +77,9 @@ public class InputDataController implements Initializable {
         String participant_id = tb_part.getText();
         String file1 = tb_rr.getText();
         String file2 = tb_behav.getText();
-        //Double rr_start = Double.valueOf(tb_delay1.getText());
-        //Double rr_sync = Double.valueOf(tb_delay2.getText());
-        //Double behav_sync = Double.valueOf(tb_delay3.getText());
+        Double rr_start = Double.valueOf(tb_delay1.getText());
+        Double rr_sync = Double.valueOf(tb_delay2.getText());
+        Double behav_sync = Double.valueOf(tb_delay3.getText());
         
         // Check that data is valid
         if ("".equals(participant_id)) {
@@ -116,7 +116,7 @@ public class InputDataController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
             DataViewController controller = fxmlLoader.<DataViewController>getController();
-            //controller.initFiles(participant_id,file1,file2,rr_start,rr_sync,behav_sync);
+            controller.initFiles(participant_id,file1,file2,rr_start,rr_sync,behav_sync);
             stage.show();
             
         } catch(Exception e) {
