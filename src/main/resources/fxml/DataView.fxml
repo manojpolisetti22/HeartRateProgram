@@ -8,7 +8,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -40,17 +39,7 @@
               <tabs>
                 <Tab fx:id="defaultTab" text="Results">
                      <content>
-                        <TableView fx:id="table" onSort="#export" prefHeight="368.0" prefWidth="682.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Timestamp" />
-                            <TableColumn prefWidth="75.0" text="RR" />
-                              <TableColumn prefWidth="75.0" text="Event Type" />
-                              <TableColumn prefWidth="75.0" text="Event Num" />
-                              <TableColumn prefWidth="75.0" text="Code Type" />
-                              <TableColumn prefWidth="75.0" text="Base" />
-                              <TableColumn prefWidth="75.0" text="RR Change" />
-                          </columns>
-                        </TableView>
+                        <TableView fx:id="table" onSort="#export" prefHeight="368.0" prefWidth="682.0" />
                      </content>
                 </Tab>
               </tabs>

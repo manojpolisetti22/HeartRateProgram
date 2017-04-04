@@ -14,8 +14,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import HeartRateProgram.Book;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -29,14 +33,25 @@ public class DataViewController implements Initializable {
      */
     String mode; 
     HashMap<Double,Attribute> data;
+    @FXML TableView table;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO        
+        /*
+            Test data 
+        */
         
         ArrayList<Book> books = new ArrayList<>();
+        ObservableList<Book> b = FXCollections.observableArrayList(books);
+
         books.add(new Book("Brave New World", "Aldous Huxely"));
         books.add(new Book("To Kill a Mockingbird","Harper Lee"));
         books.add(new Book("East of Eden","John Steinbeck"));
+        
+        TableColumn author = new TableColumn("Author");
+        table.getColumns().add(author);
+        
         
         
     }   
