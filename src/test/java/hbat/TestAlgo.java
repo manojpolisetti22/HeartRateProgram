@@ -1,5 +1,5 @@
 package HeartRateProgram.Libraries;
-import org.junit.Test;
+//import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.LinkedList;
  */
 public class TestAlgo {
 
-    @Test
+//    @Test
     public void test() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
