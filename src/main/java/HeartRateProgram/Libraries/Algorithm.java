@@ -321,7 +321,7 @@ public class Algorithm {
         return attributeTable;
     }
 
-    int isLastFiveLess(double baseLine, double [] lastfive) {
+    int isLastFiveLess (double baseLine, double [] lastfive) {
         for(int i = 0; i < lastfive.length; i++) {
             if (lastfive[i] == -1) {
                 return -1; //insufficient data

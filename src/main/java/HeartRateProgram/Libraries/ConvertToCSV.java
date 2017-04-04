@@ -17,11 +17,11 @@ public class ConvertToCSV {
     private static final String FILE_HEADER = "Timestamp, rr, CodeType, EventType, Base, rrChange ";
     private static final String UNKNOWN = ".";
 
-    public static void convertToCSV(String fileName, HashMap<Double,Attribute> table) {
+    public static void convertToCSV (String fileName, HashMap<Double, Attribute> table) {
     Algorithm algo = new Algorithm();
     List<Double> timestamps = algo.sortKeys(table);   
-     FileWriter fw = null;
-     BufferedWriter bw = null;   
+     FileWriter fw;
+     BufferedWriter bw;
         
         try { // MAYBE USE HANDLER INSTEAD!
             fw = new FileWriter(fileName);
