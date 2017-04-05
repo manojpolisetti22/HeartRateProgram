@@ -1,4 +1,3 @@
-//package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
 
 
@@ -40,9 +39,8 @@ public class MainParser {
     public static void main(String[] args) {
         MainParser mp = new MainParser();
 
-        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples/Sample_RR.csv";
-        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
-                "/Sample_Behavior.csv";
+        String rfilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_RR.csv";
+        String afilename = "/Users/manojpolisetti/Desktop/GitHub/HBAT/src/HeartRateProgram/HBAT/src/HeartRateProgram/Libraries/Sample_Behavior.csv";
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
         
@@ -161,14 +159,14 @@ public class MainParser {
                     code_type = code_type.toUpperCase();
                     event_type = event_type.toUpperCase();
                     
-                    CODE_TYPE codeType = HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
+                    CODE_TYPE codeType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
 
-                    EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
+                    EVENT_TYPE eventType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
 
                     // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
                     // to the hashmap and hence the timestamps arent added to the list either
 
-                    if (codeType == HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
+                    if (codeType == HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
 
                         //Add the current attribute to the attributeList
