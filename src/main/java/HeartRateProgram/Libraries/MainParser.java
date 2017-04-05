@@ -159,14 +159,14 @@ public class MainParser {
                     code_type = code_type.toUpperCase();
                     event_type = event_type.toUpperCase();
                     
-                    CODE_TYPE codeType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
+                    CODE_TYPE codeType = HeartRateProgram.Libraries.CODE_TYPE.valueOf(code_type);
 
-                    EVENT_TYPE eventType = HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
+                    EVENT_TYPE eventType = HeartRateProgram.Libraries.EVENT_TYPE.valueOf(event_type);
 
                     // ASSUMING that Trials with Event_Num are not necessary, and hence aren't added
                     // to the hashmap and hence the timestamps arent added to the list either
 
-                    if (codeType == HeartRateProgram.HBAT.src.HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
+                    if (codeType == HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
 
                         //Add the current attribute to the attributeList
