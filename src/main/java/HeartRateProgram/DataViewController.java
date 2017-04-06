@@ -41,7 +41,7 @@ public class DataViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO        
+        // TODO
 
     }
 
@@ -60,7 +60,7 @@ public class DataViewController implements Initializable {
         Algorithm algo = new Algorithm();
         HashMap<Double, Attribute> processedData = algo.calculate(parsedData);
         processedData = algo.calculatePhases(processedData);
-        //algo.printTable(processedData); 
+        //algo.printTable(processedData);
 
         // Get contents of table
         data = processedData;
@@ -117,7 +117,7 @@ public class DataViewController implements Initializable {
             file = fileChooser.showSaveDialog(null);
 
         } catch (Exception e) {
-            return; 
+            return;
         }
         String path = file.getAbsolutePath();
         ConvertToCSV.convertToCSV(path, this.data);
