@@ -53,7 +53,6 @@ public class MainParser {
 
         for (Double key: finalMap.keySet()){
             String k = key.toString();
-<<<<<<< HEAD
 //            System.out.println("Times = " + k);
             Attribute ar = finalMap.get(key);
             String test = ar.getCode_type().toString();
@@ -61,10 +60,8 @@ public class MainParser {
                 System.out.println("TASK HERE");
                 System.out.println(ar.getEvent_type());
             }
-=======
             System.out.println("Times = " + k);
          //  System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
->>>>>>> e00d299a754f75f0a52c88eb382e6253541f7f3a
         }
 
         Algorithm al = new Algorithm();
