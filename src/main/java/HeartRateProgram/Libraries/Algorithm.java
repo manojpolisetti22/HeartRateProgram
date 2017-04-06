@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Algorithm {
 
-    public static void main(String [] args) {
+    public static void main(String [] args)  {
         MainParser mp = new MainParser();
 
         String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples/Sample_RR.csv";
@@ -29,7 +29,13 @@ public class Algorithm {
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
         trail.setAttributeTable(finalMap);
         //al.printTable(trail.getAttributeTable());
-        trail.setAttributeTable(al.calculate(finalMap));
+        try {
+            trail.setAttributeTable(al.calculate(finalMap));
+        } catch (DoubleStop doubleStop) {
+            doubleStop.printStackTrace();
+        } catch (DoubleStart doubleStart) {
+            doubleStart.printStackTrace();
+        }
         //al.printTable(trail.getAttributeTable());
 
 
@@ -52,7 +58,7 @@ public class Algorithm {
         double currStamp = (double) 71000;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START , CODE_TYPE.TASK));
-        currStamp = (double) 71680;
+       /* currStamp = (double) 71680;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 413));
         currStamp = (double) 72093;
@@ -63,8 +69,8 @@ public class Algorithm {
         table.put(currStamp, new Attribute(currStamp, 400));
         currStamp = (double) 72897;
         timestamps.add(currStamp);
-        table.put(currStamp, new Attribute(currStamp, 403));
-        currStamp = (double) 73303;
+        table.put(currStamp, new Attribute(currStamp, 403));*/
+        /*currStamp = (double) 73303;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 407));
         currStamp = (double) 73713;
@@ -112,9 +118,6 @@ public class Algorithm {
         currStamp = (double) 76303;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 307));
-        currStamp = (double) 77500;
-        timestamps.add(currStamp);
-        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
 
         currStamp = (double) 78013;
         timestamps.add(currStamp);
@@ -122,16 +125,32 @@ public class Algorithm {
         currStamp = (double) 78167;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 410));
-        currStamp = (double) 78500;
-        timestamps.add(currStamp);
-        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
         currStamp = (double) 78657;
         timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, 490));
         currStamp = (double) 78700;
         timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 79680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 79093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 79493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 309));
+        currStamp = (double) 79897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 79303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 79500;
+        timestamps.add(currStamp);
+        currStamp = (double) 79600;
+        timestamps.add(currStamp);
         table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
-
 
         Algorithm s = new Algorithm();
         trail.setAttributeTable(table);
@@ -149,14 +168,14 @@ public class Algorithm {
     // CORNER CASES:
     // what do you do when the
 
-    public HashMap<Double, Attribute> calculate( HashMap<Double, Attribute> attributeTable) {
+    public HashMap<Double, Attribute> calculate( HashMap<Double, Attribute> attributeTable) throws DoubleStop, DoubleStart {
         List<Double> timeList = sortKeys(attributeTable);
         Collections.sort(timeList);
 
         double [] lastFive = clearLastFive(new double[5]); // last five rr's
         double baseLine = -1; // baseline since last look
         int looking = 0; // 0 = not looking; 1 == looking
-        int task = 0;
+        int task = 1;
         double prevBaseLine = -1; // stores the previous baseline // this baseline is used for quick look aways
 
         for (int i = 0; i < timeList.size(); i++) {
@@ -173,6 +192,11 @@ public class Algorithm {
 
 
                 if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) { // start look
+                    if(looking == 1) { // ADD THIS
+                        throw new DoubleStart(String.format("Two Consecutive Looks without any stop found at time " +
+                                       "%d\n" ,
+                                time));
+                    }
                     if (getMedian(lastFive) == -1) {
                         baseLine = prevBaseLine;
                         prevBaseLine = -1;
@@ -182,6 +206,12 @@ public class Algorithm {
                     looking = 1;
                 } else if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop look
                     // resets everything
+                    if (looking == 0) {
+                        throw new DoubleStop(String.format("Two Consecutive Stops without any Look Start found at " +
+                                       "time " +
+                                       "%d\n" ,
+                                time));
+                    }
                     if (checkForQuickLook(i, attributeTable, timeList) == 1) {
                         looking = 1;
                     } else {
@@ -190,10 +220,10 @@ public class Algorithm {
                     }
                     lastFive = clearLastFive(lastFive);
                     prevBaseLine = baseLine;
-
                 }
 
-                if (looking == 1 && hR.getRr() != -1 ) { // sets baseline whenever looking and rr is avaliable  //
+                if (looking == 1 && hR.getRr() != -1 && task == 1) { // sets baseline whenever looking and rr is
+                // avalaible //
                     // ADD TASK == 1 HERE
                     hR.setBaseLine(baseLine);
                     hR.setRrChange(Math.abs(hR.getBaseLine() - hR.getRr()));
@@ -202,7 +232,7 @@ public class Algorithm {
                 if (bH.getCode_type() == CODE_TYPE.TASK && bH.getEvent_type() == EVENT_TYPE.START) {
                     task = 1;
                 } else if (bH.getCode_type() == CODE_TYPE.TASK && bH.getEvent_type() == EVENT_TYPE.STOP) {
-                    task = 0;
+                    task = 2;
                 }
 
 
@@ -265,7 +295,7 @@ public class Algorithm {
 
         int look = 0;
         int task = 1;
-        int currPhase = -2; // equates to "."
+        int currPhase = -1; // equates to "."
         double [] lastFive = clearLastFive(new double[5]);
         for(int i = 0; i < timeList.size(); i ++) {
             double time = timeList.get(i);
@@ -298,7 +328,9 @@ public class Algorithm {
                 } else if (task == 1 && look == 0) { // FOR PHASE 0
                     currPhase = 0;
                     attribute.gethR().setPhase(currPhase);
-                } else if(attribute.gethR().getRr() != -1) { // FOR PHASES 1-3
+                } else if (hR.getBaseLine() == -1) {
+                    // does nothing
+                } else if (attribute.gethR().getRr() != -1) { // FOR PHASES 1-3
 
 
 

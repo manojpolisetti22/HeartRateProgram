@@ -14,7 +14,7 @@ import java.util.List;
 public class ConvertToCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE = "\n";
-    private static final String FILE_HEADER = "Timestamp, rr, CodeType, EventType, Base, rrChange ";
+    private static final String FILE_HEADER = "Timestamp, rr, CodeType, EventType, Event_Num, Base, rrChange, Phase ";
     private static final String UNKNOWN = ".";
 
     public static void convertToCSV (String fileName, HashMap<Double, Attribute> table) {
@@ -47,9 +47,23 @@ public class ConvertToCSV {
                         bw.write(Double.toString(hR.getRr())); 
                     }
                     bw.write(COMMA_DELIMITER);
-                    bw.write (bH.getCode_type().toString());
+                    if (bH.getCode_type() == CODE_TYPE.NA) {
+                        bw.write("");
+                    } else {
+                        bw.write(bH.getCode_type().toString());
+                    }
                     bw.write(COMMA_DELIMITER);
-                    bw.write( bH.getEvent_type().toString() );
+                    if (bH.getEvent_type() == EVENT_TYPE.NA) {
+                        bw.write("");
+                    } else {
+                        bw.write( bH.getEvent_type().toString() );
+                    }
+                    bw.write(COMMA_DELIMITER);
+                    if (bH.getEvent_num() == -1) {
+                        bw.write("");
+                    } else {
+                        bw.write(Integer.toString(bH.getEvent_num()));
+                    }
                     bw.write(COMMA_DELIMITER);
                     if (hR.getBaseLine() == -1) {
                          bw.write(UNKNOWN);
@@ -57,12 +71,19 @@ public class ConvertToCSV {
                         bw.write(Double.toString(hR.getBaseLine()) );
                     }
                     bw.write(COMMA_DELIMITER);
-                    if (hR.getRrChange() == -1) {
+                    if (bH.getCode_type() != CODE_TYPE.NA) { // checks to see if there is a behavioral data since hR
+                    // and bH data
+                    // cannot overlap
                         bw.write(UNKNOWN);
                     } else {
                         bw.write(Double.toString(hR.getRrChange()) );
                     }
                     bw.write(COMMA_DELIMITER);
+                    if(hR.getPhase() < 0 ) {
+                        bw.write(UNKNOWN);
+                    } else {
+                        bw.write(Integer.toString(hR.getPhase()));
+                    }
                     bw.write(NEW_LINE);  
                 } 
             }
@@ -133,7 +154,7 @@ public class ConvertToCSV {
  
         trail.setAttributeTable(table);
 
-        convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/testCSV" , table);
+        convertToCSV("/Users/ruhana/testCSV" , table);
 
     }
 }
