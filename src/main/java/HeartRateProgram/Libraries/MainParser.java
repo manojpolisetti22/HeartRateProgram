@@ -54,12 +54,12 @@ public class MainParser {
         for (Double key: finalMap.keySet()){
             String k = key.toString();
             System.out.println("Times = " + k);
-//            System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
+         //  System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
         }
 
         Algorithm al = new Algorithm();
 
-//        al.printTable(finalMap);
+        al.printTable(finalMap);
 
 //        System.out.println("Size = " + finalMap.size());
 
