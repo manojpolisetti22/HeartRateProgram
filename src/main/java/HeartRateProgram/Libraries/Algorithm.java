@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class Algorithm {
 
-    public static void main(String [] args) {
+    public static void main(String [] args)  {
         MainParser mp = new MainParser();
 
         String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples/Sample_RR.csv";
@@ -29,7 +29,13 @@ public class Algorithm {
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
         trail.setAttributeTable(finalMap);
         //al.printTable(trail.getAttributeTable());
-        trail.setAttributeTable(al.calculate(finalMap));
+        try {
+            trail.setAttributeTable(al.calculate(finalMap));
+        } catch (DoubleStop doubleStop) {
+            doubleStop.printStackTrace();
+        } catch (DoubleStart doubleStart) {
+            doubleStart.printStackTrace();
+        }
         //al.printTable(trail.getAttributeTable());
 
 
@@ -162,7 +168,7 @@ public class Algorithm {
     // CORNER CASES:
     // what do you do when the
 
-    public HashMap<Double, Attribute> calculate( HashMap<Double, Attribute> attributeTable) {
+    public HashMap<Double, Attribute> calculate( HashMap<Double, Attribute> attributeTable) throws DoubleStop, DoubleStart {
         List<Double> timeList = sortKeys(attributeTable);
         Collections.sort(timeList);
 
@@ -187,9 +193,9 @@ public class Algorithm {
 
                 if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) { // start look
                     if(looking == 1) { // ADD THIS
-                       // throw new DoubleStart(String.format("Two Consecutive Looks without any stop found at time " +
-                         //              "%d\n" ,
-                           //     time));
+                        throw new DoubleStart(String.format("Two Consecutive Looks without any stop found at time " +
+                                       "%d\n" ,
+                                time));
                     }
                     if (getMedian(lastFive) == -1) {
                         baseLine = prevBaseLine;
@@ -201,10 +207,10 @@ public class Algorithm {
                 } else if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop look
                     // resets everything
                     if (looking == 0) {
-                      //  throw new DoubleStop(String.format("Two Consecutive Stops without any Look Start found at " +
-                        //                "time " +
-                          //              "%d\n" ,
-                            //    time));
+                        throw new DoubleStop(String.format("Two Consecutive Stops without any Look Start found at " +
+                                       "time " +
+                                       "%d\n" ,
+                                time));
                     }
                     if (checkForQuickLook(i, attributeTable, timeList) == 1) {
                         looking = 1;
