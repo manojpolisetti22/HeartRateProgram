@@ -1,4 +1,3 @@
-//package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
 
 
@@ -40,9 +39,8 @@ public class MainParser {
     public static void main(String[] args) {
         MainParser mp = new MainParser();
 
-        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples/Sample_RR.csv";
-        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
-                "/Sample_Behavior.csv";
+        String rfilename = "docs/dataSamples/Sample_RR.csv";
+        String afilename = "docs/dataSamples/Sample_Behavior.csv";
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
         
@@ -56,12 +54,12 @@ public class MainParser {
         for (Double key: finalMap.keySet()){
             String k = key.toString();
             System.out.println("Times = " + k);
-//            System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
+         //  System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
         }
 
         Algorithm al = new Algorithm();
 
-//        al.printTable(finalMap);
+        al.printTable(finalMap);
 
 //        System.out.println("Size = " + finalMap.size());
 
