@@ -61,7 +61,6 @@ public class MainParser {
                 System.out.println(ar.getEvent_type());
             }
             System.out.println("Times = " + k);
-         //  System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
         }
 
         Algorithm al = new Algorithm();
@@ -191,6 +190,7 @@ public class MainParser {
                 }
             }
 
+
             System.out.println(attributeList.get(0).getTimestamp());
             return attributeList;
 
@@ -231,7 +231,7 @@ public class MainParser {
                 //Adds the rr to rr_times
                 rr_times.add(rr);
             }
-
+            
             //returns the list of RR's
             return rr_times;
 
