@@ -53,8 +53,13 @@ public class MainParser {
 
         for (Double key: finalMap.keySet()){
             String k = key.toString();
-            System.out.println("Times = " + k);
-//            System.out.println("Values = " + finalMap.get(203425.0).getTimestamp());
+//            System.out.println("Times = " + k);
+            Attribute ar = finalMap.get(key);
+            String test = ar.getCode_type().toString();
+            if (test.equals("TASK")) {
+                System.out.println("TASK HERE");
+                System.out.println(ar.getEvent_type());
+            }
         }
 
         Algorithm al = new Algorithm();
@@ -167,8 +172,16 @@ public class MainParser {
                     // to the hashmap and hence the timestamps arent added to the list either
 
                     if (codeType == HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
-                        Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
+                        Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]) + 0.01, eventType, codeType, event_num);
+//                        System.out.println((currAttribute.getCode_type().toString()));
 
+                        //Add the current attribute to the attributeList
+                        attributeList.add(currAttribute);
+                    }
+                    if (codeType == HeartRateProgram.Libraries.CODE_TYPE.TASK) {
+//                        System.out.println("TASK");
+                        Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
+                        System.out.println((currAttribute.getEvent_type().toString()));
                         //Add the current attribute to the attributeList
                         attributeList.add(currAttribute);
                     }
@@ -176,6 +189,7 @@ public class MainParser {
                 }
             }
 
+            System.out.println(attributeList.get(0).getTimestamp());
             return attributeList;
 
             //behavioralMap has the keys and values, times has the list of timestamps.
@@ -333,7 +347,7 @@ public class MainParser {
                 //Make new attribute and set it to the existing one in attrList
                 Attribute attribute = attrList.get(attrIndex);
 
-                //Set the timestamp tp be whatever it ios supposed to be
+                //Set the timestamp tp be whatever it is supposed to be
                 attribute.setTimestamp(absoluteTime.get(i));
 
                 //Add the timestamp in the keys list
