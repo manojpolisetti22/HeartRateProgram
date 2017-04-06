@@ -46,6 +46,14 @@ public class InputDataController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tooltips = false;
+        
+        // For debugging
+        tb_part.setText("Person");
+        tb_rr.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\HeartRateProgram\\docs\\dataSamples\\Sample_RR.csv");
+        tb_behav.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\HeartRateProgram\\docs\\dataSamples\\Sample_Behavior.csv");
+        tb_delay1.setText("10");
+        tb_delay2.setText("10");
+        tb_delay3.setText("10");
     }    
     
     @FXML
@@ -83,30 +91,15 @@ public class InputDataController implements Initializable {
         
         // Check that data is valid
         if ("".equals(participant_id)) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("There was an error in your parameters");
-            alert.setContentText("Participant ID may not be left blank");
-            alert.showAndWait();
-            return;
+            inputErrorAlert("Participant ID may not be left blank");
         } 
         File file = new File(file1);
         if (!file.exists()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("There was an error in your parameters");
-            alert.setContentText("RR Data file does not exist.");
-            alert.showAndWait();
-            return;
+            inputErrorAlert("RR Data file does not exist");
         }
         file = new File(file2);
         if(!file.exists()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("There was an error in your parameters");
-            alert.setContentText("Behavioral Data file does not exist");
-            alert.showAndWait();
-            return;
+            inputErrorAlert("Behavioral Data file does not exist");
         }
         
         // Open DataView Window
@@ -145,6 +138,15 @@ public class InputDataController implements Initializable {
             tb_delay2.setTooltip(null); 
             tb_delay3.setTooltip(null); 
         }
+    }
+    
+    void inputErrorAlert(String errorMessage) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("There was an error in your parameters");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
+        return;
     }
     
 }

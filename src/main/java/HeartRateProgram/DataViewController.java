@@ -72,7 +72,8 @@ public class DataViewController implements Initializable {
         // Analyze Dataset
         Algorithm algo = new Algorithm();
         HashMap<Double,Attribute> processedData = algo.calculate(parsedData);
-        algo.printTable(processedData); // Remove?
+        processedData = algo.calculatePhases(processedData);
+        //algo.printTable(processedData); 
         
         // Get contents of table
         data = processedData;
@@ -88,14 +89,28 @@ public class DataViewController implements Initializable {
         // Initialize table
         table.setEditable(false);
         
-        //Initialize columns
+        // Initialize columns with data
         TableColumn timeStampCol = new TableColumn("Timestamp");
-        timeStampCol.setCellValueFactory(
-            new PropertyValueFactory<>("timestamp")
-        );
-        
+        timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
+        TableColumn rrCol = new TableColumn("RR");
+        timeStampCol.setCellValueFactory(new PropertyValueFactory<>("Rr"));
+        TableColumn eventTypeCol = new TableColumn("Event Type");
+        eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("Event_type"));
+        TableColumn rRChangeCol = new TableColumn("RR Change");
+        rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("rrChange")); 
+        TableColumn phaseCol = new TableColumn("Phase");
+        phaseCol.setCellValueFactory(new PropertyValueFactory<>("phase"));
+        TableColumn codeTypeCol = new TableColumn("Code Type");
+        codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("code_type"));
+        TableColumn eventNumCol = new TableColumn("Event Num");
+        eventNumCol.setCellValueFactory(new PropertyValueFactory<>("event_num"));
+        TableColumn baselineCol = new TableColumn("Code Type");
+        baselineCol.setCellValueFactory(new PropertyValueFactory<>("baseLine"));
+                
+        // Add information to table
         table.setItems(contents);
-        table.getColumns().addAll(timeStampCol);
+        table.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
+                rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
         
     }
     
