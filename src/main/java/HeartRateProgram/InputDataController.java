@@ -124,8 +124,8 @@ public class InputDataController implements Initializable {
         this.tooltips = !this.tooltips;
         if (this.tooltips) {
             tb_part.setTooltip(new Tooltip("Unique ID for participant"));
-            tb_rr.setTooltip(new Tooltip("<Tooltip!>"));
-            tb_behav.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_rr.setTooltip(new Tooltip("Filepath for heart-rate CSV file"));
+            tb_behav.setTooltip(new Tooltip("Filepath for behavioral  CSV file"));
             tb_delay1.setTooltip(new Tooltip("<Tooltip!>"));
             tb_delay2.setTooltip(new Tooltip("<Tooltip!>"));
             tb_delay3.setTooltip(new Tooltip("<Tooltip!>"));
