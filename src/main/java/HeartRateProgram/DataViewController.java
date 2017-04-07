@@ -14,11 +14,11 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -57,9 +57,21 @@ public class DataViewController implements Initializable {
                 attrList, rr_start, rr_sync, behav_sync);
 
         // Analyze Dataset
+        HashMap<Double, Attribute> processedData;
         Algorithm algo = new Algorithm();
-        HashMap<Double, Attribute> processedData = algo.calculate(parsedData);
-        processedData = algo.calculatePhases(processedData);
+        try {
+            processedData = algo.calculate(parsedData);
+            processedData = algo.calculatePhases(processedData);
+        } catch (DoubleStart e) {
+            algorithmErrorAlert("<Error Message>");
+            return;
+        } catch (DoubleStop e) {
+            algorithmErrorAlert("<Error Message>");
+            return;
+        } catch (Exception e) {
+            algorithmErrorAlert("<Error Message>");
+            return;
+        }
         //algo.printTable(processedData);
 
         // Get contents of table
@@ -121,6 +133,14 @@ public class DataViewController implements Initializable {
         }
         String path = file.getAbsolutePath();
         ConvertToCSV.convertToCSV(path, this.data);
+    }
+
+    void algorithmErrorAlert(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("An Error has occured");
+        alert.setHeaderText("There was an error when analyzing the input data");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
     }
 
 }
