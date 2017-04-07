@@ -186,12 +186,12 @@ public class MainParser {
                     return Double.compare(o1.getTimestamp(), o2.getTimestamp());
                 }
             });
-            for (int i = 0; i < attributeList.size(); i++) {
-                System.out.println(attributeList.get(i).getTimestamp());
-                if (attributeList.get(i).getCode_type().toString().equals("TASK")) {
-                    System.out.println("Task : " + attributeList.get(i).getEvent_type().toString());
-                }
-            }
+//            for (int i = 0; i < attributeList.size(); i++) {
+//                System.out.println(attributeList.get(i).getTimestamp());
+//                if (attributeList.get(i).getCode_type().toString().equals("TASK")) {
+//                    System.out.println("Task : " + attributeList.get(i).getEvent_type().toString());
+//                }
+//            }
             return attributeList;
 
             //behavioralMap has the keys and values, times has the list of timestamps.
