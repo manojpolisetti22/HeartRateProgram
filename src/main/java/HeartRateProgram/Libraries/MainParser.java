@@ -53,22 +53,13 @@ public class MainParser {
 
         for (Double key: finalMap.keySet()){
             String k = key.toString();
-//            System.out.println("Times = " + k);
             Attribute ar = finalMap.get(key);
             String test = ar.getCode_type().toString();
-            if (test.equals("TASK")) {
-                System.out.println("TASK HERE");
-                System.out.println(ar.getEvent_type());
-            }
-            System.out.println("Times = " + k);
+//            if (test.equals("TASK")) {
+//                System.out.println("TASK HERE");
+//                System.out.println(ar.getEvent_type());
+//            }
         }
-
-        Algorithm al = new Algorithm();
-
-        al.printTable(finalMap);
-
-//        System.out.println("Size = " + finalMap.size());
-
     }
 
     public void csvParserDataGrid(String fileName) {
@@ -182,7 +173,6 @@ public class MainParser {
                     if (codeType == HeartRateProgram.Libraries.CODE_TYPE.TASK) {
 //                        System.out.println("TASK");
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
-                        System.out.println((currAttribute.getEvent_type().toString()));
                         //Add the current attribute to the attributeList
                         attributeList.add(currAttribute);
                     }
@@ -190,8 +180,18 @@ public class MainParser {
                 }
             }
 
-
-            System.out.println(attributeList.get(0).getTimestamp());
+            Collections.sort(attributeList, new Comparator<Attribute>() {
+                @Override
+                public int compare(Attribute o1, Attribute o2) {
+                    return Double.compare(o1.getTimestamp(), o2.getTimestamp());
+                }
+            });
+            for (int i = 0; i < attributeList.size(); i++) {
+                System.out.println(attributeList.get(i).getTimestamp());
+                if (attributeList.get(i).getCode_type().toString().equals("TASK")) {
+                    System.out.println("Task : " + attributeList.get(i).getEvent_type().toString());
+                }
+            }
             return attributeList;
 
             //behavioralMap has the keys and values, times has the list of timestamps.
@@ -348,7 +348,9 @@ public class MainParser {
 
                 //Make new attribute and set it to the existing one in attrList
                 Attribute attribute = attrList.get(attrIndex);
-
+//                if (attribute.getCode_type().toString().equals("TASK")) {
+//                    System.out.println("Task : " + attribute.getEvent_type().toString());
+//                }
                 //Set the timestamp tp be whatever it is supposed to be
                 attribute.setTimestamp(absoluteTime.get(i));
 
