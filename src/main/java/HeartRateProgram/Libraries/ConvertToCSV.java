@@ -1,8 +1,6 @@
 //package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedWriter;
+import java.io.*;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -156,5 +154,45 @@ public class ConvertToCSV {
 
         convertToCSV("/Users/ruhana/testCSV" , table);
 
+    }
+
+    public static int compare (String f1, String f2) {
+        try {
+            String r1 = readFileAsString(f1);
+            String r2 = readFileAsString(f2);
+
+            r1.replace("\n" , ",");
+            r2.replace("\n" , ",");
+
+            String [] arr1 = r1.split(",");
+            String [] arr2 = r1.split(",");
+
+            if(arr1.length != arr2.length) {
+                return 0;
+            }
+            for(int i = 0; i < arr1.length; i++) {
+                if (!arr1[i].equals(arr2[i])) {
+                    return 0;
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
+
+    public static String readFileAsString(String filePath) throws IOException {
+        StringBuffer fileData = new StringBuffer();
+        BufferedReader reader = new BufferedReader(
+                new FileReader(filePath));
+        char[] buf = new char[1024];
+        int numRead=0;
+        while((numRead=reader.read(buf)) != -1){
+            String readData = String.valueOf(buf, 0, numRead);
+            fileData.append(readData);
+        }
+        reader.close();
+        return fileData.toString();
     }
 }
