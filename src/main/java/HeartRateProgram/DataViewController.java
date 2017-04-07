@@ -45,8 +45,7 @@ public class DataViewController implements Initializable {
 
     }
 
-    public void initFiles(String participant_id, String rr_file, String behavior_file,
-            double rr_start, double rr_sync, double behav_sync) {
+    public void initFiles(String participant_id, String rr_file, String behavior_file, double rr_start, double rr_sync, double behav_sync) {
         mode = "Basic";
 
         // Parse Files
