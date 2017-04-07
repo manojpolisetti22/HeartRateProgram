@@ -165,7 +165,7 @@ public class ConvertToCSV {
             r2.replace("\n" , ",");
 
             String [] arr1 = r1.split(",");
-            String [] arr2 = r1.split(",");
+            String [] arr2 = r2.split(",");
 
             if(arr1.length != arr2.length) {
                 return 0;

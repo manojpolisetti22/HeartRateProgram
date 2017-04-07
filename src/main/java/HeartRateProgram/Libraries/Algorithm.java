@@ -176,7 +176,7 @@ public class Algorithm {
         double baseLine = -1; // baseline since last look
         int looking = 0; // 0 = not looking; 1 == looking
         int actualLook = 0;
-        int task = 1;
+        int task = 0;
         double prevBaseLine = -1; // stores the previous baseline // this baseline is used for quick look aways
 
         for (int i = 0; i < timeList.size(); i++) {
@@ -194,9 +194,8 @@ public class Algorithm {
 
                 if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) { // start look
                     if(actualLook == 1) { // ADD THIS
-                        throw new DoubleStart(String.format("Two Consecutive Looks without any stop found at time " +
-                                       "%d\n" ,
-                                time));
+                        String text = "Two Consecutive Looks without any stop found at time " + time + ".\n";
+                        throw new DoubleStart(text);
                     }
                     if (getMedian(lastFive) == -1) {
                         baseLine = prevBaseLine;
@@ -209,10 +208,9 @@ public class Algorithm {
                 } else if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) { // stop look
                     // resets everything
                     if (looking == 0) {
-                        throw new DoubleStop(String.format("Two Consecutive Stops without any Look Start found at " +
-                                       "time " +
-                                       "%d\n" ,
-                                time));
+                        String text = "Two Consecutive Stops without any Look Start found at time " + time +
+                                        "%d\n";
+                        throw new DoubleStop(text);
                     }
                     if (checkForQuickLook(i, attributeTable, timeList) == 1) {
                         looking = 1;
@@ -297,7 +295,7 @@ public class Algorithm {
         Collections.sort(timeList);
 
         int look = 0;
-        int task = 1;
+        int task = 0;
         int currPhase = -1; // equates to "."
         double [] lastFive = clearLastFive(new double[5]);
         for(int i = 0; i < timeList.size(); i ++) {
@@ -326,7 +324,7 @@ public class Algorithm {
                 }
 
                 if (task == 0) { // FOR PHASE '.'
-                    currPhase = -2;
+                    currPhase = -1;
                     attribute.gethR().setPhase(currPhase);
                 } else if (task == 1 && look == 0) { // FOR PHASE 0
                     currPhase = 0;
