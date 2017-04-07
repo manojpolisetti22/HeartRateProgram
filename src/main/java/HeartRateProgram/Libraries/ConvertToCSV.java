@@ -71,7 +71,7 @@ public class ConvertToCSV {
                         bw.write(Double.toString(hR.getBaseLine()) );
                     }
                     bw.write(COMMA_DELIMITER);
-                    if (bH.getCode_type() != CODE_TYPE.NA) { // checks to see if there is a behavioral data since hR
+                    if (hR.getBaseLine() == -1) { // checks to see if there is a behavioral data since hR
                     // and bH data
                     // cannot overlap
                         bw.write(UNKNOWN);
