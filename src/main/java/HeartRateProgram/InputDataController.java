@@ -92,14 +92,17 @@ public class InputDataController implements Initializable {
         // Check that data is valid
         if ("".equals(participant_id)) {
             inputErrorAlert("Participant ID may not be left blank");
+            return;
         } 
         File file = new File(file1);
         if (!file.exists()) {
             inputErrorAlert("RR Data file does not exist");
+            return;
         }
         file = new File(file2);
         if(!file.exists()) {
             inputErrorAlert("Behavioral Data file does not exist");
+            return;
         }
         
         // Open DataView Window
