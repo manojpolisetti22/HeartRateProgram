@@ -50,17 +50,10 @@ public class MainParser {
         
         
         HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, 21.7, 67,23);
-
-        for (Double key: finalMap.keySet()){
-            String k = key.toString();
-            Attribute ar = finalMap.get(key);
-            String test = ar.getCode_type().toString();
-//            if (test.equals("TASK")) {
-//                System.out.println("TASK HERE");
-//                System.out.println(ar.getEvent_type());
-//            }
+        Algorithm al = new Algorithm();
+//        al.printTable(finalMap);
         }
-    }
+
 
     public void csvParserDataGrid(String fileName) {
         BufferedReader fileReader = null;
@@ -289,7 +282,7 @@ public class MainParser {
 
         //Counter for the Attribute List Index
         int attrListIndex = 0;
-
+        System.out.println(attrList.get(attrList.size()-1).getCode_type().toString());
         double time = 0.0;
 
         double attrTime = 0.0;
@@ -348,9 +341,9 @@ public class MainParser {
 
                 //Make new attribute and set it to the existing one in attrList
                 Attribute attribute = attrList.get(attrIndex);
-//                if (attribute.getCode_type().toString().equals("TASK")) {
-//                    System.out.println("Task : " + attribute.getEvent_type().toString());
-//                }
+                if (attribute.getCode_type().toString().equals("TASK")) {
+                    System.out.println("Task : " + attribute.getEvent_type().toString());
+                }
                 //Set the timestamp tp be whatever it is supposed to be
                 attribute.setTimestamp(absoluteTime.get(i));
 
