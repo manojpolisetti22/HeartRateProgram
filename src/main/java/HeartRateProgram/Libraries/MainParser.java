@@ -1,7 +1,6 @@
 package HeartRateProgram.Libraries;
 
 
-/*import com.sun.tools.doclint.HtmlTag;*/ //This import was causing issues; is it necessary?
 import javax.sound.midi.Soundbank;
 import java.lang.*;
 import java.io.*;
@@ -51,7 +50,6 @@ public class MainParser {
         
         HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, 21.7, 67,23);
         Algorithm al = new Algorithm();
-//        al.printTable(finalMap);
         }
 
 
@@ -144,8 +142,7 @@ public class MainParser {
                         event_num = Integer.parseInt(event_numString);
                     }
                     
-                    //System.out.println(" " + code_type);
-                    
+
                     code_type = code_type.toUpperCase();
                     event_type = event_type.toUpperCase();
                     
@@ -158,13 +155,11 @@ public class MainParser {
 
                     if (codeType == HeartRateProgram.Libraries.CODE_TYPE.LOOK) {
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]) + 0.01, eventType, codeType, event_num);
-//                        System.out.println((currAttribute.getCode_type().toString()));
 
                         //Add the current attribute to the attributeList
                         attributeList.add(currAttribute);
                     }
                     if (codeType == HeartRateProgram.Libraries.CODE_TYPE.TASK) {
-//                        System.out.println("TASK");
                         Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
                         //Add the current attribute to the attributeList
                         attributeList.add(currAttribute);
@@ -179,12 +174,7 @@ public class MainParser {
                     return Double.compare(o1.getTimestamp(), o2.getTimestamp());
                 }
             });
-//            for (int i = 0; i < attributeList.size(); i++) {
-//                System.out.println(attributeList.get(i).getTimestamp());
-//                if (attributeList.get(i).getCode_type().toString().equals("TASK")) {
-//                    System.out.println("Task : " + attributeList.get(i).getEvent_type().toString());
-//                }
-//            }
+
             return attributeList;
 
             //behavioralMap has the keys and values, times has the list of timestamps.

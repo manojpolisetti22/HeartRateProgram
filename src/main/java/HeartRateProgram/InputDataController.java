@@ -101,7 +101,13 @@ public class InputDataController implements Initializable {
         if(!file.exists()) {
             inputErrorAlert("Behavioral Data file does not exist");
         }
-        
+        if (rr_start < 0.0) {
+            inputErrorAlert("RR_START time should be greater than 0.0");
+        }
+        if (behav_sync < 0.0) {
+            inputErrorAlert("BEHAVIORAL_START time should be greater than 0.0");
+        }
+
         // Open DataView Window
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/DataView.fxml"));
@@ -126,9 +132,9 @@ public class InputDataController implements Initializable {
             tb_part.setTooltip(new Tooltip("Unique ID for participant"));
             tb_rr.setTooltip(new Tooltip("Filepath for heart-rate CSV file"));
             tb_behav.setTooltip(new Tooltip("Filepath for behavioral  CSV file"));
-            tb_delay1.setTooltip(new Tooltip("<Tooltip!>"));
-            tb_delay2.setTooltip(new Tooltip("<Tooltip!>"));
-            tb_delay3.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_delay1.setTooltip(new Tooltip("Start time of the RR Data")); //rrstart
+            tb_delay2.setTooltip(new Tooltip("Start time of the Behavioral Data")); //behstart
+            tb_delay3.setTooltip(new Tooltip("The relative Behavioral sync time with respect to the RR time")); //beh sync
             
         } else {
             tb_part.setTooltip(null);    
