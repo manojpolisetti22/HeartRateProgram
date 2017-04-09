@@ -46,6 +46,14 @@ public class InputDataController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         tooltips = false;
+        
+        // For debugging
+        tb_part.setText("Person");
+        tb_rr.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\HeartRateProgram\\docs\\dataSamples\\Sample_RR.csv");
+        tb_behav.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\HeartRateProgram\\docs\\dataSamples\\Sample_Behavior.csv");
+        tb_delay1.setText("10");
+        tb_delay2.setText("10");
+        tb_delay3.setText("10");
     }    
     
     @FXML
@@ -77,36 +85,21 @@ public class InputDataController implements Initializable {
         String participant_id = tb_part.getText();
         String file1 = tb_rr.getText();
         String file2 = tb_behav.getText();
-        //Double rr_start = Double.valueOf(tb_delay1.getText());
-        //Double rr_sync = Double.valueOf(tb_delay2.getText());
-        //Double behav_sync = Double.valueOf(tb_delay3.getText());
+        Double rr_start = Double.valueOf(tb_delay1.getText());
+        Double rr_sync = Double.valueOf(tb_delay2.getText());
+        Double behav_sync = Double.valueOf(tb_delay3.getText());
         
         // Check that data is valid
         if ("".equals(participant_id)) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("There was an error in your parameters");
-            alert.setContentText("Participant ID may not be left blank");
-            alert.showAndWait();
-            return;
+            inputErrorAlert("Participant ID may not be left blank");
         } 
         File file = new File(file1);
         if (!file.exists()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("There was an error in your parameters");
-            alert.setContentText("RR Data file does not exist.");
-            alert.showAndWait();
-            return;
+            inputErrorAlert("RR Data file does not exist");
         }
         file = new File(file2);
         if(!file.exists()) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("There was an error in your parameters");
-            alert.setContentText("Behavioral Data file does not exist");
-            alert.showAndWait();
-            return;
+            inputErrorAlert("Behavioral Data file does not exist");
         }
         
         // Open DataView Window
@@ -116,7 +109,7 @@ public class InputDataController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
             DataViewController controller = fxmlLoader.<DataViewController>getController();
-            //controller.initFiles(participant_id,file1,file2,rr_start,rr_sync,behav_sync);
+            controller.initFiles(participant_id,file1,file2,rr_start,rr_sync,behav_sync);
             stage.show();
             
         } catch(Exception e) {
@@ -131,8 +124,8 @@ public class InputDataController implements Initializable {
         this.tooltips = !this.tooltips;
         if (this.tooltips) {
             tb_part.setTooltip(new Tooltip("Unique ID for participant"));
-            tb_rr.setTooltip(new Tooltip("<Tooltip!>"));
-            tb_behav.setTooltip(new Tooltip("<Tooltip!>"));
+            tb_rr.setTooltip(new Tooltip("Filepath for heart-rate CSV file"));
+            tb_behav.setTooltip(new Tooltip("Filepath for behavioral  CSV file"));
             tb_delay1.setTooltip(new Tooltip("<Tooltip!>"));
             tb_delay2.setTooltip(new Tooltip("<Tooltip!>"));
             tb_delay3.setTooltip(new Tooltip("<Tooltip!>"));
@@ -145,6 +138,15 @@ public class InputDataController implements Initializable {
             tb_delay2.setTooltip(null); 
             tb_delay3.setTooltip(null); 
         }
+    }
+    
+    void inputErrorAlert(String errorMessage) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error Dialog");
+        alert.setHeaderText("There was an error in your parameters");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
+        return;
     }
     
 }
