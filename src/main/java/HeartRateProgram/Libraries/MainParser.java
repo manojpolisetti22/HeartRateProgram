@@ -53,7 +53,7 @@ public class MainParser {
         }
 
 
-    public void csvParserDataGrid(String fileName) {
+    public List<DataGrid> csvParserDataGrid(String fileName) {
         BufferedReader fileReader = null;
         try {
 
@@ -83,12 +83,13 @@ public class MainParser {
 
 
             //Prints the ArrayList of Data Grids
-            for (DataGrid dg:DataGrids
-                 ) {
+//            for (DataGrid dg:DataGrids
+//                 ) {
+//
+//                System.out.println(dg.toString());
+//            }
 
-                System.out.println(dg.toString());
-            }
-
+            return DataGrids;
 
         } catch (Exception e) {
             System.out.println("Error in Reading Behavioral File");
@@ -357,6 +358,12 @@ public class MainParser {
         }
 
         //return the final hashmap
+        return finalMap;
+    }
+
+    public HashMap<Double, Attribute> createTrial(int trialNum, HashMap<Double, Attribute> finalMap, double time) {
+        Attribute attr = new Attribute(time, HeartRateProgram.Libraries.EVENT_TYPE.NA, HeartRateProgram.Libraries.CODE_TYPE.TRIAL, trialNum);
+        finalMap.put(time, attr);
         return finalMap;
     }
 }
