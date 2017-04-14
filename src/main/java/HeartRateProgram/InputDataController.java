@@ -135,7 +135,6 @@ public class InputDataController implements Initializable {
         tb_delay1.setTooltip(new Tooltip("<Tooltip!>"));
         tb_delay2.setTooltip(new Tooltip("<Tooltip!>"));
         tb_delay3.setTooltip(new Tooltip("<Tooltip!>"));
-
     }
 
     void inputErrorAlert(String errorMessage) {
@@ -144,7 +143,6 @@ public class InputDataController implements Initializable {
         alert.setHeaderText("There was an error in your parameters");
         alert.setContentText(errorMessage);
         alert.showAndWait();
-        return;
     }
 
 }

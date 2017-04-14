@@ -19,6 +19,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -36,13 +38,14 @@ public class DataViewController implements Initializable {
      */
     String mode;
     HashMap<Double, Attribute> data;
-    @FXML
-    TableView table;
+    @FXML TableView table;
+    @FXML TabPane tabPane;
+    @FXML Tab defaultTab;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        
     }
 
     public void initFiles(String participant_id, String rr_file, String behavior_file, double rr_start, double rr_sync, double behav_sync) {
@@ -115,7 +118,11 @@ public class DataViewController implements Initializable {
     public void initFilesAdvanced(String file) {
         mode = "Advanced";
 
-        // Do things
+        tabPane.getTabs().remove(0);
+        
+        for (int i=0; i < 5; i++) {
+            tabPane.getTabs().add(new Tab("Hello"));
+        }
     }
 
     public void export() {
