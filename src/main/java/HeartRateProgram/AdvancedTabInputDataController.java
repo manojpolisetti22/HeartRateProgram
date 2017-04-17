@@ -39,7 +39,7 @@ public class AdvancedTabInputDataController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // Foe debugging
         tb_dataGrid.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\"
-                + "HeartRateProgram\\docs\\dataSamples\\Sample_DataGrid.csv");
+                + "HeartRateProgram\\docs\\dataSamples\\Sample_DataGrid_Rajith.csv");
     }
 
     @FXML
@@ -53,7 +53,7 @@ public class AdvancedTabInputDataController implements Initializable {
 
             tb_dataGrid.setText(excel.getPath());
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -64,8 +64,13 @@ public class AdvancedTabInputDataController implements Initializable {
 
         // Error check the filenames
         File f1 = new File(file);
-        if (f1.exists()) {
-            //Send to next step
+        if (!f1.exists()) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Something went wrong!");
+            alert.setHeaderText(null);
+            alert.setContentText("File does not exist");
+            alert.showAndWait();
+            return;
         }
 
         try {
@@ -74,14 +79,14 @@ public class AdvancedTabInputDataController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             DataViewController controller = fxmlLoader.<DataViewController>getController();
+            System.out.println("Window opened"); // For debugging
             try {
                 controller.initFilesAdvanced(file);
             } catch (Exception e) {
-                Alert alert = new Alert(AlertType.INFORMATION);
+                Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Something went wrong!");
                 alert.setHeaderText(null);
-                alert.setContentText("There was an error in analyzing the data.");
-                e.printStackTrace();
+                alert.setContentText("There was a problem parsing/analyzing the file.");
                 alert.showAndWait();
                 return;
             }
@@ -90,9 +95,4 @@ public class AdvancedTabInputDataController implements Initializable {
             e.printStackTrace();
         }
     }
-
-    public void initFiles() {
-        // TODO
-    }
-
 }
