@@ -24,6 +24,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 /**
  * FXML Controller class
@@ -65,13 +66,14 @@ public class DataViewController implements Initializable {
             processedData = algo.calculate(parsedData);
             processedData = algo.calculatePhases(processedData);
         } catch (DoubleStart e) {
-            algorithmErrorAlert("<Error Message>");
+            algorithmErrorAlert(e.getMessage());
             return;
         } catch (DoubleStop e) {
-            algorithmErrorAlert("<Error Message>");
+            algorithmErrorAlert(e.getMessage());
             return;
         } catch (Exception e) {
-            algorithmErrorAlert("<Error Message>");
+            algorithmErrorAlert("An unknown error has occured. Review your "
+                    + "datasets and try again");
             return;
         }
         //algo.printTable(processedData);
@@ -118,11 +120,36 @@ public class DataViewController implements Initializable {
     public void initFilesAdvanced(String file) {
         mode = "Advanced";
 
+        // Preliminary tab stuff
         tabPane.getTabs().remove(0);
         
-        for (int i=0; i < 5; i++) {
-            tabPane.getTabs().add(new Tab("Hello"));
-        }
+        // Parse Datagrid
+        MainParser parser = new MainParser();
+        List<DataGrid> dataList;
+        dataList = parser.csvParserDataGrid(file);
+        dataList.forEach((line) -> {
+            // Get parser parameters
+            String rr_file = line.getRR_PATH();
+            String behavior_file = line.getBEH_PATH();
+            List<Double> rrList = parser.csvParserHeartRate(rr_file);
+            List<Attribute> attrList = parser.csvParserBehavioral(behavior_file);
+            Double rr_start = line.getRR_START();
+            Double rr_sync = line.getRR_SYNC();
+            Double behav_sync = line.getBEH_SYNC();
+            
+            // Final parser
+            HashMap<Double, Attribute> parsedData = parser.finalParser(rrList,
+                    attrList, rr_start, rr_sync, behav_sync);
+            
+            // Create tabs and populate them
+            tabPane.getTabs().add(new Tab(line.getParticipantID()));
+            VBox box = new VBox();
+            box.getChildren().addAll(new TableView());
+            
+        });
+        
+        
+        
     }
 
     public void export() {
