@@ -39,14 +39,17 @@ public class DataViewController implements Initializable {
      */
     String mode;
     HashMap<Double, Attribute> data;
-    @FXML TableView table;
-    @FXML TabPane tabPane;
-    @FXML Tab defaultTab;
+    @FXML
+    TableView table;
+    @FXML
+    TabPane tabPane;
+    @FXML
+    Tab defaultTab;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+
     }
 
     public void initFiles(String participant_id, String rr_file, String behavior_file, double rr_start, double rr_sync, double behav_sync) {
@@ -122,7 +125,7 @@ public class DataViewController implements Initializable {
 
         // Preliminary tab stuff
         tabPane.getTabs().remove(0);
-        
+
         // Parse Datagrid
         MainParser parser = new MainParser();
         List<DataGrid> dataList;
@@ -136,20 +139,18 @@ public class DataViewController implements Initializable {
             Double rr_start = line.getRR_START();
             Double rr_sync = line.getRR_SYNC();
             Double behav_sync = line.getBEH_SYNC();
-            
+
             // Final parser
             HashMap<Double, Attribute> parsedData = parser.finalParser(rrList,
                     attrList, rr_start, rr_sync, behav_sync);
-            
+
             // Create tabs and populate them
             tabPane.getTabs().add(new Tab(line.getParticipantID()));
             VBox box = new VBox();
             box.getChildren().addAll(new TableView());
-            
+
         });
-        
-        
-        
+
     }
 
     public void export() {
@@ -160,12 +161,11 @@ public class DataViewController implements Initializable {
             fileChooser.setTitle("Save Data");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited File(*.csv)", "*.csv"));
             file = fileChooser.showSaveDialog(null);
-
+            String path = file.getAbsolutePath();
+            ConvertToCSV.convertToCSV(path, this.data);
         } catch (Exception e) {
             return;
         }
-        String path = file.getAbsolutePath();
-        ConvertToCSV.convertToCSV(path, this.data);
     }
 
     void algorithmErrorAlert(String errorMessage) {
