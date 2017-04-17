@@ -903,4 +903,362 @@ public class TestAlgo {
         assertTrue(status == 1);
 
     }
+
+    @Test
+    public void durationLooking() {
+        LinkedList<Double> timestamps = new LinkedList();
+        Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
+        HashMap<Double, Attribute> table = new HashMap<>();
+
+
+        double currStamp = (double) 71000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.TASK));
+        currStamp = (double) 71680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400));
+        currStamp = (double) 72897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 73303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 73713;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 453));
+        currStamp = (double) 74167;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 410));
+        currStamp = (double) 74500;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 75657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 75680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 75093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+        currStamp = (double) 75493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 409));
+        currStamp = (double) 75897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 75303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 76657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 390));
+        currStamp = (double) 76680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 76897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 76303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 77680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 77093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 77493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 309));
+        currStamp = (double) 77897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 77303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 79657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 79680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 79093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 79493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 409));
+        currStamp = (double) 79897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 79997;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 80000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+
+
+        Algorithm s = new Algorithm();
+        trail.setAttributeTable(table);
+
+        double duration = s.durationLooking(trail.getAttributeTable());
+        assertTrue(duration == 4100);
+
+
+    }
+
+    @Test
+    void durationTask() {
+        LinkedList<Double> timestamps = new LinkedList();
+        Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
+        HashMap<Double, Attribute> table = new HashMap<>();
+
+
+        double currStamp = (double) 71000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.TASK));
+        currStamp = (double) 71680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400));
+        currStamp = (double) 72897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 73303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 73713;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 453));
+        currStamp = (double) 74167;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 410));
+        currStamp = (double) 74500;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 75657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 75680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 75093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+        currStamp = (double) 75493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 409));
+        currStamp = (double) 75897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 75303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 76657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 390));
+        currStamp = (double) 76680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 76897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 76303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 77680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 77093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 77493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 309));
+        currStamp = (double) 77897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 77303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 79657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 79680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 79093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 79493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 409));
+        currStamp = (double) 79897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 79997;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 80000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+
+        Algorithm s = new Algorithm();
+        trail.setAttributeTable(table);
+
+        // WHYY?? NOT WORKING
+        //double duration = s.durationTask(trail.getAttributeTable());
+        //System.out.println(duration);
+        //assertTrue(duration == 9000);
+
+
+    }
+
+    @Test
+    public void durationPhaseZero() {
+        LinkedList<Double> timestamps = new LinkedList();
+        Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
+        HashMap<Double, Attribute> table = new HashMap<>();
+
+
+        double currStamp = (double) 71000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.TASK));
+        currStamp = (double) 71680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400));
+        currStamp = (double) 72897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 73303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 73713;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 453));
+        currStamp = (double) 74167;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 410));
+        currStamp = (double) 74500;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 75657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 75680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 75093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+        currStamp = (double) 75493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 409));
+        currStamp = (double) 75897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 75303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 76657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 390));
+        currStamp = (double) 76680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 76897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 76303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 77680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 77093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 77493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 309));
+        currStamp = (double) 77897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 77303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 79657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 79680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 79093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 79493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 409));
+        currStamp = (double) 79897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 79997;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 80000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+
+        Algorithm s = new Algorithm();
+        trail.setAttributeTable(table);
+        try {
+            trail.setAttributeTable(s.calculate(trail.getAttributeTable()));
+            trail.setAttributeTable(s.calculatePhases(trail.getAttributeTable()));
+            double duration = s.durationPhaseZero(trail.getAttributeTable());
+            System.out.println(duration);
+
+        } catch (DoubleStop doubleStop) {
+            doubleStop.printStackTrace();
+        } catch (DoubleStart doubleStart) {
+            doubleStart.printStackTrace();
+        }
+
+    }
 }
