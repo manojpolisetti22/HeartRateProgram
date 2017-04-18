@@ -130,7 +130,7 @@ public class DataViewController implements Initializable {
         MainParser parser = new MainParser();
         List<DataGrid> dataList;
         dataList = parser.csvParserDataGrid(file);
-        dataList.forEach((line) -> {
+        dataList.forEach((line) -> { // Iterate through each line in datagrid
             // Get parser parameters
             String rr_file = line.getRR_PATH();
             String behavior_file = line.getBEH_PATH();
@@ -145,10 +145,66 @@ public class DataViewController implements Initializable {
                     attrList, rr_start, rr_sync, behav_sync);
 
             // Create tabs and populate them
-            tabPane.getTabs().add(new Tab(line.getParticipantID()));
+            Tab newTab = new Tab(line.getParticipantID());
+            tabPane.getTabs().add(newTab);
             VBox box = new VBox();
-            box.getChildren().addAll(new TableView());
+            TableView newTable = new TableView();
+            box.getChildren().addAll(newTable);
+            newTab.setContent(box);
 
+            // Populate tables
+            // Analyze Dataset
+            HashMap<Double, Attribute> processedData;
+            Algorithm algo = new Algorithm();
+            try {
+                processedData = algo.calculate(parsedData);
+                processedData = algo.calculatePhases(processedData);
+            } catch (DoubleStart e) {
+                algorithmErrorAlert(e.getMessage());
+                return;
+            } catch (DoubleStop e) {
+                algorithmErrorAlert(e.getMessage());
+                return;
+            } catch (Exception e) {
+                algorithmErrorAlert("An unknown error has occured. Review your "
+                        + "datasets and try again");
+                return;
+            }
+
+            // Get contents of table
+            data = processedData;
+            List<Double> timeList = algo.sortKeys(processedData);
+            Collections.sort(timeList);
+            //List<Attribute> contents = new ArrayList();
+            final ObservableList<Attribute> contents = FXCollections.observableArrayList();
+            for (int i = 0; i < timeList.size(); i++) {
+                Attribute attribute = processedData.get(timeList.get(i));
+                contents.add(attribute);
+            }
+            newTable.setEditable(false);
+
+            // Initialize columns with data
+            TableColumn timeStampCol = new TableColumn("Timestamp");
+            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
+            TableColumn rrCol = new TableColumn("RR");
+            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("Rr"));
+            TableColumn eventTypeCol = new TableColumn("Event Type");
+            eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("Event_type"));
+            TableColumn rRChangeCol = new TableColumn("RR Change");
+            rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("rrChange"));
+            TableColumn phaseCol = new TableColumn("Phase");
+            phaseCol.setCellValueFactory(new PropertyValueFactory<>("phase"));
+            TableColumn codeTypeCol = new TableColumn("Code Type");
+            codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("code_type"));
+            TableColumn eventNumCol = new TableColumn("Event Num");
+            eventNumCol.setCellValueFactory(new PropertyValueFactory<>("event_num"));
+            TableColumn baselineCol = new TableColumn("Code Type");
+            baselineCol.setCellValueFactory(new PropertyValueFactory<>("baseLine"));
+
+            // Add information to table
+            newTable.setItems(contents);
+            newTable.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
+                    rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
         });
 
     }
