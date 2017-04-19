@@ -1,3 +1,3 @@
 PARTICIPANT_ID,USERVAR_1,USERVAR_2,RR_PATH,BEH_PATH,RR_STARTTIME,RR_SYNCTIME,BEH_SYNCTIME
 99451_9,Autism,Male,C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/docs/dataSamples/Sample_RR.csv,C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/docs/dataSamples/Sample_Behavior.csv,21.7,67,23.9664
-99451_9,Autism,Male,C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/docs/dataSamples/Sample_RR.csv,C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/docs/dataSamples/Sample_Behavior.csv,21.7,67,23.9664
+99451_10,Autism,Male,C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/docs/dataSamples/Sample_RR.csv,C:/Users/Rajith/Documents/Programming/HBAT/HeartRateProgram/docs/dataSamples/Sample_Behavior.csv,21.7,67,23.9664

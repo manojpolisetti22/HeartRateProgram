@@ -7,7 +7,9 @@ package HeartRateProgram;
 
 import HeartRateProgram.Libraries.*;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -15,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.Collections;
+import java.util.zip.ZipOutputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,6 +42,7 @@ public class DataViewController implements Initializable {
      */
     String mode;
     HashMap<Double, Attribute> data;
+    ArrayList<HashMap<Double, Attribute>> data_list = new ArrayList<HashMap<Double, Attribute>>();
     @FXML
     TableView table;
     @FXML
@@ -173,6 +177,7 @@ public class DataViewController implements Initializable {
 
             // Get contents of table
             data = processedData;
+            data_list.add(data);
             List<Double> timeList = algo.sortKeys(processedData);
             Collections.sort(timeList);
             //List<Attribute> contents = new ArrayList();
@@ -211,16 +216,33 @@ public class DataViewController implements Initializable {
 
     public void export() {
         // Getting filename
-        File file;
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save Data");
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited File(*.csv)", "*.csv"));
-            file = fileChooser.showSaveDialog(null);
-            String path = file.getAbsolutePath();
-            ConvertToCSV.convertToCSV(path, this.data);
-        } catch (Exception e) {
-            return;
+        if ("basic".equals(mode)) {
+            File file;
+            try {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save Data");
+                fileChooser.getExtensionFilters().add(new FileChooser.
+                        ExtensionFilter("Comma Delimited File(*.csv)", "*.csv"));
+                file = fileChooser.showSaveDialog(null);
+                String path = file.getAbsolutePath();
+                ConvertToCSV.convertToCSV(path, this.data);
+            } catch (Exception e) {
+                return;
+            }
+        } else if ("advanced".equals(mode)) {
+            File file; 
+            try {
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save Data");
+                fileChooser.getExtensionFilters().add(new FileChooser.
+                        ExtensionFilter("Compressed ZIP File(*.zip)","*.zip"));
+                file = fileChooser.showSaveDialog(null);
+                String path = file.getAbsolutePath();
+                ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
+                
+            } catch (Exception e) {
+                return;
+            }
         }
     }
 
