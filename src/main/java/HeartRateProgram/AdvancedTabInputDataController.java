@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -83,12 +83,12 @@ public class AdvancedTabInputDataController implements Initializable {
             try {
                 controller.initFilesAdvanced(file);
             } catch (Exception e) {
-                Alert alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Something went wrong!");
-                alert.setHeaderText(null);
-                alert.setContentText("There was a problem parsing/analyzing the file.");
-                alert.showAndWait();
-                return;
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Something went wrong!");
+		alert.setHeaderText(null);
+		alert.setContentText("There was a problem parsing/analyzing the file.");
+		alert.showAndWait();
+		return;
             }
             stage.show();
         } catch (Exception e) {

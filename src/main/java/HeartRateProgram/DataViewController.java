@@ -8,6 +8,7 @@ package HeartRateProgram;
 import HeartRateProgram.Libraries.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,11 +131,20 @@ public class DataViewController implements Initializable {
         // Preliminary tab stuff
         tabPane.getTabs().remove(0);
 
-        // Parse Datagrid
-        MainParser parser = new MainParser();
+        MainParser parser;
         List<DataGrid> dataList;
+        parser = new MainParser();
         dataList = parser.csvParserDataGrid(file);
+
         dataList.forEach((line) -> { // Iterate through each line in datagrid
+            // Create tabs and populate them
+            Tab newTab = new Tab(line.getParticipantID());
+            tabPane.getTabs().add(newTab);
+            VBox box = new VBox();
+            TableView newTable = new TableView();
+            box.getChildren().addAll(newTable);
+            newTab.setContent(box);
+
             // Get parser parameters
             String rr_file = line.getRR_PATH();
             String behavior_file = line.getBEH_PATH();
@@ -148,15 +158,6 @@ public class DataViewController implements Initializable {
             HashMap<Double, Attribute> parsedData = parser.finalParser(rrList,
                     attrList, rr_start, rr_sync, behav_sync);
 
-            // Create tabs and populate them
-            Tab newTab = new Tab(line.getParticipantID());
-            tabPane.getTabs().add(newTab);
-            VBox box = new VBox();
-            TableView newTable = new TableView();
-            box.getChildren().addAll(newTable);
-            newTab.setContent(box);
-
-            // Populate tables
             // Analyze Dataset
             HashMap<Double, Attribute> processedData;
             Algorithm algo = new Algorithm();
@@ -215,14 +216,13 @@ public class DataViewController implements Initializable {
     }
 
     public void export() {
-        // Getting filename
         if ("basic".equals(mode)) {
             File file;
             try {
+                // Getting filename
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Save Data");
-                fileChooser.getExtensionFilters().add(new FileChooser.
-                        ExtensionFilter("Comma Delimited File(*.csv)", "*.csv"));
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Comma Delimited File(*.csv)", "*.csv"));
                 file = fileChooser.showSaveDialog(null);
                 String path = file.getAbsolutePath();
                 ConvertToCSV.convertToCSV(path, this.data);
@@ -230,17 +230,19 @@ public class DataViewController implements Initializable {
                 return;
             }
         } else if ("advanced".equals(mode)) {
-            File file; 
+            File file;
             try {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Save Data");
-                fileChooser.getExtensionFilters().add(new FileChooser.
-                        ExtensionFilter("Compressed ZIP File(*.zip)","*.zip"));
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed ZIP File(*.zip)", "*.zip"));
                 file = fileChooser.showSaveDialog(null);
                 String path = file.getAbsolutePath();
                 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
-                
+                for (HashMap<Double, Attribute> filedata : data_list) {
+
+                }
             } catch (Exception e) {
+
                 return;
             }
         }
