@@ -1,26 +1,147 @@
 package HeartRateProgram.Libraries;
 
-import org.junit.Test;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-//import difflib.*;
-
-import static org.junit.Assert.*;
-//import static org.testng.AssertJUnit.assertFalse;
 
 /**
- * Created by ruhana on 4/4/17.
+ * Unit test for simple App.
  */
-public class TestAlgo {
-    private String testPath = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/src/main" +
-            "/java/HeartRateProgram/Libraries/Test_Outputs/";
+public class AppTest 
+    extends TestCase
+{
+	private String testPath = "../../resources/Test_Outputs/";
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
+    public AppTest( String testName )
+    {
+        super( testName );
+    }
+
+    /**
+     * @return the suite of tests being tested
+     */
+    public static Test suite()
+    {
+        return new TestSuite( AppTest.class );
+    }
+
+    /**
+     * Rigourous Test :-)
+     */
+    public void testApp()
+    {
+        assertTrue( true );
+    }	
+    public void testApp22()
+    {
+        assertTrue( true );
+    }	
+	public void testNormalBaseLine() 
+	{
+        LinkedList<Double> timestamps = new LinkedList();
+        Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
+        HashMap<Double, Attribute> table = new HashMap<>();
+        
+		double currStamp = (double) 71000;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.TASK));
+        currStamp = (double) 71680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 72493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 400));
+        currStamp = (double) 72897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 403));
+        currStamp = (double) 73303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 73713;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 453));
+        currStamp = (double) 74167;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 410));
+        currStamp = (double) 74500;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.START, CODE_TYPE.LOOK));
+        currStamp = (double) 75657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 490));
+        currStamp = (double) 75680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 75093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 413));
+        currStamp = (double) 75493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 409));
+        currStamp = (double) 75897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 408));
+        currStamp = (double) 75303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 407));
+        currStamp = (double) 76657;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 390));
+        currStamp = (double) 76680;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76093;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 313));
+        currStamp = (double) 76493 ;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 309));
+        currStamp = (double) 76897;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 308));
+        currStamp = (double) 76303;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, 307));
+        currStamp = (double) 78700;
+        timestamps.add(currStamp);
+        table.put(currStamp, new Attribute(currStamp, EVENT_TYPE.STOP, CODE_TYPE.LOOK));
+     
+		Algorithm s = new Algorithm();
+		trail.setAttributeTable(table);
 
 
-    @Test
-    public void testNormalBaseLine() {
+        HashMap<Double, Attribute> output= null;
+        try {
+            output = s.calculate( trail.getAttributeTable());
+        } catch (DoubleStop doubleStop) {
+            doubleStop.printStackTrace();
+        } catch (DoubleStart doubleStart) {
+            doubleStart.printStackTrace();
+        }
+        //s.printTable(output);
+
+        String path = testPath + "testNormalBaseLineOut";
+        ConvertToCSV.convertToCSV(path, output);
+        int status = ConvertToCSV.compare(testPath + "testNormalBaseLine",path);
+		assertTrue(status == 1);
+    
+	}
+}
+/*
+    public void testNormalBaseLine() 
+	{
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
         HashMap<Double, Attribute> table = new HashMap<>();
@@ -115,7 +236,7 @@ public class TestAlgo {
 
     }
 
-    @Test
+    
     public void quickLookBaseline() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -231,7 +352,7 @@ public class TestAlgo {
         assertTrue(status == 1);
     }
 
-    @Test
+    
     public void testNormalPhases() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -325,7 +446,7 @@ public class TestAlgo {
         assertTrue(status == 1);
     }
 
-    @Test
+    
     public void quickLookPhases() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -438,7 +559,7 @@ public class TestAlgo {
 
     }
 
-    @Test
+    
     public void testCSV() {
         //List<String> orginal = fileToLines("adf");
         int status = ConvertToCSV
@@ -454,7 +575,7 @@ public class TestAlgo {
         assertTrue(status == 1);
     }
 
-    @Test
+    
     public void tonsenFile1() {
         MainParser mp = new MainParser();
 
@@ -491,7 +612,7 @@ public class TestAlgo {
         assertTrue(status == 1);
     }
 
-    @Test
+    
     public void doubleStart() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -584,7 +705,7 @@ public class TestAlgo {
         assertTrue(error == 1);
     }
 
-    @Test
+    
     public void doubleStop() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -678,7 +799,7 @@ public class TestAlgo {
         assertTrue(error == 1);
     }
 
-    @Test
+    
     public void phaseOne(){
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -774,7 +895,7 @@ public class TestAlgo {
         assertTrue(status == 1);
     }
 
-    @Test
+   
     public void phaseThreeToTwo() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -904,7 +1025,7 @@ public class TestAlgo {
 
     }
 
-    @Test
+   
     public void durationLooking() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -1021,7 +1142,7 @@ public class TestAlgo {
 
     }
 
-    @Test
+    
     void durationTask() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -1139,7 +1260,6 @@ public class TestAlgo {
 
     }
 
-    @Test
     public void durationPhaseZero() {
         LinkedList<Double> timestamps = new LinkedList();
         Trial trail = new Trial("1000" ,"ChildA", new Date(2017,2,28), new Date(2017,2,28), Sex.FEMALE);
@@ -1259,6 +1379,5 @@ public class TestAlgo {
         } catch (DoubleStart doubleStart) {
             doubleStart.printStackTrace();
         }
-
     }
-}
+}*/
