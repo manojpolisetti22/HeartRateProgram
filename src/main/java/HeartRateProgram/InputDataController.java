@@ -44,7 +44,8 @@ public class InputDataController implements Initializable {
     private TextField tb_delay3;
 
     Stage thisStage;
-
+    String mode;
+    
     /**
      * Initializes the controller class.
      */
@@ -112,9 +113,11 @@ public class InputDataController implements Initializable {
         }
         if (rr_start < 0.0) {
             inputErrorAlert("RR_START time should be greater than 0.0");
+            return;
         }
         if (behav_sync < 0.0) {
             inputErrorAlert("BEHAVIORAL_START time should be greater than 0.0");
+            return;
         }
 
         // Open DataView Window
@@ -137,7 +140,7 @@ public class InputDataController implements Initializable {
     public void enableTooltips() {
         tb_part.setTooltip(new Tooltip("Unique ID for participant"));
         tb_rr.setTooltip(new Tooltip("Filepath for heart-rate CSV file"));
-        tb_behav.setTooltip(new Tooltip("Filepath for behavioral  CSV file"));
+        tb_behav.setTooltip(new Tooltip("Filepath for behavioral CSV file"));
         tb_delay1.setTooltip(new Tooltip("<Tooltip!>"));
         tb_delay2.setTooltip(new Tooltip("<Tooltip!>"));
         tb_delay3.setTooltip(new Tooltip("<Tooltip!>"));
@@ -149,6 +152,10 @@ public class InputDataController implements Initializable {
         alert.setHeaderText("There was an error in your parameters");
         alert.setContentText(errorMessage);
         alert.showAndWait();
+    }
+    
+    void setMode(String mode) {
+        this.mode = mode;
     }
 
 }

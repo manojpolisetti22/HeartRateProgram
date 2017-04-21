@@ -44,12 +44,11 @@ public class DataViewController implements Initializable {
     String mode;
     HashMap<Double, Attribute> data;
     ArrayList<HashMap<Double, Attribute>> data_list = new ArrayList<HashMap<Double, Attribute>>();
-    @FXML
-    TableView table;
-    @FXML
-    TabPane tabPane;
-    @FXML
-    Tab defaultTab;
+    
+    // Objects made in Scene Builder
+    @FXML TableView table;
+    @FXML TabPane tabPane;
+    @FXML Tab defaultTab;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
