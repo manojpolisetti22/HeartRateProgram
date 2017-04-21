@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.io.*;
 
 /**
  * Unit test for simple App.
@@ -15,7 +16,8 @@ import java.util.List;
 public class AppTest 
     extends TestCase
 {
-	private String testPath = "../../resources/Test_Outputs/";
+	private File f;	
+	private String testPath;
     /**
      * Create the test case
      *
@@ -24,6 +26,9 @@ public class AppTest
     public AppTest( String testName )
     {
         super( testName );
+		f = new File(getClass().getResource("/Test_Outputs").getFile());
+		//FileUtils.copyURLToFile(getClass().getResource("Test_Outputs"), f);
+		testPath = f.getAbsolutePath();
     }
 
     /**
@@ -41,10 +46,9 @@ public class AppTest
     {
         assertTrue( true );
     }	
-    public void testApp22()
-    {
-        assertTrue( true );
-    }	
+	
+
+
 	public void testNormalBaseLine() 
 	{
         LinkedList<Double> timestamps = new LinkedList();
