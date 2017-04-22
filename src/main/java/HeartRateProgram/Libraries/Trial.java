@@ -33,6 +33,18 @@ public class Trial {
         this.stats = null;
     }
 
+    public Trial (String trialID, HashMap<Double, Attribute> attributeTable) {
+        this.trialID = trialID;
+        this.attributeTable = attributeTable;
+    }
+
+    public Trial (String trialID) {
+        this.trialID = trialID;
+        this.attributeTable = null;
+        this.stats = null;
+
+    }
+
     public void setTrialID (String trailID) {
         this.trialID = trailID;
         this.stats = null;

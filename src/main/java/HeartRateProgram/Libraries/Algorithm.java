@@ -584,7 +584,6 @@ public class Algorithm {
 
 
 
-
     public int calculateAll(Trial trial) throws DoubleStart, DoubleStop { // returns 0 for error 1
         HashMap<Double, Attribute> attributeTable = trial.getAttributeTable();
         if(attributeTable == null) {return 0;}
@@ -594,28 +593,31 @@ public class Algorithm {
         trial.setAttributeTable(attributeTable); // sets the calculated attribute table
 
         TrailStat s = new TrailStat();
-        s.setDurationLook(durationLooking(attributeTable));
-        s.setDurationTask(durationTask(attributeTable));
-        s.setDurationOne(durationPhase(attributeTable, 1));
-        s.setDurationTwo(durationPhase(attributeTable, 2));
-        s.setDurationThree(durationPhase(attributeTable, 3));
-        s.setProportionOne(proportionTotal(attributeTable, 1));
-        s.setProportionTwo(proportionTotal(attributeTable, 2));
-        s.setProportionThree(proportionTotal(attributeTable, 3));
-        s.setRrChangeOne(averageRrChange(attributeTable, 1));
-        s.setRrChangeTwo(averageRrChange(attributeTable, 2));
-        s.setRrChangeThree(averageRrChange(attributeTable, 3));
-        s.setPhaseNOne(phaseNum(attributeTable, 1));
-        s.setPhaseNTwo(phaseNum(attributeTable, 2));
-        s.setPhaseNThree(phaseNum(attributeTable, 3));
-        s.setPeakDurationTotal(peakLook(attributeTable));
-        s.setPeakDurationOne(peakPhase(attributeTable, 1));
-        s.setPeakDurationTwo(peakPhase(attributeTable, 2));
-        s.setPeakDurationThree(peakPhase(attributeTable, 3));
 
-        s.setPeakLookOne(proportionPeakLook(attributeTable, 1));
-        s.setPeakDurationTwo(proportionPeakLook(attributeTable, 2));
-        s.setPeakLookThree(proportionPeakLook(attributeTable, 3));
+        s.setDurationTask(durationTask(attributeTable)); // duration task
+        s.setDurationLook(durationLooking(attributeTable)); // duration look
+        s.setDurationOne(durationPhase(attributeTable, 0)); // duration phase 1
+        s.setDurationOne(durationPhase(attributeTable, 1)); // duration phase 1
+        s.setDurationTwo(durationPhase(attributeTable, 2)); // duration phase 2
+        s.setDurationThree(durationPhase(attributeTable, 3)); // duration phase 3
+        s.setProportionOne(proportionTotal(attributeTable, 0)); // proportion_0
+        s.setProportionOne(proportionTotal(attributeTable, 1)); // proportion_1
+        s.setProportionTwo(proportionTotal(attributeTable, 2)); // proportion_2
+        s.setProportionThree(proportionTotal(attributeTable, 3)); // proportion_3
+        s.setRrChangeOne(averageRrChange(attributeTable, 1)); // rr_change_1
+        s.setRrChangeTwo(averageRrChange(attributeTable, 2)); // rr_change_2
+        s.setRrChangeThree(averageRrChange(attributeTable, 3)); // rr_change_3
+        s.setPhaseNOne(phaseNum(attributeTable, 0)); // phase_n_0
+        s.setPhaseNOne(phaseNum(attributeTable, 1)); // phase_n_1
+        s.setPhaseNTwo(phaseNum(attributeTable, 2)); // phase_n_2
+        s.setPhaseNThree(phaseNum(attributeTable, 3)); // phase_n_3
+        s.setPeakDurationTotal(peakLook(attributeTable)); //peak_duration_total
+        s.setPeakDurationOne(peakPhase(attributeTable, 1)); // peak_duration_1
+        s.setPeakDurationTwo(peakPhase(attributeTable, 2)); // peak_duration_2
+        s.setPeakDurationThree(peakPhase(attributeTable, 3)); // peak_duration_3
+        s.setPeakLookOne(proportionPeakLook(attributeTable, 1)); // peak_proportion_1
+        s.setPeakDurationTwo(proportionPeakLook(attributeTable, 2)); // peak_proportion_2
+        s.setPeakLookThree(proportionPeakLook(attributeTable, 3)); // peak_proportion_3
         trial.setStats(s);
 
         return 1;
