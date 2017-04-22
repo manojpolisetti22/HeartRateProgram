@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.Collections;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,7 +44,7 @@ public class DataViewController implements Initializable {
      */
     String mode;
     HashMap<Double, Attribute> data;
-    ArrayList<HashMap<Double, Attribute>> data_list = new ArrayList<HashMap<Double, Attribute>>();
+    ArrayList<Trial> data_list = new ArrayList<Trial>();
     
     // Objects made in Scene Builder
     @FXML TableView table;
@@ -52,7 +53,6 @@ public class DataViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
     }
 
@@ -157,6 +157,7 @@ public class DataViewController implements Initializable {
             // Final parser
             HashMap<Double, Attribute> parsedData = parser.finalParser(rrList,
                     attrList, rr_start, rr_sync, behav_sync);
+            Trial trial = new Trial(line.getParticipantID(), parsedData);
 
             // Analyze Dataset
             HashMap<Double, Attribute> processedData;
@@ -177,8 +178,7 @@ public class DataViewController implements Initializable {
             }
 
             // Get contents of table
-            data = processedData;
-            data_list.add(data);
+            data_list.add(trial);
             List<Double> timeList = algo.sortKeys(processedData);
             Collections.sort(timeList);
             //List<Attribute> contents = new ArrayList();
@@ -226,7 +226,8 @@ public class DataViewController implements Initializable {
                 file = fileChooser.showSaveDialog(null);
                 String path = file.getAbsolutePath();
                 ConvertToCSV.convertToCSV(path, this.data);
-            } catch (Exception e) {
+            } catch (IOException e) {
+                exportErrorAlert("The data is unable to be exported.");
                 return;
             }
         } else if ("advanced".equals(mode)) {
@@ -236,11 +237,16 @@ public class DataViewController implements Initializable {
                 fileChooser.setTitle("Save Data");
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed ZIP File(*.zip)", "*.zip"));
                 file = fileChooser.showSaveDialog(null);
-                String path = file.getAbsolutePath();
+                String parentPath = file.getParent();
                 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
-                for (HashMap<Double, Attribute> filedata : data_list) {
-
+                for (Trial trial : data_list) {
+                    String filename = parentPath + '/' + trial.getTrialID();
+                    ConvertToCSV.convertToCSV(filename,trial.getAttributeTable());
+                    ZipEntry e = new ZipEntry(filename);
+                    out.putNextEntry(e);
+                    out.closeEntry();
                 }
+                out.close();
             } catch (Exception e) {
 
                 return;
@@ -250,10 +256,17 @@ public class DataViewController implements Initializable {
 
     void algorithmErrorAlert(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("An Error has occured");
+        alert.setTitle("An Error Has Occured");
         alert.setHeaderText("There was an error when analyzing the input data");
         alert.setContentText(errorMessage);
         alert.showAndWait();
     }
-
+    
+    void exportErrorAlert(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("An Error Has Occured");
+        alert.setHeaderText("There was an error when exporting the data");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
+    }
 }
