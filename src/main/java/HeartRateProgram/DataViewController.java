@@ -163,13 +163,8 @@ public class DataViewController implements Initializable {
             HashMap<Double, Attribute> processedData;
             Algorithm algo = new Algorithm();
             try {
-                /*processedData = algo.calculate(parsedData);
-                processedData = algo.calculatePhases(processedData);*/
                 processedData = algo.calculateAll(trial);
-            } catch (DoubleStart e) {
-                algorithmErrorAlert(e.getMessage());
-                return;
-            } catch (DoubleStop e) {
+            } catch (DoubleStart | DoubleStop e) {
                 algorithmErrorAlert(e.getMessage());
                 return;
             } catch (Exception e) {
