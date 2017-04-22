@@ -58,6 +58,20 @@ public class BehaviorAttribute  {
         this.code_type = code_type;
     }
 
+    public String getStringCode_type() {
+        if(this.code_type == CODE_TYPE.NA) {
+            return "";
+        }
+        return code_type.toString();
+    }
+
+    public String getStringEvent_type() {
+        if(event_type == EVENT_TYPE.NA) {
+            return "";
+        }
+        return event_type.toString();
+    }
+
 
 }
 

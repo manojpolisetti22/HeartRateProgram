@@ -56,4 +56,11 @@ public class HeartBeatAttribute {
     public int getPhase() {
        return this.phase;
     }
+
+    public String getStringRr() {
+        if(this.rr == -1) {
+            return ".";
+        }
+        return Double.toString(rr);
+    }
 }

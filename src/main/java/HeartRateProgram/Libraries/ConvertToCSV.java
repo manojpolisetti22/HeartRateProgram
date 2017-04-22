@@ -13,16 +13,25 @@ public class ConvertToCSV {
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE = "\n";
     private static final String FILE_HEADER = "Timestamp, rr, CodeType, EventType, Event_Num, Base, rrChange, Phase ";
+    private static final String STAT_HEADER = "Duration_Task, Duration_Looking, Duration_0, Duration_1, Duration_2, " +
+            "Duration_3, Proportion_0, Proportion_1, Proportion_2, Proportion_3, RR_Change_1, RR_Change_2, " +
+            "RR_Change_3, Phases_N_0, Phases_N_1, Phases_N_2, Phases_N_3, Peak_Duration_Total, Peak_Duration_1, " +
+            "Peak_Duration_2, Peak_Duration_3, Peak_Proportion_1, Peak_Proportion_2, Peak_Proportion_3";
     private static final String UNKNOWN = ".";
 
-    public static void convertToCSV (String fileName, HashMap<Double, Attribute> table) {
+    public static File convertToCSV (String fileName, HashMap<Double, Attribute> table) {
     Algorithm algo = new Algorithm();
     List<Double> timestamps = algo.sortKeys(table);   
      FileWriter fw;
      BufferedWriter bw;
-        
+        File f = null;
+
         try { // MAYBE USE HANDLER INSTEAD!
-            fw = new FileWriter(fileName);
+
+
+            f = new File(fileName);
+            fw = new FileWriter(f);
+            //fw = new FileWriter(fileName);
             bw = new BufferedWriter(fw);
             bw.write(FILE_HEADER);
             bw.write(NEW_LINE);
@@ -56,7 +65,7 @@ public class ConvertToCSV {
                     } else {
                         bw.write( bH.getEvent_type().toString() );
                     }
-                    bw.write(COMMA_DELIMITER);
+                    bw.write(COMMA_DELIMITER); /// THIS IS WHERE U LEFT OFF
                     if (bH.getEvent_num() == -1) {
                         bw.write("");
                     } else {
@@ -86,6 +95,84 @@ public class ConvertToCSV {
                 } 
             }
             
+            bw.close();
+            fw.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return f;
+    }
+
+    public static void convertStatToCSV (String fileName, TrailStat stat) {
+        if(stat == null) {return;}
+        Algorithm algo = new Algorithm();
+        FileWriter fw;
+        BufferedWriter bw;
+
+        try { // MAYBE USE HANDLER INSTEAD!
+
+            fw = new FileWriter(fileName);
+            bw = new BufferedWriter(fw);
+            bw.write(FILE_HEADER);
+            bw.write(NEW_LINE);
+
+            bw.write(Double.toString(stat.getDurationTask()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getDurationLook()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getDurationZero()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getDurationOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getDurationTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getDurationThree()));
+            bw.write(COMMA_DELIMITER);
+
+
+            bw.write(Double.toString(stat.getProportionZero()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getProportionOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getProportionTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getProportionThree()));
+            bw.write(COMMA_DELIMITER);
+
+            bw.write(Double.toString(stat.getRrChangeOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getRrChangeTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getRrChangeThree()));
+            bw.write(COMMA_DELIMITER);
+
+            bw.write(Double.toString(stat.getPhaseNZero()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPhaseNOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPhaseNTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPhaseNThree()));
+            bw.write(COMMA_DELIMITER);
+
+            bw.write(Double.toString(stat.getPeakDurationTotal()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPeakDurationOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPeakDurationTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPeakDurationThree()));
+            bw.write(COMMA_DELIMITER);
+
+
+            bw.write(Double.toString(stat.getPeakLookOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPeakLookTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat.getPeakLookThree()));
+            bw.write(COMMA_DELIMITER);
+
             bw.close();
             fw.close();
 
@@ -152,7 +239,8 @@ public class ConvertToCSV {
  
         trail.setAttributeTable(table);
 
-        convertToCSV("/Users/ruhana/testCSV" , table);
+            convertToCSV("/Users/ruhana/testCSV" , table);
+
 
     }
 
