@@ -98,7 +98,7 @@ public class ConvertToCSV {
         return f;
     }
 
-    public static void convertStatToCSV(String fileName, TrailStat stat) throws IOException {
+    public static void convertStatToCSV(String fileName, TrailStat [] stat) throws IOException {
         if (stat == null) {
             return;
         }
@@ -108,62 +108,67 @@ public class ConvertToCSV {
 
         fw = new FileWriter(fileName);
         bw = new BufferedWriter(fw);
-        bw.write(FILE_HEADER);
-        bw.write(NEW_LINE);
+        for(int i = 0; i < stat.length; i++) {
+            bw.write(FILE_HEADER);
+            bw.write(NEW_LINE);
 
-        bw.write(Double.toString(stat.getDurationTask()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getDurationLook()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getDurationZero()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getDurationOne()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getDurationTwo()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getDurationThree()));
-        bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getDurationTask()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getDurationLook()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getDurationZero()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getDurationOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getDurationTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getDurationThree()));
+            bw.write(COMMA_DELIMITER);
 
-        bw.write(Double.toString(stat.getProportionZero()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getProportionOne()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getProportionTwo()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getProportionThree()));
-        bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getProportionZero()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getProportionOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getProportionTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getProportionThree()));
+            bw.write(COMMA_DELIMITER);
 
-        bw.write(Double.toString(stat.getRrChangeOne()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getRrChangeTwo()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getRrChangeThree()));
-        bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getRrChangeOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getRrChangeTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getRrChangeThree()));
+            bw.write(COMMA_DELIMITER);
 
-        bw.write(Double.toString(stat.getPhaseNZero()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPhaseNOne()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPhaseNTwo()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPhaseNThree()));
-        bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPhaseNZero()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPhaseNOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPhaseNTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPhaseNThree()));
+            bw.write(COMMA_DELIMITER);
 
-        bw.write(Double.toString(stat.getPeakDurationTotal()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPeakDurationOne()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPeakDurationTwo()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPeakDurationThree()));
-        bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPeakDurationTotal()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPeakDurationOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPeakDurationTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPeakDurationThree()));
+            bw.write(COMMA_DELIMITER);
 
-        bw.write(Double.toString(stat.getPeakLookOne()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPeakLookTwo()));
-        bw.write(COMMA_DELIMITER);
-        bw.write(Double.toString(stat.getPeakLookThree()));
-        bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPeakLookOne()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPeakLookTwo()));
+            bw.write(COMMA_DELIMITER);
+            bw.write(Double.toString(stat[i].getPeakLookThree()));
+            bw.write(COMMA_DELIMITER);
+
+            bw.write(NEW_LINE);
+
+        }
 
         bw.close();
         fw.close();
