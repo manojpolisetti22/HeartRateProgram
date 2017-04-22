@@ -189,19 +189,19 @@ public class DataViewController implements Initializable {
             TableColumn timeStampCol = new TableColumn("Timestamp");
             timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
             TableColumn rrCol = new TableColumn("RR");
-            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("Rr"));
+            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("stringRr"));
             TableColumn eventTypeCol = new TableColumn("Event Type");
-            eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("Event_type"));
+            eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_type"));
             TableColumn rRChangeCol = new TableColumn("RR Change");
-            rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("rrChange"));
+            rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("StringRrChange"));
             TableColumn phaseCol = new TableColumn("Phase");
-            phaseCol.setCellValueFactory(new PropertyValueFactory<>("phase"));
+            phaseCol.setCellValueFactory(new PropertyValueFactory<>("stringPhase"));
             TableColumn codeTypeCol = new TableColumn("Code Type");
-            codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("code_type"));
+            codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringCode_type"));
             TableColumn eventNumCol = new TableColumn("Event Num");
-            eventNumCol.setCellValueFactory(new PropertyValueFactory<>("event_num"));
+            eventNumCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_num"));
             TableColumn baselineCol = new TableColumn("Code Type");
-            baselineCol.setCellValueFactory(new PropertyValueFactory<>("baseLine"));
+            baselineCol.setCellValueFactory(new PropertyValueFactory<>("stringBaseLine"));
 
             // Add information to table
             newTable.setItems(contents);
