@@ -111,7 +111,11 @@ public class TestAlgo {
 
         String path = testPath + "testNormalBaseLineOut";
 
+        try {
             ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int status = ConvertToCSV.compare(testPath + "testNormalBaseLine",path);
         assertTrue(status == 1);
@@ -230,7 +234,11 @@ public class TestAlgo {
 
         String path = testPath + "quickLookBaseLineOut";
 
+        try {
             ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int status = ConvertToCSV.compare(testPath + "quickLookBaseLine",path);
         assertTrue(status == 1);
@@ -326,7 +334,11 @@ public class TestAlgo {
 
         String path = testPath + "testNormalPhaseOut";
 
+        try {
             ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int status = ConvertToCSV.compare("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/src/main/java/HeartRateProgram/Libraries/Test_Outputs/testNormalPhases",path);
         assertTrue(status == 1);
@@ -439,7 +451,11 @@ public class TestAlgo {
 
         String path = testPath + "quickLookPhasesOut";
 
+        try {
             ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int status = ConvertToCSV.compare(testPath + "quickLookPhases",path);
         assertTrue(status == 1);
@@ -496,7 +512,11 @@ public class TestAlgo {
         //al.printTable(trail.getAttributeTable());
         String path = testPath + "tonsenFile1";
 
+        try {
             ConvertToCSV.convertToCSV(path, trail.getAttributeTable());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int status = ConvertToCSV.compare(testPath + "tonsenFile1",path);
         assertTrue(status == 1);
@@ -781,7 +801,11 @@ public class TestAlgo {
 
         String path = testPath + "phaseOneOut";
 
+        try {
             ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int status = ConvertToCSV.compare(testPath + "phaseOne",path);
         assertTrue(status == 1);
@@ -912,7 +936,11 @@ public class TestAlgo {
 
         String path = testPath + "phaseThreeToTwoOut";
 
+        try {
             ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         int status = ConvertToCSV.compare(testPath + "phaseThreeToTwo", path);
         assertTrue(status == 1);

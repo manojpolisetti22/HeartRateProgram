@@ -19,14 +19,12 @@ public class ConvertToCSV {
             "Peak_Duration_2, Peak_Duration_3, Peak_Proportion_1, Peak_Proportion_2, Peak_Proportion_3";
     private static final String UNKNOWN = ".";
 
-    public static File convertToCSV (String fileName, HashMap<Double, Attribute> table) {
+    public static File convertToCSV (String fileName, HashMap<Double, Attribute> table) throws IOException {
     Algorithm algo = new Algorithm();
     List<Double> timestamps = algo.sortKeys(table);   
      FileWriter fw;
      BufferedWriter bw;
         File f = null;
-
-        try { // MAYBE USE HANDLER INSTEAD!
 
 
             f = new File(fileName);
@@ -98,19 +96,15 @@ public class ConvertToCSV {
             bw.close();
             fw.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return f;
     }
 
-    public static void convertStatToCSV (String fileName, TrailStat stat) {
+    public static void convertStatToCSV (String fileName, TrailStat stat) throws IOException {
         if(stat == null) {return;}
         Algorithm algo = new Algorithm();
         FileWriter fw;
         BufferedWriter bw;
 
-        try { // MAYBE USE HANDLER INSTEAD!
 
             fw = new FileWriter(fileName);
             bw = new BufferedWriter(fw);
@@ -176,9 +170,6 @@ public class ConvertToCSV {
             bw.close();
             fw.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     
     
@@ -239,7 +230,11 @@ public class ConvertToCSV {
  
         trail.setAttributeTable(table);
 
+        try {
             convertToCSV("/Users/ruhana/testCSV" , table);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }
