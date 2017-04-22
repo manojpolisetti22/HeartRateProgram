@@ -121,6 +121,7 @@ public class DataViewController implements Initializable {
         table.setItems(contents);
         table.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
                 rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
+        defaultTab.setText(participant_id);
 
     }
 
