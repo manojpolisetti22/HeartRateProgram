@@ -584,9 +584,9 @@ public class Algorithm {
 
 
 
-    public int calculateAll(Trial trial) throws DoubleStart, DoubleStop { // returns 0 for error 1
+    public HashMap<Double, Attribute> calculateAll(Trial trial) throws DoubleStart, DoubleStop { // returns 0 for error 1
         HashMap<Double, Attribute> attributeTable = trial.getAttributeTable();
-        if(attributeTable == null) {return 0;}
+        if(attributeTable == null) {return attributeTable;}
 
         attributeTable = calculate(attributeTable);
         attributeTable = calculatePhases(attributeTable);
@@ -620,7 +620,7 @@ public class Algorithm {
         s.setPeakLookThree(proportionPeakLook(attributeTable, 3)); // peak_proportion_3
         trial.setStats(s);
 
-        return 1;
+        return attributeTable;
     }
 
 }
