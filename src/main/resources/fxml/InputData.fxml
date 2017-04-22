@@ -6,20 +6,20 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HeartRateProgram.InputDataController">
    <children>
-      <VBox layoutY="-14.0" prefHeight="350.0" prefWidth="553.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <MenuBar prefHeight="0.0" prefWidth="600.0">
+      <BorderPane prefHeight="420.0" prefWidth="565.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar prefWidth="600.0" BorderPane.alignment="CENTER">
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
@@ -28,64 +28,67 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                        <MenuItem mnemonicParsing="false" onAction="#toggleTooltips" text="Toggle Tooltips" />
                     <MenuItem mnemonicParsing="false" text="About" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
-            <GridPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="208.0" prefWidth="600.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="87.0" />
-                <ColumnConstraints maxWidth="375.0" minWidth="10.0" prefWidth="329.0" />
-                  <ColumnConstraints maxWidth="214.0" minWidth="10.0" prefWidth="99.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" />
-              </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RR Input File" GridPane.rowIndex="1" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Behavior Input" GridPane.rowIndex="2" />
-                  <TextField id="tb_rr" fx:id="tb_rr" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="tb_behav" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button fx:id="btn_rr" mnemonicParsing="false" onAction="#getFileName_rr" prefHeight="25.0" prefWidth="172.0" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button fx:id="btn_behav" mnemonicParsing="false" onAction="#getFileName_behav" prefHeight="25.0" prefWidth="181.0" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Participant ID" />
-                  <TextField fx:id="tb_part" GridPane.columnIndex="1">
-                     <tooltip>
-                        <Tooltip text="Empty Tooltip" />
-                     </tooltip></TextField>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RR Start Time" GridPane.rowIndex="3" />
-                  <TextField fx:id="tb_delay1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RR Sync Time" GridPane.rowIndex="4" />
-                  <TextField fx:id="tb_delay2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Behavioral Sync Time" GridPane.rowIndex="5" />
-                  <TextField fx:id="tb_delay3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </GridPane>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+         </top>
+         <left>
+            <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="ALWAYS" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="215.0" prefWidth="596.0" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="599.0">
+                     <children>
+                        <GridPane hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="169.0" prefWidth="602.0" vgap="5.0">
+                          <columnConstraints>
+                            <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="150.0" />
+                            <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="150.0" prefWidth="329.0" />
+                              <ColumnConstraints fillWidth="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="99.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                          </rowConstraints>
+                           <children>
+                              <TextField fx:id="tb_part" GridPane.columnIndex="1" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RR Input File" GridPane.rowIndex="1" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Behavior Input" GridPane.rowIndex="2" />
+                              <TextField id="tb_rr" fx:id="tb_rr" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button fx:id="btn_rr" mnemonicParsing="false" onAction="#getFileName_rr" prefHeight="25.0" prefWidth="172.0" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField fx:id="tb_behav" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button fx:id="btn_behav" mnemonicParsing="false" onAction="#getFileName_behav" prefHeight="25.0" prefWidth="181.0" text="Browse..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Participant ID" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RR Start Time" GridPane.rowIndex="3" />
+                              <TextField fx:id="tb_delay1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RR Sync Time" GridPane.rowIndex="4" />
+                              <TextField fx:id="tb_delay2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Behavioral Sync Time" GridPane.rowIndex="5" />
+                              <TextField fx:id="tb_delay3" prefHeight="51.0" prefWidth="329.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </left>
+         <bottom>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#done" text="Done" />
+                  <Button mnemonicParsing="false" text="Add Dataset" />
+                <Button mnemonicParsing="false" text="Done" />
               </buttons>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
             </ButtonBar>
-         </children>
-      </VBox>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>
