@@ -201,7 +201,7 @@ public class DataViewController implements Initializable {
             TableColumn timeStampCol = new TableColumn("Timestamp");
             timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
             TableColumn rrCol = new TableColumn("RR");
-            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("stringRr"));
+            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("StringRr"));
             TableColumn eventTypeCol = new TableColumn("Event Type");
             eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_type"));
             TableColumn rRChangeCol = new TableColumn("RR Change");
@@ -230,6 +230,7 @@ public class DataViewController implements Initializable {
             AnchorPane.setRightAnchor(box1, 0.0);
             box1.getChildren().addAll(new Label("Duration Task"), new TextField());
             statsPane.getChildren().add(box1);
+            
 
             // Set up splitpane
             pane.getItems().add(0, tablePane);
@@ -246,82 +247,6 @@ public class DataViewController implements Initializable {
             }
             tabPane.getTabs().add(tab);
         });
-
-        /*dataList.forEach((line) -> { // Iterate through each line in datagrid
-            // Create tabs and populate them
-            Tab newTab = new Tab(line.getParticipantID());
-            tabPane.getTabs().add(newTab);
-            VBox box = new VBox();
-            TableView newTable = new TableView();
-            box.getChildren().addAll(newTable);
-            newTab.setContent(box);
-
-            // Get parser parameters
-            String rr_file = line.getRR_PATH();
-            String behavior_file = line.getBEH_PATH();
-            List<Double> rrList = parser.csvParserHeartRate(rr_file);
-            List<Attribute> attrList = parser.csvParserBehavioral(behavior_file);
-            Double rr_start = line.getRR_START();
-            Double rr_sync = line.getRR_SYNC();
-            Double behav_sync = line.getBEH_SYNC();
-
-            // Final parser
-            HashMap<Double, Attribute> parsedData = parser.finalParser(rrList,
-                    attrList, rr_start, rr_sync, behav_sync);
-            Trial trial = new Trial(line.getParticipantID(), parsedData);
-
-            // Analyze Dataset
-            HashMap<Double, Attribute> processedData;
-            Algorithm algo = new Algorithm();
-            try {
-                processedData = algo.calculateAll(trial);
-            } catch (DoubleStart | DoubleStop e) {
-                algorithmErrorAlert(e.getMessage());
-                return;
-            } catch (Exception e) {
-                algorithmErrorAlert("An unknown error has occured. Review your "
-                        + "datasets and try again");
-                return;
-            }
-
-            // Get contents of table
-            data_list.add(trial);
-            List<Double> timeList = algo.sortKeys(processedData);
-            Collections.sort(timeList);
-            //List<Attribute> contents = new ArrayList();
-            final ObservableList<Attribute> contents = FXCollections.observableArrayList();
-            for (int i = 0; i < timeList.size(); i++) {
-                Attribute attribute = processedData.get(timeList.get(i));
-                contents.add(attribute);
-            }
-            newTable.setEditable(false);
-
-            // Initialize columns with data
-            TableColumn timeStampCol = new TableColumn("Timestamp");
-            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
-            TableColumn rrCol = new TableColumn("RR");
-            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("stringRr"));
-            TableColumn eventTypeCol = new TableColumn("Event Type");
-            eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_type"));
-            TableColumn rRChangeCol = new TableColumn("RR Change");
-            rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("StringRrChange"));
-            TableColumn phaseCol = new TableColumn("Phase");
-            phaseCol.setCellValueFactory(new PropertyValueFactory<>("stringPhase"));
-            TableColumn codeTypeCol = new TableColumn("Code Type");
-            codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringCode_type"));
-            TableColumn eventNumCol = new TableColumn("Event Num");
-            eventNumCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_num"));
-            TableColumn baselineCol = new TableColumn("Code Type");
-            baselineCol.setCellValueFactory(new PropertyValueFactory<>("stringBaseLine"));
-
-            // Add information to table
-            newTable.setItems(contents);
-            newTable.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
-                    rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
-            
-            // Fill in statistics
-            tb_durationTask.setText(Double.toString(trial.getStats().getDurationTask()));
-        });*/
     }
 
     public void export() {
