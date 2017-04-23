@@ -23,13 +23,18 @@ import java.util.zip.ZipOutputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -46,7 +51,7 @@ public class DataViewController implements Initializable {
     String mode;
     HashMap<Double, Attribute> data;
     ArrayList<Trial> data_list = new ArrayList<Trial>();
-    
+
     // Objects made in Scene Builder
     @FXML TableView table;
     @FXML TabPane tabPane;
@@ -127,18 +132,52 @@ public class DataViewController implements Initializable {
 
     }
 
-    public void initFilesAdvanced(String file) {
+    public void initFilesAdvanced(List<DataGrid> dataList) {
         mode = "Advanced";
 
         // Preliminary tab stuff
-        tabPane.getTabs().remove(0);
+        //tabPane.getTabs().remove(0);
 
-        MainParser parser;
-        List<DataGrid> dataList;
-        parser = new MainParser();
-        dataList = parser.csvParserDataGrid(file);
 
-        dataList.forEach((line) -> { // Iterate through each line in datagrid
+        dataList.forEach((line) -> {
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TabContent.fxml"));
+            // Create Pane inside tab
+            SplitPane pane = new SplitPane();
+            pane.setDividerPositions(0.5);
+            pane.setPrefSize(790, 715);
+            // Create table and encompassing pane
+            AnchorPane tablePane = new AnchorPane();
+            tablePane.setMinSize(0, 0);
+            tablePane.setPrefSize(100, 160);
+            TableView table = new TableView();
+            table.setMinSize(0, 0);
+            tablePane.getChildren().add(table);
+            AnchorPane.setLeftAnchor(table, 0.0);
+            AnchorPane.setRightAnchor(table, 0.0);
+            pane.getItems().add(0,tablePane);
+            // Create stats viewer and encompassing containers
+            AnchorPane statsPane = new AnchorPane();
+            statsPane.setMinSize(0.0,0.0);
+            statsPane.setPrefSize(100.0,160.0);
+            HBox box1 = new HBox();
+            AnchorPane.setLeftAnchor(box1, 0.0);
+            AnchorPane.setRightAnchor(box1, 0.0);
+            box1.getChildren().addAll(new Label("Duration Task"), new TextField());
+            statsPane.getChildren().add(box1);
+            pane.getItems().add(1,statsPane);
+            // Create and populate Tab
+            Tab tab = new Tab("Some title");
+            try {
+                tab.setContent(pane);
+            } catch (Exception e) {
+                System.out.println("Seomthing went wrong");
+                e.printStackTrace();
+                return;
+            }
+            tabPane.getTabs().add(tab);
+        });
+
+        /*dataList.forEach((line) -> { // Iterate through each line in datagrid
             // Create tabs and populate them
             Tab newTab = new Tab(line.getParticipantID());
             tabPane.getTabs().add(newTab);
@@ -212,8 +251,7 @@ public class DataViewController implements Initializable {
             
             // Fill in statistics
             tb_durationTask.setText(Double.toString(trial.getStats().getDurationTask()));
-        });
-
+        });*/
     }
 
     public void export() {
@@ -242,7 +280,7 @@ public class DataViewController implements Initializable {
                 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
                 for (Trial trial : data_list) {
                     String filename = parentPath + '/' + trial.getTrialID();
-                    ConvertToCSV.convertToCSV(filename,trial.getAttributeTable());
+                    ConvertToCSV.convertToCSV(filename, trial.getAttributeTable());
                     ZipEntry e = new ZipEntry(filename);
                     out.putNextEntry(e);
                     out.closeEntry();
@@ -262,7 +300,7 @@ public class DataViewController implements Initializable {
         alert.setContentText(errorMessage);
         alert.showAndWait();
     }
-    
+
     void exportErrorAlert(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("An Error Has Occured");
