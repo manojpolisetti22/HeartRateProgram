@@ -53,10 +53,14 @@ public class DataViewController implements Initializable {
     ArrayList<Trial> data_list = new ArrayList<Trial>();
 
     // Objects made in Scene Builder
-    @FXML TableView table;
-    @FXML TabPane tabPane;
-    @FXML Tab defaultTab;
-    @FXML TextField tb_durationTask;
+    @FXML
+    TableView table;
+    @FXML
+    TabPane tabPane;
+    @FXML
+    Tab defaultTab;
+    @FXML
+    TextField tb_durationTask;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -137,14 +141,14 @@ public class DataViewController implements Initializable {
 
         // Preliminary tab stuff
         //tabPane.getTabs().remove(0);
-
+        MainParser parser = new MainParser();
 
         dataList.forEach((line) -> {
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/TabContent.fxml"));
             // Create Pane inside tab
             SplitPane pane = new SplitPane();
             pane.setDividerPositions(0.5);
             pane.setPrefSize(790, 715);
+
             // Create table and encompassing pane
             AnchorPane tablePane = new AnchorPane();
             tablePane.setMinSize(0, 0);
@@ -154,23 +158,89 @@ public class DataViewController implements Initializable {
             tablePane.getChildren().add(table);
             AnchorPane.setLeftAnchor(table, 0.0);
             AnchorPane.setRightAnchor(table, 0.0);
-            pane.getItems().add(0,tablePane);
+
+            // Get parser parameters
+            String rr_file = line.getRR_PATH();
+            String behavior_file = line.getBEH_PATH();
+            List<Double> rrList = parser.csvParserHeartRate(rr_file);
+            List<Attribute> attrList = parser.csvParserBehavioral(behavior_file);
+            Double rr_start = line.getRR_START();
+            Double rr_sync = line.getRR_SYNC();
+            Double behav_sync = line.getBEH_SYNC();
+
+            // Final parser
+            HashMap<Double, Attribute> parsedData = parser.finalParser(rrList,
+                    attrList, rr_start, rr_sync, behav_sync);
+            Trial trial = new Trial(line.getParticipantID(), parsedData);
+
+            // Analyze Dataset
+            HashMap<Double, Attribute> processedData;
+            Algorithm algo = new Algorithm();
+            try {
+                processedData = algo.calculateAll(trial);
+            } catch (DoubleStart | DoubleStop e) {
+                algorithmErrorAlert(e.getMessage());
+                return;
+            } catch (Exception e) {
+                algorithmErrorAlert("An unknown error has occured. Review your "
+                        + "datasets and try again");
+                return;
+            }
+
+            // Get contents of table
+            data_list.add(trial);
+            List<Double> timeList = algo.sortKeys(processedData);
+            Collections.sort(timeList);
+            final ObservableList<Attribute> contents = FXCollections.observableArrayList();
+            for (int i = 0; i < timeList.size(); i++) {
+                Attribute attribute = processedData.get(timeList.get(i));
+                contents.add(attribute);
+            }
+
+            // Initialize columns with data
+            TableColumn timeStampCol = new TableColumn("Timestamp");
+            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
+            TableColumn rrCol = new TableColumn("RR");
+            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("stringRr"));
+            TableColumn eventTypeCol = new TableColumn("Event Type");
+            eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_type"));
+            TableColumn rRChangeCol = new TableColumn("RR Change");
+            rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("StringRrChange"));
+            TableColumn phaseCol = new TableColumn("Phase");
+            phaseCol.setCellValueFactory(new PropertyValueFactory<>("stringPhase"));
+            TableColumn codeTypeCol = new TableColumn("Code Type");
+            codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringCode_type"));
+            TableColumn eventNumCol = new TableColumn("Event Num");
+            eventNumCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_num"));
+            TableColumn baselineCol = new TableColumn("Code Type");
+            baselineCol.setCellValueFactory(new PropertyValueFactory<>("stringBaseLine"));
+
+            // Add information to table
+            table.setEditable(false);
+            table.setItems(contents);
+            table.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
+                    rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
+
             // Create stats viewer and encompassing containers
             AnchorPane statsPane = new AnchorPane();
-            statsPane.setMinSize(0.0,0.0);
-            statsPane.setPrefSize(100.0,160.0);
+            statsPane.setMinSize(0.0, 0.0);
+            statsPane.setPrefSize(100.0, 160.0);
             HBox box1 = new HBox();
             AnchorPane.setLeftAnchor(box1, 0.0);
             AnchorPane.setRightAnchor(box1, 0.0);
             box1.getChildren().addAll(new Label("Duration Task"), new TextField());
             statsPane.getChildren().add(box1);
-            pane.getItems().add(1,statsPane);
+
+            // Set up splitpane
+            pane.getItems().add(0, tablePane);
+            pane.getItems().add(1, statsPane);
+
             // Create and populate Tab
-            Tab tab = new Tab("Some title");
+            Tab tab = new Tab(line.getParticipantID());
             try {
                 tab.setContent(pane);
             } catch (Exception e) {
-                System.out.println("Seomthing went wrong");
+                System.out.println("Something went wrong");
                 e.printStackTrace();
                 return;
             }
