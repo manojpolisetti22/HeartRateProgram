@@ -28,6 +28,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
@@ -50,6 +51,7 @@ public class DataViewController implements Initializable {
     @FXML TableView table;
     @FXML TabPane tabPane;
     @FXML Tab defaultTab;
+    @FXML TextField tb_durationTask;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -207,6 +209,9 @@ public class DataViewController implements Initializable {
             newTable.setItems(contents);
             newTable.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
                     rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
+            
+            // Fill in statistics
+            tb_durationTask.setText(Double.toString(trial.getStats().getDurationTask()));
         });
 
     }
