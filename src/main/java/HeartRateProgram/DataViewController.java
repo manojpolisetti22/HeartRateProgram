@@ -223,14 +223,7 @@ public class DataViewController implements Initializable {
 
             // Create stats viewer and encompassing containers
             AnchorPane statsPane = new AnchorPane();
-            statsPane.setMinSize(0.0, 0.0);
-            statsPane.setPrefSize(100.0, 160.0);
-            HBox box1 = new HBox();
-            AnchorPane.setLeftAnchor(box1, 0.0);
-            AnchorPane.setRightAnchor(box1, 0.0);
-            box1.getChildren().addAll(new Label("Duration Task"), new TextField());
-            statsPane.getChildren().add(box1);
-            
+            statsPane.getChildren().add(createHBox("Hello", "World"));
 
             // Set up splitpane
             pane.getItems().add(0, tablePane);
@@ -286,6 +279,26 @@ public class DataViewController implements Initializable {
                 return;
             }
         }
+    }
+
+    HBox createHBox(String labelText, String textFieldText) {
+        // Create box
+        HBox box = new HBox();
+        AnchorPane.setLeftAnchor(box, 0.0);
+        AnchorPane.setRightAnchor(box, 0.0);
+        
+        // Fill in the blanks
+        Label label = new Label(labelText);
+        TextField textField = new TextField(textFieldText);
+        box.getChildren().addAll(label, textField);
+        label.setMaxWidth(50.0); label.setMinWidth(0.0); label.setPrefWidth(120.0);
+        textField.setEditable(false); 
+        textField.setMaxWidth(Integer.MAX_VALUE);
+        textField.setMinWidth(120);
+        textField.setPrefWidth(226.0);
+        textField.setPrefHeight(25.0);
+        
+        return box;
     }
 
     void algorithmErrorAlert(String errorMessage) {
