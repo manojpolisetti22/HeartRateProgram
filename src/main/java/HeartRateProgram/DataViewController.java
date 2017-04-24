@@ -24,8 +24,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -139,8 +143,8 @@ public class DataViewController implements Initializable {
     public void initFilesAdvanced(List<DataGrid> dataList) {
         mode = "Advanced";
 
-        // Preliminary tab stuff
-        //tabPane.getTabs().remove(0);
+        // Preliminary stuff
+        tabPane.getTabs().remove(0);
         MainParser parser = new MainParser();
 
         dataList.forEach((line) -> {
@@ -223,7 +227,42 @@ public class DataViewController implements Initializable {
 
             // Create stats viewer and encompassing containers
             AnchorPane statsPane = new AnchorPane();
-            statsPane.getChildren().add(createHBox("Hello", "World"));
+            TrailStat stats = trial.getStats();
+            VBox vbox = new VBox();
+            vbox.setPadding(new Insets(10));
+            vbox.setSpacing(8);
+            vbox.getChildren().add(createHBox("Duration Task", Double.toString(stats.getDurationTask())));
+            vbox.getChildren().add(createHBox("Duration Looking", Double.toString(stats.getDurationLook())));
+            vbox.getChildren().add(createHBox("Duration 0", Double.toString(stats.getDurationZero())));
+            vbox.getChildren().add(createHBox("Duration 1", Double.toString(stats.getDurationOne())));
+            vbox.getChildren().add(createHBox("Duration 2", Double.toString(stats.getDurationTwo())));
+            vbox.getChildren().add(createHBox("Duration 3", Double.toString(stats.getDurationThree())));
+            vbox.getChildren().add(createHBox("Proportion 0", Double.toString(stats.getProportionZero())));
+            vbox.getChildren().add(createHBox("Proportion 1", Double.toString(stats.getProportionOne())));
+            vbox.getChildren().add(createHBox("Proportion 2", Double.toString(stats.getProportionTwo())));
+            vbox.getChildren().add(createHBox("Proportion 3", Double.toString(stats.getProportionThree())));
+            vbox.getChildren().add(createHBox("RR Change 1", Double.toString(stats.getRrChangeOne())));
+            vbox.getChildren().add(createHBox("RR Change 2", Double.toString(stats.getRrChangeTwo())));
+            vbox.getChildren().add(createHBox("RR Change 3", Double.toString(stats.getRrChangeThree())));
+            vbox.getChildren().add(createHBox("Phases N_0", Double.toString(stats.getPhaseNZero())));
+            vbox.getChildren().add(createHBox("Phases N_1", Double.toString(stats.getPhaseNOne())));
+            vbox.getChildren().add(createHBox("Phases N_2", Double.toString(stats.getPhaseNTwo())));
+            vbox.getChildren().add(createHBox("Phases N_3", Double.toString(stats.getPhaseNThree())));
+            vbox.getChildren().add(createHBox("Peak Duration Total", Double.toString(stats.getPeakDurationTotal())));
+            vbox.getChildren().add(createHBox("Peak Duration 1", Double.toString(stats.getPeakDurationOne())));
+            vbox.getChildren().add(createHBox("Peak Duration 2", Double.toString(stats.getPeakDurationTwo())));
+            vbox.getChildren().add(createHBox("Peak Duration 3", Double.toString(stats.getPeakDurationThree())));
+            vbox.getChildren().add(createHBox("Peak Proportion 1", Double.toString(stats.getProportionOne())));
+            vbox.getChildren().add(createHBox("Peak Proportion 2", Double.toString(stats.getProportionTwo())));
+            vbox.getChildren().add(createHBox("Peak Proportion 3", Double.toString(stats.getProportionThree())));
+            ScrollPane scroller = new ScrollPane();
+            scroller.setContent(vbox);
+            scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+            statsPane.getChildren().add(scroller);
+            AnchorPane.setBottomAnchor(scroller, 0.0);
+            AnchorPane.setTopAnchor(scroller, 0.0);
+            AnchorPane.setLeftAnchor(scroller, 0.0);
+            AnchorPane.setRightAnchor(scroller, 0.0);
 
             // Set up splitpane
             pane.getItems().add(0, tablePane);
@@ -243,7 +282,7 @@ public class DataViewController implements Initializable {
     }
 
     public void export() {
-        if ("basic".equals(mode)) {
+        if ("Basic".equals(mode)) {
             File file;
             try {
                 // Getting filename
@@ -257,7 +296,7 @@ public class DataViewController implements Initializable {
                 exportErrorAlert("The data is unable to be exported.");
                 return;
             }
-        } else if ("advanced".equals(mode)) {
+        } else if ("Advanced".equals(mode)) {
             File file;
             try {
                 FileChooser fileChooser = new FileChooser();
@@ -275,7 +314,7 @@ public class DataViewController implements Initializable {
                 }
                 out.close();
             } catch (Exception e) {
-
+                System.out.println("asdf");
                 return;
             }
         }
@@ -286,18 +325,20 @@ public class DataViewController implements Initializable {
         HBox box = new HBox();
         AnchorPane.setLeftAnchor(box, 0.0);
         AnchorPane.setRightAnchor(box, 0.0);
-        
+
         // Fill in the blanks
         Label label = new Label(labelText);
         TextField textField = new TextField(textFieldText);
         box.getChildren().addAll(label, textField);
-        label.setMaxWidth(50.0); label.setMinWidth(0.0); label.setPrefWidth(120.0);
-        textField.setEditable(false); 
+        label.setPrefWidth(120.0);
+        label.setMinWidth(label.getPrefWidth());
+        label.setMaxWidth(label.getPrefWidth());
+        textField.setEditable(false);
         textField.setMaxWidth(Integer.MAX_VALUE);
         textField.setMinWidth(120);
-        textField.setPrefWidth(226.0);
+        textField.setPrefWidth(200.0);
         textField.setPrefHeight(25.0);
-        
+
         return box;
     }
 
