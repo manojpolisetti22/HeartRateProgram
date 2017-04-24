@@ -205,7 +205,7 @@ public class DataViewController implements Initializable {
             TableColumn timeStampCol = new TableColumn("Timestamp");
             timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
             TableColumn rrCol = new TableColumn("RR");
-            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("StringRr"));
+            rrCol.setCellValueFactory(new PropertyValueFactory<>("StringRr"));
             TableColumn eventTypeCol = new TableColumn("Event Type");
             eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_type"));
             TableColumn rRChangeCol = new TableColumn("RR Change");
