@@ -30,7 +30,9 @@ public class Algorithm {
         trail.setAttributeTable(finalMap);
         //al.printTable(trail.getAttributeTable());
         try {
-            trail.setAttributeTable(al.calculate(finalMap));
+            //trail.setAttributeTable(al.calculate(finalMap));
+            al.calculateAll(trail);
+            al.printTable(trail.getAttributeTable());
         } catch (DoubleStop doubleStop) {
             doubleStop.printStackTrace();
         } catch (DoubleStart doubleStart) {
@@ -317,11 +319,11 @@ public class Algorithm {
         return totalLook;
     }
 
-    /*public double durationTask(HashMap<Double, Attribute> attributeTable) {
+    public double durationTask(HashMap<Double, Attribute> attributeTable) {
         List<Double> timeList = sortKeys(attributeTable);
         Collections.sort(timeList);
-        double task = -1;
-        double totalTask = 0;
+        double look = -1;
+        double totalLook = 0;
         double time = -1;
 
         for(int i = 0; i < timeList.size(); i ++) {
@@ -332,22 +334,25 @@ public class Algorithm {
                 HeartBeatAttribute hR = attribute.gethR();
 
                 if (bH.getCode_type() == CODE_TYPE.TASK && bH.getEvent_type() == EVENT_TYPE.START) {
-                    task = time;
+                    look = time;
                 } else if (bH.getCode_type() == CODE_TYPE.TASK && bH.getEvent_type() == EVENT_TYPE.STOP) {
-                    totalTask = totalTask + (time - task);
-                    task = -1;
-                    break; // only one task is allowed per dataset
+                    totalLook = totalLook + (time - look);
+                    look = -1;
+                    break;
                 }
             }
         }
-
-        if(task != -1 && time != -1) {
-            totalTask = totalTask + (time - task);
+        if(look != -1 && time != -1) {
+            totalLook = totalLook + (time - look);
         }
-        return totalTask;
-    } */
+        return totalLook;
+    }
 
-    public double durationPhaseZero(HashMap<Double, Attribute> attributeTable) {
+    public double durationPhase(HashMap<Double, Attribute> attributeTable, int phase) {
+        if(phase < 0 || phase > 3) {
+            return -1; // not a valid phase
+        }
+
         List<Double> timeList = sortKeys(attributeTable);
         Collections.sort(timeList);
         double phaseStart = -1;
@@ -361,10 +366,10 @@ public class Algorithm {
                 BehaviorAttribute bH = attribute.getbH();
                 HeartBeatAttribute hR = attribute.gethR();
 
-                if(hR.getPhase() == 0 && phaseStart == -1) { // START
+                if(hR.getPhase() == phase && phaseStart == -1) { // START
                 // phase is 0 and it is not previously 0
                     phaseStart = time;
-                } else if (phaseStart != -1 && hR.getPhase() != 0) { //STOP
+                } else if (phaseStart != -1 && hR.getPhase() != phase) { //STOP
                 // phase is not 0 and has be 0
                     totalPhase = totalPhase + (time - phaseStart);
                     phaseStart = -1;
@@ -377,13 +382,245 @@ public class Algorithm {
             totalPhase = totalPhase + (time - phaseStart);
         }
 
+        return totalPhase;
+    }
+
+    public double averageRrChange(HashMap<Double, Attribute> attributeTable, int phase) {
+        if(phase < 1 || phase > 3) {
+            return -1; // not a valid phase
+        }
+
+        List<Double> timeList = sortKeys(attributeTable);
+        Collections.sort(timeList);
+        int count = 0;
+        double sum = 0;
+
+        for(int i = 0; i < timeList.size(); i ++) {
+            double time = timeList.get(i);
+            if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
+                Attribute attribute = attributeTable.get(time);
+                BehaviorAttribute bH = attribute.getbH();
+                HeartBeatAttribute hR = attribute.gethR();
+
+                if(hR.getPhase() == phase && bH.getCode_type() == CODE_TYPE.NA) {
+                    sum = sum + hR.getRrChange();
+                    count++;
+                }
+            }
+        }
+
+        return sum/(double)count;
+
+    }
+
+    public int phaseNum(HashMap<Double, Attribute> attributeTable, int phase) {
+        if(phase < 0 || phase > 3) {
+            return -1; // not a valid phase
+        }
+
+        List<Double> timeList = sortKeys(attributeTable);
+        Collections.sort(timeList);
+        double phaseStart = -1;
+        int totalPhase = 0;
+        double time = -1;
+
+        for(int i = 0; i < timeList.size(); i ++) {
+            time = timeList.get(i);
+            if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
+                Attribute attribute = attributeTable.get(time);
+                BehaviorAttribute bH = attribute.getbH();
+                HeartBeatAttribute hR = attribute.gethR();
+
+                if(hR.getPhase() == phase && phaseStart == -1) { // START
+                    // phase is 0 and it is not previously 0
+                    phaseStart = time;
+                } else if (phaseStart != -1 && hR.getPhase() != phase) { //STOP
+                    // phase is not 0 and has be 0
+                    totalPhase++;
+                    phaseStart = -1;
+                }
+
+            }
+        }
+
+        if (phaseStart != -1 && time != -1) { // was started but not ended
+            totalPhase++;
+    }
 
         return totalPhase;
     }
 
+    public double peakLook(HashMap<Double, Attribute> attributeTable) {
+        List<Double> timeList = sortKeys(attributeTable);
+        Collections.sort(timeList);
+        double look = -1;
+        double time = -1;
+        double maxLook = 0;
+
+
+        for(int i = 0; i < timeList.size(); i ++) {
+            time = timeList.get(i);
+            if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
+                Attribute attribute = attributeTable.get(time);
+                BehaviorAttribute bH = attribute.getbH();
+                HeartBeatAttribute hR = attribute.gethR();
+
+                if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
+                    look = time;
+                } else if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) {
+                    double length = time - look;
+                    look = -1;
+                    if(length > maxLook) { maxLook = length;}
+                }
+            }
+        }
+        if(look != -1 && time != -1) {
+            double length = time - look;
+            if(length > maxLook) { maxLook = length;}
+        }
+        return maxLook;
+    }
+
+    public double peakPhase(HashMap<Double, Attribute> attributeTable, int phase) {
+        if(phase < 0 || phase > 3) {
+            return -1; // not a valid phase
+        }
+
+        List<Double> timeList = sortKeys(attributeTable);
+        Collections.sort(timeList);
+        double phaseStart = -1;
+        double time = -1;
+        double totalPhase = 0;
+
+        int start = timeList.indexOf(peakLookStart(attributeTable));
+        for(int i = start; i < timeList.size(); i ++) {
+            time = timeList.get(i);
+            if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
+                Attribute attribute = attributeTable.get(time);
+                BehaviorAttribute bH = attribute.getbH();
+                HeartBeatAttribute hR = attribute.gethR();
+                if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) {
+                    totalPhase = totalPhase + (time - phaseStart);
+                    return totalPhase;
+                }
+
+                if(hR.getPhase() == phase && phaseStart == -1) { // START
+                    // phase is 0 and it is not previously 0
+                    phaseStart = time;
+                } else if (phaseStart != -1 && hR.getPhase() != phase) { //STOP
+                    // phase is not 0 and has be 0
+                    totalPhase = totalPhase + (time - phaseStart);
+                    phaseStart = -1;
+                }
+
+            }
+        }
+
+        if (phaseStart != -1 && time != -1) { // was started but not ended
+            totalPhase = totalPhase + (time - phaseStart);
+        }
+
+        return totalPhase;
 
 
 
+    }
 
+    public double peakLookStart(HashMap<Double, Attribute> attributeTable) {
+        List<Double> timeList = sortKeys(attributeTable);
+        Collections.sort(timeList);
+        double look = -1;
+        double time = -1;
+        double maxLook = 0;
+        double start = -1;
+
+
+        for(int i = 0; i < timeList.size(); i ++) {
+            time = timeList.get(i);
+            if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
+                Attribute attribute = attributeTable.get(time);
+                BehaviorAttribute bH = attribute.getbH();
+                HeartBeatAttribute hR = attribute.gethR();
+
+                if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.START) {
+                    look = time;
+                } else if (bH.getCode_type() == CODE_TYPE.LOOK && bH.getEvent_type() == EVENT_TYPE.STOP) {
+                    double length = time - look;
+
+                    if(length > maxLook) {
+                        maxLook = length;
+                        start = look;
+                    }
+                    look = -1;
+                }
+            }
+        }
+        if(look != -1 && time != -1) {
+            double length = time - look;
+            if(length > maxLook) {
+                start = look;
+            }
+        }
+        return start;
+    }
+
+    public double proportionTotal(HashMap<Double, Attribute> attributeTable, int phase) {
+        if(phase > 3 || phase < 1) {
+            return -1;
+        }
+        double durationTask = durationTask(attributeTable);
+        double durationPhase = durationPhase(attributeTable, phase);
+        return durationPhase/durationTask;
+    }
+
+    public double proportionPeakLook(HashMap<Double, Attribute> attributeTable, int phase) {
+        if(phase > 3 || phase < 1) {
+            return -1;
+        }
+        double durationPeakLook = peakLook(attributeTable);
+        double durationPeakPhase = peakPhase(attributeTable, phase);
+        return durationPeakPhase/durationPeakLook;
+    }
+
+
+
+    public HashMap<Double, Attribute> calculateAll(Trial trial) throws DoubleStart, DoubleStop { // returns 0 for error 1
+        HashMap<Double, Attribute> attributeTable = trial.getAttributeTable();
+        if(attributeTable == null) {return attributeTable;}
+
+        attributeTable = calculate(attributeTable);
+        attributeTable = calculatePhases(attributeTable);
+        trial.setAttributeTable(attributeTable); // sets the calculated attribute table
+
+        TrailStat s = new TrailStat();
+
+        s.setDurationTask(durationTask(attributeTable)); // duration task
+        s.setDurationLook(durationLooking(attributeTable)); // duration look
+        s.setDurationOne(durationPhase(attributeTable, 0)); // duration phase 1
+        s.setDurationOne(durationPhase(attributeTable, 1)); // duration phase 1
+        s.setDurationTwo(durationPhase(attributeTable, 2)); // duration phase 2
+        s.setDurationThree(durationPhase(attributeTable, 3)); // duration phase 3
+        s.setProportionOne(proportionTotal(attributeTable, 0)); // proportion_0
+        s.setProportionOne(proportionTotal(attributeTable, 1)); // proportion_1
+        s.setProportionTwo(proportionTotal(attributeTable, 2)); // proportion_2
+        s.setProportionThree(proportionTotal(attributeTable, 3)); // proportion_3
+        s.setRrChangeOne(averageRrChange(attributeTable, 1)); // rr_change_1
+        s.setRrChangeTwo(averageRrChange(attributeTable, 2)); // rr_change_2
+        s.setRrChangeThree(averageRrChange(attributeTable, 3)); // rr_change_3
+        s.setPhaseNOne(phaseNum(attributeTable, 0)); // phase_n_0
+        s.setPhaseNOne(phaseNum(attributeTable, 1)); // phase_n_1
+        s.setPhaseNTwo(phaseNum(attributeTable, 2)); // phase_n_2
+        s.setPhaseNThree(phaseNum(attributeTable, 3)); // phase_n_3
+        s.setPeakDurationTotal(peakLook(attributeTable)); //peak_duration_total
+        s.setPeakDurationOne(peakPhase(attributeTable, 1)); // peak_duration_1
+        s.setPeakDurationTwo(peakPhase(attributeTable, 2)); // peak_duration_2
+        s.setPeakDurationThree(peakPhase(attributeTable, 3)); // peak_duration_3
+        s.setPeakLookOne(proportionPeakLook(attributeTable, 1)); // peak_proportion_1
+        s.setPeakDurationTwo(proportionPeakLook(attributeTable, 2)); // peak_proportion_2
+        s.setPeakLookThree(proportionPeakLook(attributeTable, 3)); // peak_proportion_3
+        trial.setStats(s);
+
+        return attributeTable;
+    }
 
 }

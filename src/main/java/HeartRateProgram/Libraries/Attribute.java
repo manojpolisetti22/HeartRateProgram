@@ -96,4 +96,62 @@ public class Attribute {
     public int getPhase() {
         return hR.getPhase();
     }
+
+
+    public String getStringCode_type() {
+        if(bH.getCode_type() == CODE_TYPE.NA) {
+            return "";
+        }
+        return bH.getCode_type().toString();
+    }
+
+    public String getStringEvent_type() {
+        if(bH.getEvent_type() == EVENT_TYPE.NA) {
+            return "";
+        }
+        return bH.getEvent_type().toString();
+    }
+
+    public String getStringRr() {
+        if(hR.getRr() == -1) {
+            return ".";
+        }
+        return Double.toString(hR.getRr());
+    }
+
+    public String getStringEvent_num() {
+        if (bH.getEvent_num() == -1) {
+            return "";
+        } else {
+            return Integer.toString(bH.getEvent_num());
+        }
+    }
+
+    public String getStringBaseLine() {
+        if (hR.getBaseLine() == -1) {
+            return ".";
+        } else {
+           return Double.toString(hR.getBaseLine()) ;
+        }
+    }
+
+    public String getStringRrChange() {
+        if (hR.getBaseLine() == -1) { // checks to see if there is a behavioral data since hR
+            // and bH data
+            // cannot overlap
+            return ".";
+        } else {
+            return Double.toString(hR.getRrChange()) ;
+        }
+    }
+
+    public String getStringPhase() {
+        if(hR.getPhase() < 0 ) {
+            return ".";
+        } else {
+            return Integer.toString(hR.getPhase());
+        }
+    }
+
+
 }

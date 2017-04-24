@@ -13,6 +13,7 @@ public class Trial {
     private Child child; // 'Child' object specific child
     private Date trialDate; // time when the trail was taken
     private HashMap<Double, Attribute> attributeTable; // timestamp is the Key
+    private TrailStat stats;
 
 //    private Heartrate heartrate;
 
@@ -20,6 +21,7 @@ public class Trial {
         this.trialID = trialID;
         this.child = child;
         this.trialDate = trialDate;
+        this.stats = null;
     }
 
     public Trial (String trialID, String childID, Date trialDate, Date birthDate, Sex sex) { // Creates a new trail and
@@ -28,10 +30,24 @@ public class Trial {
         this.trialID = trialID;
         this.trialDate = trialDate;
         this.child = new Child(childID, birthDate, sex);
+        this.stats = null;
+    }
+
+    public Trial (String trialID, HashMap<Double, Attribute> attributeTable) {
+        this.trialID = trialID;
+        this.attributeTable = attributeTable;
+    }
+
+    public Trial (String trialID) {
+        this.trialID = trialID;
+        this.attributeTable = null;
+        this.stats = null;
+
     }
 
     public void setTrialID (String trailID) {
         this.trialID = trailID;
+        this.stats = null;
 
     }
 
@@ -53,6 +69,14 @@ public class Trial {
 
     public Date getTrialDate() {
         return trialDate;
+    }
+
+    public void setStats(TrailStat stats) {
+        this.stats = stats;
+    }
+
+    public TrailStat getStats() {
+        return stats;
     }
 
     public HashMap<Double, Attribute> getAttributeTable() {
