@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.scene.control.TextField;
 import java.io.File;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -80,17 +81,24 @@ public class AdvancedTabInputDataController implements Initializable {
             stage.setScene(new Scene(root1));
             DataViewController controller = fxmlLoader.<DataViewController>getController();
             System.out.println("Window opened"); // For debugging
+            MainParser parser;
+            List<DataGrid> dataList;
             try {
-                controller.initFilesAdvanced(file);
+                parser = new MainParser();
+                dataList = parser.csvParserDataGrid(file);
             } catch (Exception e) {
-		Alert alert = new Alert(AlertType.ERROR);
-		alert.setTitle("Something went wrong!");
-		alert.setHeaderText(null);
-		alert.setContentText("There was a problem parsing/analyzing the file.");
-		alert.showAndWait();
-		return;
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Something went wrong!");
+                alert.setHeaderText(null);
+                alert.setContentText("There was a problem parsing/analyzing the file.");
+                alert.showAndWait();
+                return;
             }
+            controller.initFilesAdvanced(dataList);
+
             stage.show();
+            Stage here = (Stage) tb_dataGrid.getScene().getWindow();
+            here.hide();
         } catch (Exception e) {
             e.printStackTrace();
         }

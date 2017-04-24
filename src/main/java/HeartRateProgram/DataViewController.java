@@ -18,16 +18,27 @@ import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.Collections;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 /**
@@ -43,16 +54,20 @@ public class DataViewController implements Initializable {
      */
     String mode;
     HashMap<Double, Attribute> data;
-    ArrayList<HashMap<Double, Attribute>> data_list = new ArrayList<HashMap<Double, Attribute>>();
-    
+    ArrayList<Trial> data_list = new ArrayList<Trial>();
+
     // Objects made in Scene Builder
-    @FXML TableView table;
-    @FXML TabPane tabPane;
-    @FXML Tab defaultTab;
+    @FXML
+    TableView table;
+    @FXML
+    TabPane tabPane;
+    @FXML
+    Tab defaultTab;
+    @FXML
+    TextField tb_durationTask;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
     }
 
@@ -125,25 +140,28 @@ public class DataViewController implements Initializable {
 
     }
 
-    public void initFilesAdvanced(String file) {
+    public void initFilesAdvanced(List<DataGrid> dataList) {
         mode = "Advanced";
 
-        // Preliminary tab stuff
+        // Preliminary stuff
         tabPane.getTabs().remove(0);
+        MainParser parser = new MainParser();
 
-        MainParser parser;
-        List<DataGrid> dataList;
-        parser = new MainParser();
-        dataList = parser.csvParserDataGrid(file);
+        dataList.forEach((line) -> {
+            // Create Pane inside tab
+            SplitPane pane = new SplitPane();
+            pane.setDividerPositions(0.5);
+            pane.setPrefSize(790, 715);
 
-        dataList.forEach((line) -> { // Iterate through each line in datagrid
-            // Create tabs and populate them
-            Tab newTab = new Tab(line.getParticipantID());
-            tabPane.getTabs().add(newTab);
-            VBox box = new VBox();
-            TableView newTable = new TableView();
-            box.getChildren().addAll(newTable);
-            newTab.setContent(box);
+            // Create table and encompassing pane
+            AnchorPane tablePane = new AnchorPane();
+            tablePane.setMinSize(0, 0);
+            tablePane.setPrefSize(100, 160);
+            TableView table = new TableView();
+            table.setMinSize(0, 0);
+            tablePane.getChildren().add(table);
+            AnchorPane.setLeftAnchor(table, 0.0);
+            AnchorPane.setRightAnchor(table, 0.0);
 
             // Get parser parameters
             String rr_file = line.getRR_PATH();
@@ -157,17 +175,14 @@ public class DataViewController implements Initializable {
             // Final parser
             HashMap<Double, Attribute> parsedData = parser.finalParser(rrList,
                     attrList, rr_start, rr_sync, behav_sync);
+            Trial trial = new Trial(line.getParticipantID(), parsedData);
 
             // Analyze Dataset
             HashMap<Double, Attribute> processedData;
             Algorithm algo = new Algorithm();
             try {
-                processedData = algo.calculate(parsedData);
-                processedData = algo.calculatePhases(processedData);
-            } catch (DoubleStart e) {
-                algorithmErrorAlert(e.getMessage());
-                return;
-            } catch (DoubleStop e) {
+                processedData = algo.calculateAll(trial);
+            } catch (DoubleStart | DoubleStop e) {
                 algorithmErrorAlert(e.getMessage());
                 return;
             } catch (Exception e) {
@@ -177,46 +192,97 @@ public class DataViewController implements Initializable {
             }
 
             // Get contents of table
-            data = processedData;
-            data_list.add(data);
+            data_list.add(trial);
             List<Double> timeList = algo.sortKeys(processedData);
             Collections.sort(timeList);
-            //List<Attribute> contents = new ArrayList();
             final ObservableList<Attribute> contents = FXCollections.observableArrayList();
             for (int i = 0; i < timeList.size(); i++) {
                 Attribute attribute = processedData.get(timeList.get(i));
                 contents.add(attribute);
             }
-            newTable.setEditable(false);
 
             // Initialize columns with data
             TableColumn timeStampCol = new TableColumn("Timestamp");
             timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
             TableColumn rrCol = new TableColumn("RR");
-            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("Rr"));
+            timeStampCol.setCellValueFactory(new PropertyValueFactory<>("StringRr"));
             TableColumn eventTypeCol = new TableColumn("Event Type");
-            eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("Event_type"));
+            eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_type"));
             TableColumn rRChangeCol = new TableColumn("RR Change");
-            rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("rrChange"));
+            rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("StringRrChange"));
             TableColumn phaseCol = new TableColumn("Phase");
-            phaseCol.setCellValueFactory(new PropertyValueFactory<>("phase"));
+            phaseCol.setCellValueFactory(new PropertyValueFactory<>("stringPhase"));
             TableColumn codeTypeCol = new TableColumn("Code Type");
-            codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("code_type"));
+            codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringCode_type"));
             TableColumn eventNumCol = new TableColumn("Event Num");
-            eventNumCol.setCellValueFactory(new PropertyValueFactory<>("event_num"));
+            eventNumCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_num"));
             TableColumn baselineCol = new TableColumn("Code Type");
-            baselineCol.setCellValueFactory(new PropertyValueFactory<>("baseLine"));
+            baselineCol.setCellValueFactory(new PropertyValueFactory<>("stringBaseLine"));
 
             // Add information to table
-            newTable.setItems(contents);
-            newTable.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
+            table.setEditable(false);
+            table.setItems(contents);
+            table.getColumns().addAll(timeStampCol, rrCol, phaseCol, eventTypeCol,
                     rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
-        });
 
+            // Create stats viewer and encompassing containers
+            AnchorPane statsPane = new AnchorPane();
+            TrailStat stats = trial.getStats();
+            VBox vbox = new VBox();
+            vbox.setPadding(new Insets(10));
+            vbox.setSpacing(8);
+            vbox.getChildren().add(createHBox("Duration Task", Double.toString(stats.getDurationTask())));
+            vbox.getChildren().add(createHBox("Duration Looking", Double.toString(stats.getDurationLook())));
+            vbox.getChildren().add(createHBox("Duration 0", Double.toString(stats.getDurationZero())));
+            vbox.getChildren().add(createHBox("Duration 1", Double.toString(stats.getDurationOne())));
+            vbox.getChildren().add(createHBox("Duration 2", Double.toString(stats.getDurationTwo())));
+            vbox.getChildren().add(createHBox("Duration 3", Double.toString(stats.getDurationThree())));
+            vbox.getChildren().add(createHBox("Proportion 0", Double.toString(stats.getProportionZero())));
+            vbox.getChildren().add(createHBox("Proportion 1", Double.toString(stats.getProportionOne())));
+            vbox.getChildren().add(createHBox("Proportion 2", Double.toString(stats.getProportionTwo())));
+            vbox.getChildren().add(createHBox("Proportion 3", Double.toString(stats.getProportionThree())));
+            vbox.getChildren().add(createHBox("RR Change 1", Double.toString(stats.getRrChangeOne())));
+            vbox.getChildren().add(createHBox("RR Change 2", Double.toString(stats.getRrChangeTwo())));
+            vbox.getChildren().add(createHBox("RR Change 3", Double.toString(stats.getRrChangeThree())));
+            vbox.getChildren().add(createHBox("Phases N_0", Double.toString(stats.getPhaseNZero())));
+            vbox.getChildren().add(createHBox("Phases N_1", Double.toString(stats.getPhaseNOne())));
+            vbox.getChildren().add(createHBox("Phases N_2", Double.toString(stats.getPhaseNTwo())));
+            vbox.getChildren().add(createHBox("Phases N_3", Double.toString(stats.getPhaseNThree())));
+            vbox.getChildren().add(createHBox("Peak Duration Total", Double.toString(stats.getPeakDurationTotal())));
+            vbox.getChildren().add(createHBox("Peak Duration 1", Double.toString(stats.getPeakDurationOne())));
+            vbox.getChildren().add(createHBox("Peak Duration 2", Double.toString(stats.getPeakDurationTwo())));
+            vbox.getChildren().add(createHBox("Peak Duration 3", Double.toString(stats.getPeakDurationThree())));
+            vbox.getChildren().add(createHBox("Peak Proportion 1", Double.toString(stats.getProportionOne())));
+            vbox.getChildren().add(createHBox("Peak Proportion 2", Double.toString(stats.getProportionTwo())));
+            vbox.getChildren().add(createHBox("Peak Proportion 3", Double.toString(stats.getProportionThree())));
+            ScrollPane scroller = new ScrollPane();
+            scroller.setContent(vbox);
+            scroller.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+            statsPane.getChildren().add(scroller);
+            AnchorPane.setBottomAnchor(scroller, 0.0);
+            AnchorPane.setTopAnchor(scroller, 0.0);
+            AnchorPane.setLeftAnchor(scroller, 0.0);
+            AnchorPane.setRightAnchor(scroller, 0.0);
+
+            // Set up splitpane
+            pane.getItems().add(0, tablePane);
+            pane.getItems().add(1, statsPane);
+
+            // Create and populate Tab
+            Tab tab = new Tab(line.getParticipantID());
+            try {
+                tab.setContent(pane);
+            } catch (Exception e) {
+                System.out.println("Something went wrong");
+                e.printStackTrace();
+                return;
+            }
+            tabPane.getTabs().add(tab);
+        });
     }
 
     public void export() {
-        if ("basic".equals(mode)) {
+        if ("Basic".equals(mode)) {
             File file;
             try {
                 // Getting filename
@@ -226,34 +292,69 @@ public class DataViewController implements Initializable {
                 file = fileChooser.showSaveDialog(null);
                 String path = file.getAbsolutePath();
                 ConvertToCSV.convertToCSV(path, this.data);
-            } catch (Exception e) {
+            } catch (IOException e) {
+                exportErrorAlert("The data is unable to be exported.");
                 return;
             }
-        } else if ("advanced".equals(mode)) {
+        } else if ("Advanced".equals(mode)) {
             File file;
             try {
                 FileChooser fileChooser = new FileChooser();
                 fileChooser.setTitle("Save Data");
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed ZIP File(*.zip)", "*.zip"));
                 file = fileChooser.showSaveDialog(null);
-                String path = file.getAbsolutePath();
+                String parentPath = file.getParent();
                 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
-                for (HashMap<Double, Attribute> filedata : data_list) {
-
+                for (Trial trial : data_list) {
+                    String filename = parentPath + '/' + trial.getTrialID();
+                    ConvertToCSV.convertToCSV(filename, trial.getAttributeTable());
+                    ZipEntry e = new ZipEntry(filename);
+                    out.putNextEntry(e);
+                    out.closeEntry();
                 }
+                out.close();
             } catch (Exception e) {
-
+                System.out.println("asdf");
                 return;
             }
         }
     }
 
+    HBox createHBox(String labelText, String textFieldText) {
+        // Create box
+        HBox box = new HBox();
+        AnchorPane.setLeftAnchor(box, 0.0);
+        AnchorPane.setRightAnchor(box, 0.0);
+
+        // Fill in the blanks
+        Label label = new Label(labelText);
+        TextField textField = new TextField(textFieldText);
+        box.getChildren().addAll(label, textField);
+        label.setPrefWidth(120.0);
+        label.setMinWidth(label.getPrefWidth());
+        label.setMaxWidth(label.getPrefWidth());
+        textField.setEditable(false);
+        textField.setMaxWidth(Integer.MAX_VALUE);
+        textField.setMinWidth(120);
+        textField.setPrefWidth(200.0);
+        textField.setPrefHeight(25.0);
+
+        return box;
+    }
+
     void algorithmErrorAlert(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("An Error has occured");
+        alert.setTitle("An Error Has Occured");
         alert.setHeaderText("There was an error when analyzing the input data");
         alert.setContentText(errorMessage);
         alert.showAndWait();
     }
 
+    void exportErrorAlert(String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("An Error Has Occured");
+        alert.setHeaderText("There was an error when exporting the data");
+        alert.setContentText(errorMessage);
+        alert.showAndWait();
+    }
 }
