@@ -65,6 +65,8 @@ public class DataViewController implements Initializable {
     Tab defaultTab;
     @FXML
     TextField tb_durationTask;
+    @FXML
+    ScrollPane sp_stats;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -75,7 +77,7 @@ public class DataViewController implements Initializable {
         mode = "Basic";
 
         System.out.println("Intialization");
-        
+
         // Parse Files
         MainParser parser = new MainParser();
         List<Double> rrList = parser.csvParserHeartRate(rr_file);
@@ -86,9 +88,9 @@ public class DataViewController implements Initializable {
         // Analyze Dataset
         HashMap<Double, Attribute> processedData;
         Algorithm algo = new Algorithm();
+        Trial trial = new Trial(participant_id, parsedData);
         try {
-            processedData = algo.calculate(parsedData);
-            processedData = algo.calculatePhases(processedData);
+            processedData = algo.calculateAll(trial);
         } catch (DoubleStart e) {
             algorithmErrorAlert(e.getMessage());
             return;
@@ -140,6 +142,39 @@ public class DataViewController implements Initializable {
                 rRChangeCol, codeTypeCol, eventNumCol, baselineCol);
         defaultTab.setText(participant_id);
 
+        // Start adding things to scrollPane
+        TrailStat stats = trial.getStats();
+        
+        VBox vbox = new VBox();
+        vbox.setPadding(new Insets(10));
+        vbox.setSpacing(8);
+        String s = Double.toString(stats.getDurationTask());
+        vbox.getChildren().add(createHBox("Duration Task", s));
+        vbox.getChildren().add(createHBox("Duration Looking", Double.toString(stats.getDurationLook())));
+        vbox.getChildren().add(createHBox("Duration 0", Double.toString(stats.getDurationZero())));
+        vbox.getChildren().add(createHBox("Duration 1", Double.toString(stats.getDurationOne())));
+        vbox.getChildren().add(createHBox("Duration 2", Double.toString(stats.getDurationTwo())));
+        vbox.getChildren().add(createHBox("Duration 3", Double.toString(stats.getDurationThree())));
+        vbox.getChildren().add(createHBox("Proportion 0", Double.toString(stats.getProportionZero())));
+        vbox.getChildren().add(createHBox("Proportion 1", Double.toString(stats.getProportionOne())));
+        vbox.getChildren().add(createHBox("Proportion 2", Double.toString(stats.getProportionTwo())));
+        vbox.getChildren().add(createHBox("Proportion 3", Double.toString(stats.getProportionThree())));
+        vbox.getChildren().add(createHBox("RR Change 1", Double.toString(stats.getRrChangeOne())));
+        vbox.getChildren().add(createHBox("RR Change 2", Double.toString(stats.getRrChangeTwo())));
+        vbox.getChildren().add(createHBox("RR Change 3", Double.toString(stats.getRrChangeThree())));
+        vbox.getChildren().add(createHBox("Phases N_0", Double.toString(stats.getPhaseNZero())));
+        vbox.getChildren().add(createHBox("Phases N_1", Double.toString(stats.getPhaseNOne())));
+        vbox.getChildren().add(createHBox("Phases N_2", Double.toString(stats.getPhaseNTwo())));
+        vbox.getChildren().add(createHBox("Phases N_3", Double.toString(stats.getPhaseNThree())));
+        vbox.getChildren().add(createHBox("Peak Duration Total", Double.toString(stats.getPeakDurationTotal())));
+        vbox.getChildren().add(createHBox("Peak Duration 1", Double.toString(stats.getPeakDurationOne())));
+        vbox.getChildren().add(createHBox("Peak Duration 2", Double.toString(stats.getPeakDurationTwo())));
+        vbox.getChildren().add(createHBox("Peak Duration 3", Double.toString(stats.getPeakDurationThree())));
+        vbox.getChildren().add(createHBox("Peak Proportion 1", Double.toString(stats.getProportionOne())));
+        vbox.getChildren().add(createHBox("Peak Proportion 2", Double.toString(stats.getProportionTwo())));
+        vbox.getChildren().add(createHBox("Peak Proportion 3", Double.toString(stats.getProportionThree())));
+        sp_stats.setContent(vbox);
+        
     }
 
     public void initFilesAdvanced(List<DataGrid> dataList) {

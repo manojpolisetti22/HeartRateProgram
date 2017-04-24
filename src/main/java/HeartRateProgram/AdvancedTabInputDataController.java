@@ -15,7 +15,6 @@ import javafx.stage.FileChooser;
 import javafx.scene.control.TextField;
 import java.io.File;
 import java.util.List;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
