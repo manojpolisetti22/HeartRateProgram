@@ -85,7 +85,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
                   <Button mnemonicParsing="false" text="Add Dataset" />
-                <Button mnemonicParsing="false" text="Done" />
+                <Button fx:id="done_button" mnemonicParsing="false" onAction="#done" text="Done" />
               </buttons>
             </ButtonBar>
          </bottom>

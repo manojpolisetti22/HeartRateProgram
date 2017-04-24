@@ -74,6 +74,8 @@ public class DataViewController implements Initializable {
     public void initFiles(String participant_id, String rr_file, String behavior_file, double rr_start, double rr_sync, double behav_sync) {
         mode = "Basic";
 
+        System.out.println("Intialization");
+        
         // Parse Files
         MainParser parser = new MainParser();
         List<Double> rrList = parser.csvParserHeartRate(rr_file);
@@ -118,7 +120,7 @@ public class DataViewController implements Initializable {
         TableColumn timeStampCol = new TableColumn("Timestamp");
         timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         TableColumn rrCol = new TableColumn("RR");
-        timeStampCol.setCellValueFactory(new PropertyValueFactory<>("Rr"));
+        rrCol.setCellValueFactory(new PropertyValueFactory<>("Rr"));
         TableColumn eventTypeCol = new TableColumn("Event Type");
         eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("Event_type"));
         TableColumn rRChangeCol = new TableColumn("RR Change");

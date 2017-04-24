@@ -88,6 +88,8 @@ public class InputDataController implements Initializable {
 
     @FXML
     public void done(ActionEvent event) {
+        System.out.println("asdf");
+        
         // Get values from textboxes
         String participant_id = tb_part.getText();
         String file1 = tb_rr.getText();
