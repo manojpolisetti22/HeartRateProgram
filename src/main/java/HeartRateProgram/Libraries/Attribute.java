@@ -113,7 +113,6 @@ public class Attribute {
     }
 
     public String getStringRr() {
-        System.out.println("RR VALUE HERE:" + hR.getRr());
         if(hR.getRr() == -1) {
             return ".";
         }
