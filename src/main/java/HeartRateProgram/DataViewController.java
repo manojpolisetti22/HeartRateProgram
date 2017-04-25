@@ -340,7 +340,7 @@ public class DataViewController implements Initializable {
                 fileChooser.setTitle("Save Data");
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed ZIP File(*.zip)", "*.zip"));
                 file = fileChooser.showSaveDialog(null);
-                String parentPath = file.getParent();
+                String parentPath = file.getPath();
                 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
                 for (Trial trial : data_list) {
                     String filename = parentPath + '/' + trial.getTrialID();
