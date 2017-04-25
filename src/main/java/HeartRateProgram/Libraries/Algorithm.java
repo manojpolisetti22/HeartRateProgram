@@ -31,7 +31,7 @@ public class Algorithm {
         List<Attribute> attributeList = mp.csvParserBehavioral(afilename);
 
 
-        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, .5, 0, 0);
+        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, .771, 0, 0);
 
 
         Algorithm al = new Algorithm();
