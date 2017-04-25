@@ -7,6 +7,7 @@ package HeartRateProgram;
 
 import HeartRateProgram.Libraries.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -144,7 +145,7 @@ public class DataViewController implements Initializable {
 
         // Start adding things to scrollPane
         TrailStat stats = trial.getStats();
-        
+
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(8);
@@ -174,7 +175,7 @@ public class DataViewController implements Initializable {
         vbox.getChildren().add(createHBox("Peak Proportion 2", Double.toString(stats.getProportionTwo())));
         vbox.getChildren().add(createHBox("Peak Proportion 3", Double.toString(stats.getProportionThree())));
         sp_stats.setContent(vbox);
-        
+
     }
 
     public void initFilesAdvanced(List<DataGrid> dataList) {
@@ -340,18 +341,41 @@ public class DataViewController implements Initializable {
                 fileChooser.setTitle("Save Data");
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed ZIP File(*.zip)", "*.zip"));
                 file = fileChooser.showSaveDialog(null);
-                String parentPath = file.getPath();
-                ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
+                String parentPath = file.getParent();
+                ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file.getAbsolutePath()));
+                System.out.println(file.getPath());
                 for (Trial trial : data_list) {
-                    String filename = parentPath + '/' + trial.getTrialID();
+                    // File Information
+                    String filename = trial.getTrialID() + ".csv";
+                    System.out.println(filename);
+
+                    // Create output files
                     ConvertToCSV.convertToCSV(filename, trial.getAttributeTable());
+
+                    // Zipping
+                    File csvFile = new File(filename);
                     ZipEntry e = new ZipEntry(filename);
+                    FileInputStream fis = new FileInputStream(csvFile);
                     out.putNextEntry(e);
+                    byte[] bytes = new byte[1024];
+                    int length;
+                    while ((length = fis.read(bytes)) >= 0) {
+                        out.write(bytes, 0, length);
+                    }
+
+                    // Close things
                     out.closeEntry();
+                    fis.close();
                 }
                 out.close();
+                for (Trial trial : data_list) {
+                    String filename = parentPath + "\\" + trial.getTrialID() + ".csv";
+                    File f = new File(filename);
+                    f.delete();
+                }
             } catch (Exception e) {
                 System.out.println("asdf");
+                e.printStackTrace();
                 return;
             }
         }
