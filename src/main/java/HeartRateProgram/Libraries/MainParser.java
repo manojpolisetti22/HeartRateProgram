@@ -333,6 +333,8 @@ public class MainParser {
         //For loop which loops through from the start index to the end index of the AbsoluteTimeVsAttributeTime list
         for (int i = startIndex - 5; i < endIndex; i++ ){
 
+            System.out.println(i);
+
             //If the attribute already exists at that point of time, put it in the map with the respective rr and time
             if (absoluteTimeVSAttributeTime.contains(i)){
 
