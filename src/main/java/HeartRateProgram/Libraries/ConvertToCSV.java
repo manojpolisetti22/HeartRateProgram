@@ -109,7 +109,7 @@ public class ConvertToCSV {
         fw = new FileWriter(fileName);
         bw = new BufferedWriter(fw);
         for(int i = 0; i < stat.length; i++) {
-            bw.write(FILE_HEADER);
+            bw.write(STAT_HEADER);
             bw.write(NEW_LINE);
 
             bw.write(Double.toString(stat[i].getDurationTask()));

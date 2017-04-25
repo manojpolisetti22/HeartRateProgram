@@ -2,6 +2,7 @@ package HeartRateProgram.Libraries;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -109,7 +110,11 @@ public class TestAlgo {
         //s.printTable(output);
 
         String path = testPath + "testNormalBaseLineOut";
-        ConvertToCSV.convertToCSV(path, output);
+        try {
+            ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int status = ConvertToCSV.compare(testPath + "testNormalBaseLine",path);
         assertTrue(status == 1);
 
@@ -226,7 +231,11 @@ public class TestAlgo {
 
 
         String path = testPath + "quickLookBaseLineOut";
-        ConvertToCSV.convertToCSV(path, output);
+        try {
+            ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int status = ConvertToCSV.compare(testPath + "quickLookBaseLine",path);
         assertTrue(status == 1);
     }
@@ -320,7 +329,11 @@ public class TestAlgo {
         output = s.calculatePhases(output);
 
         String path = testPath + "testNormalPhaseOut";
-        ConvertToCSV.convertToCSV(path, output);
+        try {
+            ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int status = ConvertToCSV.compare("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/src/main/java/HeartRateProgram/Libraries/Test_Outputs/testNormalPhases",path);
         assertTrue(status == 1);
     }
@@ -431,7 +444,11 @@ public class TestAlgo {
         //s.printTable(output);
 
         String path = testPath + "quickLookPhasesOut";
-        ConvertToCSV.convertToCSV(path, output);
+        try {
+            ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int status = ConvertToCSV.compare(testPath + "quickLookPhases",path);
         assertTrue(status == 1);
 
@@ -486,7 +503,11 @@ public class TestAlgo {
 
         //al.printTable(trail.getAttributeTable());
         String path = testPath + "tonsenFile1";
-        ConvertToCSV.convertToCSV(path, trail.getAttributeTable());
+        try {
+            ConvertToCSV.convertToCSV(path, trail.getAttributeTable());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int status = ConvertToCSV.compare(testPath + "tonsenFile1",path);
         assertTrue(status == 1);
     }
@@ -769,7 +790,11 @@ public class TestAlgo {
         // s.printTable(output);
 
         String path = testPath + "phaseOneOut";
-        ConvertToCSV.convertToCSV(path, output);
+        try {
+            ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int status = ConvertToCSV.compare(testPath + "phaseOne",path);
         assertTrue(status == 1);
     }
@@ -898,7 +923,11 @@ public class TestAlgo {
         //s.printTable(output);
 
         String path = testPath + "phaseThreeToTwoOut";
-        ConvertToCSV.convertToCSV(path, output);
+        try {
+            ConvertToCSV.convertToCSV(path, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         int status = ConvertToCSV.compare(testPath + "phaseThreeToTwo",path);
         assertTrue(status == 1);
 
@@ -1251,7 +1280,7 @@ public class TestAlgo {
         try {
             trail.setAttributeTable(s.calculate(trail.getAttributeTable()));
             trail.setAttributeTable(s.calculatePhases(trail.getAttributeTable()));
-            double duration = s.durationPhaseZero(trail.getAttributeTable());
+            double duration = s.durationPhase(trail.getAttributeTable(), 0);
             System.out.println(duration);
 
         } catch (DoubleStop doubleStop) {

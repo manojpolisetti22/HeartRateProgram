@@ -1,6 +1,7 @@
 //package HeartRateProgram.HBAT.src.HeartRateProgram.Libraries;
 package HeartRateProgram.Libraries;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -11,9 +12,17 @@ public class Algorithm {
     public static void main(String [] args)  {
         MainParser mp = new MainParser();
 
-        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples/Sample_RR.csv";
+        /*String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+                "/Sample_RR.csv";
         String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
                 "/Sample_Behavior.csv";
+        //List of RR's */
+
+        String extension = "4085";
+        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+                "/Newest Samples/RR_spreadsheets/" + extension + "_RR.csv";
+        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+                "/Newest Samples/BD_spreadsheets/"+ extension + "_BD.csv";
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);
 
@@ -22,7 +31,7 @@ public class Algorithm {
         List<Attribute> attributeList = mp.csvParserBehavioral(afilename);
 
 
-        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, 21.7, 67, 23);
+        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, .516, 0, 0);
 
 
         Algorithm al = new Algorithm();
@@ -44,6 +53,16 @@ public class Algorithm {
        trail.setAttributeTable(al.calculatePhases(trail.getAttributeTable()));
 
         al.printTable(trail.getAttributeTable());
+        try {
+            ConvertToCSV.convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+                    "/Newest Samples/OutFiles/" + extension + ".csv", trail.getAttributeTable());
+            TrailStat [] arr = new TrailStat[1];
+            arr[0] = trail.getStats();
+            ConvertToCSV.convertStatToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+                    "/Newest Samples/OutFiles/" + extension + "STAT.csv", arr);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //double ans = al.durationTask(trail.getAttributeTable());
         //System.out.println(ans);
@@ -591,6 +610,7 @@ public class Algorithm {
         attributeTable = calculate(attributeTable);
         attributeTable = calculatePhases(attributeTable);
         trial.setAttributeTable(attributeTable); // sets the calculated attribute table
+        printTable(attributeTable);
 
         TrailStat s = new TrailStat();
 
