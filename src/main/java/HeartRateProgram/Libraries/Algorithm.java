@@ -18,7 +18,7 @@ public class Algorithm {
                 "/Sample_Behavior.csv";
         //List of RR's */
 
-        String extension = "4153";
+        String extension = "4149";
         String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
                 "/Newest Samples/RR_spreadsheets/" + extension + "_RR.csv";
         String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
@@ -31,7 +31,7 @@ public class Algorithm {
         List<Attribute> attributeList = mp.csvParserBehavioral(afilename);
 
 
-        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, .516, 0, 0);
+        HashMap<Double, Attribute> finalMap = mp.finalParser(rrList, attributeList, .5, 0, 0);
 
 
         Algorithm al = new Algorithm();
@@ -511,7 +511,11 @@ public class Algorithm {
         double time = -1;
         double totalPhase = 0;
 
-        int start = timeList.indexOf(peakLookStart(attributeTable));
+        double peakLookStart = peakLookStart(attributeTable);
+        if(peakLookStart == -1 ) {return totalPhase;}
+        int start = timeList.indexOf(peakLookStart);
+        if(start == -1 ) {return totalPhase;}
+
         for(int i = start; i < timeList.size(); i ++) {
             time = timeList.get(i);
             if (attributeTable.containsKey(time) && attributeTable.get(time) != null) {
