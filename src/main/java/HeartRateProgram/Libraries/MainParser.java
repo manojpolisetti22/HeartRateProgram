@@ -166,6 +166,11 @@ public class MainParser {
                         //Add the current attribute to the attributeList
                         attributeList.add(currAttribute);
                     }
+                    if (codeType == HeartRateProgram.Libraries.CODE_TYPE.TRIAL) {
+                        Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
+                        //Add the current attribute to the attributeList
+                        attributeList.add(currAttribute);
+                    }
 
                 }
             }
@@ -274,7 +279,8 @@ public class MainParser {
 
         //Counter for the Attribute List Index
         int attrListIndex = 0;
-        System.out.println(attrList.get(attrList.size()-1).getCode_type().toString());
+//        System.out.println(attrList.get(attrList.size()-1).getTimestamp());
+//        System.out.println(attrList.get(attrList.size()-1).getCode_type().toString());
         double time = 0.0;
 
         double attrTime = 0.0;
@@ -324,9 +330,18 @@ public class MainParser {
         //Counter for looping through the whole list of Attributes already present
         int attrIndex = 0;
 
+        System.out.println(startIndex);
+
+        int test = startIndex - 5;
+        if (test < 0) {
+            test = 0;
+        }
 
         //For loop which loops through from the start index to the end index of the AbsoluteTimeVsAttributeTime list
-        for (int i = startIndex - 5; i < endIndex; i++ ){
+        for (int i = test; i < endIndex; i++ ){
+
+
+            System.out.println(i);
 
             //If the attribute already exists at that point of time, put it in the map with the respective rr and time
             if (absoluteTimeVSAttributeTime.contains(i)){
