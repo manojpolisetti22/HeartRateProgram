@@ -166,6 +166,11 @@ public class MainParser {
                         //Add the current attribute to the attributeList
                         attributeList.add(currAttribute);
                     }
+                    if (codeType == HeartRateProgram.Libraries.CODE_TYPE.TRIAL) {
+                        Attribute currAttribute = new Attribute(Double.parseDouble(fields[0]), eventType, codeType, event_num);
+                        //Add the current attribute to the attributeList
+                        attributeList.add(currAttribute);
+                    }
 
                 }
             }
