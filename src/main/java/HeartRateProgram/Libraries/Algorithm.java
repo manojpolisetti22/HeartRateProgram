@@ -54,11 +54,11 @@ public class Algorithm {
 
         al.printTable(trail.getAttributeTable());
         try {
-            ConvertToCSV.convertToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+            ConvertToCSV.convertToCSV("docs/dataSamples" +
                     "/Newest Samples/OutFiles/" + extension + ".csv", trail.getAttributeTable());
             TrailStat [] arr = new TrailStat[1];
             arr[0] = trail.getStats();
-            ConvertToCSV.convertStatToCSV("/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+            ConvertToCSV.convertStatToCSV("docs/dataSamples" +
                     "/Newest Samples/OutFiles/" + extension + "STAT.csv", arr);
         } catch (IOException e) {
             e.printStackTrace();
