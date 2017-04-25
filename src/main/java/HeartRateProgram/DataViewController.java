@@ -134,7 +134,7 @@ public class DataViewController implements Initializable {
         codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("code_type"));
         TableColumn eventNumCol = new TableColumn("Event Num");
         eventNumCol.setCellValueFactory(new PropertyValueFactory<>("event_num"));
-        TableColumn baselineCol = new TableColumn("Code Type");
+        TableColumn baselineCol = new TableColumn("Baseline");
         baselineCol.setCellValueFactory(new PropertyValueFactory<>("baseLine"));
 
         // Add information to table
@@ -254,7 +254,7 @@ public class DataViewController implements Initializable {
             codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringCode_type"));
             TableColumn eventNumCol = new TableColumn("Event Num");
             eventNumCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_num"));
-            TableColumn baselineCol = new TableColumn("Code Type");
+            TableColumn baselineCol = new TableColumn("Baseline");
             baselineCol.setCellValueFactory(new PropertyValueFactory<>("stringBaseLine"));
 
             // Add information to table
