@@ -19,9 +19,9 @@ public class Algorithm {
         //List of RR's */
 
         String extension = "4149";
-        String rfilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+        String rfilename = "docs/dataSamples" +
                 "/Newest Samples/RR_spreadsheets/" + extension + "_RR.csv";
-        String afilename = "/Users/ruhana/IdeaProjects/HeartRateDeceleration/src/HeartRateProgram/docs/dataSamples" +
+        String afilename = "docs/dataSamples" +
                 "/Newest Samples/BD_spreadsheets/"+ extension + "_BD.csv";
         //List of RR's
         List<Double> rrList = mp.csvParserHeartRate(rfilename);

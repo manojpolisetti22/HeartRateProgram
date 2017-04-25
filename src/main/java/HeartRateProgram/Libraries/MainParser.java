@@ -279,7 +279,9 @@ public class MainParser {
 
         //Counter for the Attribute List Index
         int attrListIndex = 0;
+        System.out.println(attrList.get(attrList.size()-1).getTimestamp());
         System.out.println(attrList.get(attrList.size()-1).getCode_type().toString());
+        System.out.println(absoluteTime.size());
         double time = 0.0;
 
         double attrTime = 0.0;
