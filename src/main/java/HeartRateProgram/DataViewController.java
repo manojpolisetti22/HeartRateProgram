@@ -343,7 +343,7 @@ public class DataViewController implements Initializable {
                 String parentPath = file.getParent();
                 ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
                 for (Trial trial : data_list) {
-                    String filename = parentPath + '/' + trial.getTrialID();
+                    String filename = parentPath + '/' + trial.getTrialID() + ".csv";
                     ConvertToCSV.convertToCSV(filename, trial.getAttributeTable());
                     ZipEntry e = new ZipEntry(filename);
                     out.putNextEntry(e);
