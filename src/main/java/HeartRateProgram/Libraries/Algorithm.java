@@ -18,7 +18,7 @@ public class Algorithm {
                 "/Sample_Behavior.csv";
         //List of RR's */
 
-        String extension = "4149";
+        String extension = "4095";
         String rfilename = "docs/dataSamples" +
                 "/Newest Samples/RR_spreadsheets/" + extension + "_RR.csv";
         String afilename = "docs/dataSamples" +
@@ -624,7 +624,7 @@ public class Algorithm {
         s.setDurationOne(durationPhase(attributeTable, 1)); // duration phase 1
         s.setDurationTwo(durationPhase(attributeTable, 2)); // duration phase 2
         s.setDurationThree(durationPhase(attributeTable, 3)); // duration phase 3
-        s.setProportionOne(proportionTotal(attributeTable, 0)); // proportion_0
+        s.setProportionZero(proportionTotal(attributeTable, 0)); // proportion_0
         s.setProportionOne(proportionTotal(attributeTable, 1)); // proportion_1
         s.setProportionTwo(proportionTotal(attributeTable, 2)); // proportion_2
         s.setProportionThree(proportionTotal(attributeTable, 3)); // proportion_3
