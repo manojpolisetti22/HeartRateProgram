@@ -7,6 +7,7 @@ package HeartRateProgram;
 
 import HeartRateProgram.Libraries.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -122,19 +123,19 @@ public class DataViewController implements Initializable {
         TableColumn timeStampCol = new TableColumn("Timestamp");
         timeStampCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         TableColumn rrCol = new TableColumn("RR");
-        rrCol.setCellValueFactory(new PropertyValueFactory<>("Rr"));
+        rrCol.setCellValueFactory(new PropertyValueFactory<>("stringRr"));
         TableColumn eventTypeCol = new TableColumn("Event Type");
-        eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("Event_type"));
+        eventTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_type"));
         TableColumn rRChangeCol = new TableColumn("RR Change");
-        rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("rrChange"));
+        rRChangeCol.setCellValueFactory(new PropertyValueFactory<>("stringRrChange"));
         TableColumn phaseCol = new TableColumn("Phase");
-        phaseCol.setCellValueFactory(new PropertyValueFactory<>("phase"));
+        phaseCol.setCellValueFactory(new PropertyValueFactory<>("stringPhase"));
         TableColumn codeTypeCol = new TableColumn("Code Type");
-        codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("code_type"));
+        codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringCode_type"));
         TableColumn eventNumCol = new TableColumn("Event Num");
-        eventNumCol.setCellValueFactory(new PropertyValueFactory<>("event_num"));
-        TableColumn baselineCol = new TableColumn("Code Type");
-        baselineCol.setCellValueFactory(new PropertyValueFactory<>("baseLine"));
+        eventNumCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_num"));
+        TableColumn baselineCol = new TableColumn("Baseline");
+        baselineCol.setCellValueFactory(new PropertyValueFactory<>("stringBaseLine"));
 
         // Add information to table
         table.setItems(contents);
@@ -144,7 +145,7 @@ public class DataViewController implements Initializable {
 
         // Start adding things to scrollPane
         TrailStat stats = trial.getStats();
-        
+
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10));
         vbox.setSpacing(8);
@@ -174,7 +175,7 @@ public class DataViewController implements Initializable {
         vbox.getChildren().add(createHBox("Peak Proportion 2", Double.toString(stats.getProportionTwo())));
         vbox.getChildren().add(createHBox("Peak Proportion 3", Double.toString(stats.getProportionThree())));
         sp_stats.setContent(vbox);
-        
+
     }
 
     public void initFilesAdvanced(List<DataGrid> dataList) {
@@ -253,7 +254,7 @@ public class DataViewController implements Initializable {
             codeTypeCol.setCellValueFactory(new PropertyValueFactory<>("stringCode_type"));
             TableColumn eventNumCol = new TableColumn("Event Num");
             eventNumCol.setCellValueFactory(new PropertyValueFactory<>("stringEvent_num"));
-            TableColumn baselineCol = new TableColumn("Code Type");
+            TableColumn baselineCol = new TableColumn("Baseline");
             baselineCol.setCellValueFactory(new PropertyValueFactory<>("stringBaseLine"));
 
             // Add information to table
@@ -341,17 +342,40 @@ public class DataViewController implements Initializable {
                 fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Compressed ZIP File(*.zip)", "*.zip"));
                 file = fileChooser.showSaveDialog(null);
                 String parentPath = file.getParent();
-                ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file));
+                ZipOutputStream out = new ZipOutputStream(new FileOutputStream(file.getAbsolutePath()));
+                System.out.println(file.getPath());
                 for (Trial trial : data_list) {
-                    String filename = parentPath + '/' + trial.getTrialID() + ".csv";
+                    // File Information
+                    String filename = trial.getTrialID() + ".csv";
+                    System.out.println(filename);
+
+                    // Create output files
                     ConvertToCSV.convertToCSV(filename, trial.getAttributeTable());
+
+                    // Zipping
+                    File csvFile = new File(filename);
                     ZipEntry e = new ZipEntry(filename);
+                    FileInputStream fis = new FileInputStream(csvFile);
                     out.putNextEntry(e);
+                    byte[] bytes = new byte[1024];
+                    int length;
+                    while ((length = fis.read(bytes)) >= 0) {
+                        out.write(bytes, 0, length);
+                    }
+
+                    // Close things
                     out.closeEntry();
+                    fis.close();
                 }
                 out.close();
+                for (Trial trial : data_list) {
+                    String filename = parentPath + "\\" + trial.getTrialID() + ".csv";
+                    File f = new File(filename);
+                    f.delete();
+                }
             } catch (Exception e) {
                 System.out.println("asdf");
+                e.printStackTrace();
                 return;
             }
         }
