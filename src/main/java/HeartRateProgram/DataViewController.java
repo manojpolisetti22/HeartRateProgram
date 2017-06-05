@@ -353,25 +353,30 @@ public class DataViewController implements Initializable {
                     ConvertToCSV.convertToCSV(filename, trial.getAttributeTable());
 
                     // Zipping
+                    //Create a file input stream using the first trial
                     File csvFile = new File(filename);
-                    ZipEntry e = new ZipEntry(filename);
                     FileInputStream fis = new FileInputStream(csvFile);
+                    //Write the file to a ZipEntry object
+                    ZipEntry e = new ZipEntry(filename);
                     out.putNextEntry(e);
                     byte[] bytes = new byte[1024];
                     int length;
                     while ((length = fis.read(bytes)) >= 0) {
                         out.write(bytes, 0, length);
                     }
-
+                    
                     // Close things
                     out.closeEntry();
                     fis.close();
+                    //Remove excess file from parent directory
+                    csvFile.delete();
                 }
                 out.close();
+                //Remove the excess files from parent directory
                 for (Trial trial : data_list) {
                     String filename = parentPath + "/" + trial.getTrialID() + ".csv";
                     File f = new File(filename);
-                    f.delete();
+                    
                 }
             } catch (Exception e) {
                 System.out.println("The data is unable to be exported.");
