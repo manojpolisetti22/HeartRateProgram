@@ -369,12 +369,12 @@ public class DataViewController implements Initializable {
                 }
                 out.close();
                 for (Trial trial : data_list) {
-                    String filename = parentPath + "\\" + trial.getTrialID() + ".csv";
+                    String filename = parentPath + "/" + trial.getTrialID() + ".csv";
                     File f = new File(filename);
                     f.delete();
                 }
             } catch (Exception e) {
-                System.out.println("asdf");
+                System.out.println("The data is unable to be exported.");
                 e.printStackTrace();
                 return;
             }

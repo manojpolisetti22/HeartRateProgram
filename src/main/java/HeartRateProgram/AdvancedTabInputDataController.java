@@ -40,9 +40,6 @@ public class AdvancedTabInputDataController implements Initializable {
         // Foe debugging
         //tb_dataGrid.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\"
         //       + "HeartRateProgram\\docs\\dataSamples\\Sample_DataGrid_Rajith.csv");
-        tb_dataGrid.setText("C:\\Users\\Rajith\\Documents\\Programming\\"
-                + "HBAT\\HeartRateProgram\\docs\\dataSamples\\Newest Samples"
-                + "\\Sample_DataGrid_RAZ.csv");
     }
 
     @FXML

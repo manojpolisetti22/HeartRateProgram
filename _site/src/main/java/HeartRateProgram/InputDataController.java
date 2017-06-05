@@ -49,8 +49,6 @@ public class InputDataController implements Initializable {
         
         // For debugging
         tb_part.setText("Person");
-        tb_rr.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\HeartRateProgram\\docs\\dataSamples\\Sample_RR.csv");
-        tb_behav.setText("C:\\Users\\Rajith\\Documents\\Programming\\HBAT\\HeartRateProgram\\docs\\dataSamples\\Sample_Behavior.csv");
         tb_delay1.setText("10");
         tb_delay2.setText("10");
         tb_delay3.setText("10");
