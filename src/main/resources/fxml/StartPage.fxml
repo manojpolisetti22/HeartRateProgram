@@ -25,7 +25,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="What would you like to do?" textAlignment="CENTER" wrappingWidth="283.4384765625" VBox.vgrow="ALWAYS">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="How would you like to input trial information?" textAlignment="CENTER" wrappingWidth="283.4384765625" VBox.vgrow="ALWAYS">
          <font>
             <Font size="22.0" />
          </font>
@@ -33,7 +33,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
       </Text>
-      <Button fx:id="pb_start" mnemonicParsing="false" onAction="#openInputDataPage" prefHeight="27.0" prefWidth="136.0" text="Analyze Dataset" textAlignment="CENTER">
+      <Button fx:id="pb_start" mnemonicParsing="false" onAction="#openInputDataPage" prefHeight="27.0" prefWidth="136.0" text="Manual Input" textAlignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
@@ -41,7 +41,7 @@
             <Insets bottom="20.0" left="5.0" right="5.0" top="5.0" />
          </VBox.margin>
       </Button>
-      <Button fx:id="pb_start1" mnemonicParsing="false" onAction="#advanced" prefHeight="27.0" prefWidth="136.0" text="Advanced Input" textAlignment="CENTER">
+      <Button fx:id="pb_start1" mnemonicParsing="false" onAction="#advanced" prefHeight="27.0" prefWidth="136.0" text="Grid Input (.csv)" textAlignment="CENTER">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>

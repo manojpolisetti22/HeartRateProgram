@@ -131,6 +131,7 @@ public class InputDataController implements Initializable {
             stage.show();
 
         } catch (Exception e) {
+            inputErrorAlert("H.B.A.T. has encountered an error and needs to close. (Error code: 301)");
             e.printStackTrace();
         }
         Stage here = (Stage) tb_part.getScene().getWindow();
